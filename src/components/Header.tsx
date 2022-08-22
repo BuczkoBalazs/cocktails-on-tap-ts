@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const Header: React.FC = () => {
+export const Header = () => {
     return (
     <header className='header'>
         <Link to='/' className='logo'>Cocktails on draft</Link>
