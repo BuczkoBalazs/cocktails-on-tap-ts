@@ -15,7 +15,7 @@ export const Gallery = () => {
 
     // típusokat beírni => enum
     const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([]);
-    const [searchInput, setSearchInput] = useState<'asc' | 'desc' | ''>('');
+    const [searchInput, setSearchInput] = useState('');
     const [sortByName, setSortByName] = useState('asc');
     const [sortButton, setSortButton] = useState('Sort ascending')
 
