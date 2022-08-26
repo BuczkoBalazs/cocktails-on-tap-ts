@@ -3,7 +3,7 @@ import { CocktailDetails } from '../types/Types';
 
 export const Cocktail = ({ id, name, howto, ingredients, image, favourite }: CocktailDetails) => {
 
-    const [fav, setFav] = useState<boolean>(favourite === 'true' ? true : false);
+    const [fav, setFav] = useState<boolean>(favourite);
 
     const favouriteToggle = async () => {
         await fetch('http://localhost:3001/cocktails/' + id, {
@@ -17,7 +17,7 @@ export const Cocktail = ({ id, name, howto, ingredients, image, favourite }: Coc
                 howto: howto,
                 ingredients: ingredients,
                 image: image,
-                favourite: `${!fav}`
+                favourite: !fav
             }),
         });
         setFav(!fav)

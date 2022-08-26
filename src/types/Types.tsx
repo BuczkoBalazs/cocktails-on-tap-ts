@@ -1,8 +1,8 @@
 export type CocktailDetails = {
-    id: string,
+    id: number,
     name: string,
     howto: string,
     ingredients: string,
     image: string,
-    favourite: string
+    favourite: boolean
 }
