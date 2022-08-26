@@ -25,7 +25,7 @@ export const Gallery = () => {
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
     // arrow func, setCocktails() belsejét kiszervezni.
-    function sortButtonChangeHandle() {
+    const sortButtonChangeHandle = () => {
         setCocktails([...cocktails.sort( (a,b) => sortByName === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
         setSortByName(sortByName === 'asc' ? 'desc' : 'asc');
         setSortButton(sortButton === 'Sort ascending' ? 'Sort descending' : 'Sort ascending');
