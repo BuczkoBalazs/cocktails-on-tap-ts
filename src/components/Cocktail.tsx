@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
+import { CocktailDetails } from '../types/Types';
 
-interface CocktailProps {
-    id: string,
-    name: string,
-    howto: string,
-    ingredients: string,
-    image: string,
-    favourite: string
-}
-
-export const Cocktail = ({ id, name, howto, ingredients, image, favourite }: CocktailProps) => {
+export const Cocktail = ({ id, name, howto, ingredients, image, favourite }: CocktailDetails) => {
 
     const [fav, setFav] = useState<boolean>(favourite === 'true' ? true : false);
 

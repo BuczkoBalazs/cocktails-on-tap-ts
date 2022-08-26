@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Cocktail } from './Cocktail';
+import { CocktailDetails } from '../types/Types';
 
 export const Favourites = () => {
-
-    interface CocktailDetails {
-        id: string,
-        name: string,
-        howto: string,
-        ingredients: string,
-        image: string,
-        favourite: string
-    }
 
     const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([]);
 

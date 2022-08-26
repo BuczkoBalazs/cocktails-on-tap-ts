@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Cocktail } from './Cocktail';
-
-// type-ra átírni
-interface CocktailDetails {
-    id: string,
-    name: string,
-    howto: string,
-    ingredients: string,
-    image: string,
-    favourite: string
-}
+import { CocktailDetails } from '../types/Types';
 
 export const Gallery = () => {
 
