@@ -28,10 +28,11 @@ export const MenuItem = styled(Menu)( () => ({
         margin: '0 5px',
         color: 'white',
         border: '1px solid white',
+        borderRadius: '25px',
         backgroundColor: 'transparent',
         ':hover': {
             border: '1px solid red',
-        }
+        },
     },
     a: {
         color: 'white',
