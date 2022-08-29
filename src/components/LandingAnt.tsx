@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import React from 'react';
 import { LandingSlide, LandingSlideTitle, LandingSlideText } from './LandingAntStyle';
 
-const LandingAnt = () => {
+export const LandingAnt = () => {
 
     return (
     <Carousel 
@@ -40,5 +40,3 @@ const LandingAnt = () => {
     </Carousel>
     )
 };
-
-export default LandingAnt;
