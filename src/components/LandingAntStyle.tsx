@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import { Space } from 'antd';
+import 'antd/dist/antd.css';
 
 import background from '../image/landing1.jpg';
 
-export const LandingSlide = styled.div( () => ({
+export const LandingSlide = styled(Space)( () => ({
     width: '100%',
     height: '100vh',
     backgroundImage: `url(${background})`,
