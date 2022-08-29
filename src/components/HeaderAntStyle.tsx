@@ -20,8 +20,23 @@ export const MenuWrapper = styled(Space)( () => ({
 }));
 
 export const MenuItem = styled(Menu)( () => ({
+    display: 'flex',
     margin: '0 20px',
-    border: '1px solid red',
-    borderRadius: '15px',
-    backgroundColor: 'darkkhaki'
+    backgroundColor: 'transparent',
+    border: 'none',
+    li: {
+        margin: '0 5px',
+        color: 'white',
+        border: '1px solid white',
+        backgroundColor: 'transparent',
+        ':hover': {
+            border: '1px solid red',
+        }
+    },
+    a: {
+        color: 'white',
+        ':hover': {
+            color: 'red'
+        }
+    },
 }));

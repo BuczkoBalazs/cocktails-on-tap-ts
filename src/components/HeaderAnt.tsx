@@ -10,8 +10,8 @@ export const HeaderAnt = () => {
   return (
     <NavBar offsetTop={0}>
         <MenuWrapper>
-            <MenuItem mode="horizontal" items={logo} />
-            <MenuItem mode="horizontal" items={items} />
+            <MenuItem items={logo} />
+            <MenuItem items={items} />
         </MenuWrapper>
     </NavBar>
   )
