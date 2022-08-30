@@ -5,6 +5,7 @@ import { Favourites } from './components/Favourites';
 import { Gallery } from './components/Gallery';
 import { HeaderAnt } from './components/HeaderAnt';
 import { LandingAnt } from './components/LandingAnt';
+import { RouteNotFound } from './components/RouteNotFound';
 // import './index.css';
 
 const root = ReactDOM.createRoot(
@@ -19,6 +20,7 @@ root.render(
           <Route path='/' element={<LandingAnt />} />
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/favourites' element={<Favourites />} />
+          <Route path='*' element={<RouteNotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
