@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Cocktail } from './Cocktail';
 import { CocktailDetails } from '../types/Types';
+import { CocktailAnt } from './CocktailAnt';
 
 export const Favourites = () => {
 
@@ -21,7 +21,7 @@ export const Favourites = () => {
     <div className='favourites-wrapper'>
         <h1>Here you find your favourite cocktails!</h1>
         <div className='cocktails-wrapper'>
-            {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }) => favourite && <Cocktail key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
+            {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }) => favourite && <CocktailAnt key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
             )}
         </div>
     </div>

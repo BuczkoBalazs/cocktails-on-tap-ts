@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Cocktail } from './Cocktail';
 import { CocktailDetails } from '../types/Types';
+import { CocktailAnt } from './CocktailAnt';
 
 export const Gallery = () => {
 
@@ -39,7 +39,7 @@ export const Gallery = () => {
             <button className='sort-by-name' onClick={sortButtonChangeHandle} >{sortButton}</button>
         </div>
         <div className='cocktails-wrapper'>
-            {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }) => name.toLowerCase().includes(searchInput.toLowerCase()) && <Cocktail key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
+            {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }) => name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
             )}
         </div>
     </div>
