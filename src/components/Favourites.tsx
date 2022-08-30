@@ -15,7 +15,7 @@ export const Favourites = () => {
 
     useEffect(() => {
         getCocktails();
-    }, [cocktails]);
+    }, []);
 
     return (
     <div className='favourites-wrapper'>
