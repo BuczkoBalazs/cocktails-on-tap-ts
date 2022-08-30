@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { CocktailDetails } from '../types/Types';
-import { Card, Image, Space, Divider, Button } from 'antd';
+import { Card, Button, Divider, Image, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 
+const { Paragraph } = Typography;
 
 export const CocktailAnt = ({ id, name, howto, ingredients, image, favourite }: CocktailDetails) => {
 
@@ -35,9 +36,9 @@ export const CocktailAnt = ({ id, name, howto, ingredients, image, favourite }: 
             <Divider orientation='left' type="vertical" />
             <Space direction='vertical'>
                 <Divider orientation='left'>How to make:</Divider>
-                <p>{howto}</p>
+                <Paragraph>{howto}</Paragraph>
                 <Divider orientation='left'>Ingredients:</Divider>
-                <p>{ingredients}</p>
+                <Paragraph>{ingredients}</Paragraph>
             </Space>
         </Space>
     </Card>
