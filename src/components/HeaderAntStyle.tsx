@@ -7,7 +7,6 @@ export const NavBar = styled(Affix)( () => ({
     width: '100%',
     height: '60px',
     margin: '0 auto',
-    color: 'white',
     zIndex:2,
 }));
 
@@ -27,17 +26,23 @@ export const MenuItem = styled(Menu)( () => ({
     li: {
         margin: '0 5px',
         color: 'white',
-        border: '1px solid white',
-        borderRadius: '25px',
+        border: '1px solid darkkhaki',
+        borderRadius: '10px',
         backgroundColor: 'transparent',
         ':hover': {
-            border: '1px solid red',
+            border: '1px solid white',
         },
     },
     a: {
-        color: 'white',
+        color: 'darkkhaki',
         ':hover': {
-            color: 'red'
+            color: 'white'
         }
     },
+    svg: {
+        color: 'darkkhaki',
+        ':hover': {
+            color: 'white'
+        }
+    }
 }));
