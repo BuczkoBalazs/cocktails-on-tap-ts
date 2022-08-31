@@ -21,15 +21,17 @@ export const GallerySpace = styled(Space)( () => ({
 }));
 
 export const SortButton = styled(Button)( () => ({
+    color: 'darkkhaki',
     border: '1px solid darkkhaki',
+    background: 'transparent',
     ':hover': {
+        color: 'white',
         border: '1px solid white',
-        background: 'transparent'
+        background: 'darkkhaki'
     },
-    span: {
+    ':focus': {
         color: 'darkkhaki',
-        ':hover': {
-            color: 'white'
-        }
+        border: '1px solid darkkhaki',
+        background: 'transparent',
     }
 }));
