@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { CocktailDetails } from '../types/Types';
 import { CocktailAnt } from './CocktailAnt';
-import { Button, Input, Space, Typography } from 'antd';
+import { Input, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
+import { GallerySpace, SortButton } from './GalleryAntStyle';
 
 const { Title } = Typography;
 
@@ -36,16 +37,16 @@ export const GalleryAnt = () => {
 
     /* react comp-ba kiszervezni a div-et, komponens-t*/
     return (
-    <Space direction='vertical'>
+    <GallerySpace direction='vertical'>
         <Space direction='vertical'>
             <Title>Welcome to our gallery! Feel free to browse.</Title>
-            <Input placeholder='Search cocktails by name' value={searchInput} onChange={inputChangeHandle} />
-            <Button onClick={sortButtonChangeHandle} >{sortButton}</Button>
+            <Input placeholder='Search cocktails by name' allowClear value={searchInput} onChange={inputChangeHandle} />
+            <SortButton onClick={sortButtonChangeHandle} block >{sortButton}</SortButton>
         </Space>
         <Space wrap={true}>
             {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }) => name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
             )}
         </Space>
-    </Space>
+    </GallerySpace>
     )
 }
