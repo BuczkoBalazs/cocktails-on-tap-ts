@@ -19,12 +19,14 @@ export const LandingSlide = styled(Space)( () => ({
     height: '100vh',
     'h1, div': {
         color: 'darkkhaki'
+    },
+    'h1': {
+        fontSize: '45px'
     }
 }));
 
 export const LandingSlideTitle = styled(Title)( () => ({
     margin: '200px 70px',
-    fontSize: '45px',
 }));
 
 export const LandingSlideText = styled(Paragraph)( () => ({
