@@ -14,3 +14,9 @@ export const FavSpace = styled(Space)( () => ({
         color: 'darkkhaki'
     }
 }));
+
+export const CocktailWrapperSpace = styled(Space)( () => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+}));

@@ -4,6 +4,7 @@ import { CocktailAnt } from './CocktailAnt';
 import { Input, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { GallerySpace, SortButton } from './GalleryAntStyle';
+import { CocktailWrapperSpace } from './FavouritesAntStyle';
 
 const { Title } = Typography;
 
@@ -43,10 +44,10 @@ export const GalleryAnt = () => {
             <Input placeholder='Search cocktails by name' allowClear value={searchInput} onChange={inputChangeHandle} />
             <SortButton onClick={sortButtonChangeHandle} block >{sortButton}</SortButton>
         </Space>
-        <Space wrap={true}>
+        <CocktailWrapperSpace wrap={true}>
             {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }) => name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
             )}
-        </Space>
+        </CocktailWrapperSpace>
     </GallerySpace>
     )
 }
