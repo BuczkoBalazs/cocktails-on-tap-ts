@@ -1,12 +1,12 @@
 import { Carousel } from 'antd';
 import 'antd/dist/antd.css';
 import React from 'react';
-import { LandingSlide, LandingSlideTitle, LandingSlideText } from './LandingAntStyle';
+import { LandingCarousel, LandingSlide, LandingSlideTitle, LandingSlideText } from './LandingAntStyle';
 
 export const LandingAnt = () => {
 
     return (
-    <Carousel 
+    <LandingCarousel
     autoplay={true}
     effect="fade"
     dotPosition='right'
@@ -37,6 +37,6 @@ export const LandingAnt = () => {
                 Life is too short to spend it on searching when you can make a cocktail instead.
             </LandingSlideText>
         </LandingSlide>
-    </Carousel>
+    </LandingCarousel>
     )
 };
