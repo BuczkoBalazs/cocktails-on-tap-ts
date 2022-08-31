@@ -12,14 +12,14 @@ export const LandingCarousel = styled(Carousel)( () => ({
     backgroundImage: `url(${background})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    'h1, div': {
-        color: 'darkkhaki'
-    }
 }));
 
 export const LandingSlide = styled(Space)( () => ({
     width: '100%',
     height: '100vh',
+    'h1, div': {
+        color: 'darkkhaki'
+    }
 }));
 
 export const LandingSlideTitle = styled(Title)( () => ({
