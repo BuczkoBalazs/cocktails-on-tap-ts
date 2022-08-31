@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { CocktailDetails } from '../types/Types';
-import { Card, Button, Divider, Image, Space, Typography } from 'antd';
+import { Divider, Image, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
+import { SortButton } from './GalleryAntStyle';
+import { CocktailCard, CocktailInfoSpace } from './CocktailAntStyle';
 
 const { Paragraph } = Typography;
 
@@ -28,19 +30,18 @@ export const CocktailAnt = ({ id, name, howto, ingredients, image, favourite }: 
     };
 
     return (
-    <Card title={name} extra={
-        <Button onClick={favouriteToggle}>{fav === true ? 'Favourite' : 'Not favourite'}</Button>
+    <CocktailCard hoverable title={name} extra={
+        <SortButton shape='round' onClick={favouriteToggle}>{fav === true ? 'Favourite' : 'Not favourite'}</SortButton>
     }>
         <Space>
             <Image src={image} alt={name} width={200}/>
-            <Divider orientation='left' type="vertical" />
-            <Space direction='vertical'>
+            <CocktailInfoSpace direction='vertical'>
                 <Divider orientation='left'>How to make:</Divider>
                 <Paragraph>{howto}</Paragraph>
                 <Divider orientation='left'>Ingredients:</Divider>
                 <Paragraph>{ingredients}</Paragraph>
-            </Space>
+            </CocktailInfoSpace>
         </Space>
-    </Card>
+    </CocktailCard>
     )
 }
