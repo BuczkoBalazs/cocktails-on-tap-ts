@@ -1,6 +1,4 @@
-import { Carousel } from 'antd';
 import 'antd/dist/antd.css';
-import React from 'react';
 import { LandingCarousel, LandingSlide, LandingSlideTitle, LandingSlideText } from './LandingAntStyle';
 
 export const LandingAnt = () => {
