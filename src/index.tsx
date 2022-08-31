@@ -13,7 +13,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <div className="wrapper">
       <BrowserRouter>
         <HeaderAnt />
         <Routes>
@@ -23,6 +22,5 @@ root.render(
           <Route path='*' element={<RouteNotFound />} />
         </Routes>
       </BrowserRouter>
-    </div>
   </React.StrictMode>
 );
