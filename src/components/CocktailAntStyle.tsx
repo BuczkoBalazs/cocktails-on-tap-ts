@@ -1,4 +1,4 @@
-import { Card, Divider ,Space } from 'antd';
+import { Card, Space } from 'antd';
 import 'antd/dist/antd.css';
 import styled from '@emotion/styled';
 
