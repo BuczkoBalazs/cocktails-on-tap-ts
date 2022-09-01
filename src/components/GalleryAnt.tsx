@@ -34,7 +34,7 @@ export const GalleryAnt = () => {
         setCocktails([...cocktails.sort( (a,b) => sortByName === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
         setSortByName(sortByName === 'asc' ? 'desc' : 'asc');
         setSortButton(sortButton === 'Sort ascending' ? 'Sort descending' : 'Sort ascending');
-    }
+    };
 
     /* react comp-ba kiszervezni a div-et, komponens-t*/
     return (

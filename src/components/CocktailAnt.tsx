@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CocktailDetails } from '../types/Types';
 import { Divider, Image, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
