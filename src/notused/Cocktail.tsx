@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CocktailDetails } from '../types/Types';
+import { CocktailDetails } from '../components/types/Types';
 
 export const Cocktail = ({ id, name, howto, ingredients, image, favourite }: CocktailDetails) => {
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CocktailDetails } from '../types/Types';
+import { CocktailDetails } from './types/Types';
 import { CocktailAnt } from './CocktailAnt';
 import { Input, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';

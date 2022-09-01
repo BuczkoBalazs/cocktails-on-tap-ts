@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CocktailDetails } from '../types/Types';
+import { CocktailDetails } from '../components/types/Types';
 import { Cocktail } from './Cocktail';
 
 export const Gallery = () => {
