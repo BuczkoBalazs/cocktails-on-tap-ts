@@ -5,4 +5,10 @@ export type CocktailDetails = {
     ingredients: string,
     image: string,
     favourite: boolean
-}
+};
+
+export type LandingSlides = {
+    id: number,
+    title: string,
+    text: string
+};

@@ -21,7 +21,7 @@ export const GalleryAnt = () => {
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
     const sortButtonChangeHandle = () => {
-        setSort([...cocktails.sort( (a,b) => sortButton === 'Sort ascending' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
+        setSort([...cocktails.sort( (a: CocktailDetails,b: CocktailDetails) => sortButton === 'Sort ascending' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
         setSortButton(sortButton === 'Sort ascending' ? 'Sort descending' : 'Sort ascending');
     };
 
@@ -35,7 +35,7 @@ export const GalleryAnt = () => {
             <SortButton onClick={sortButtonChangeHandle} block >{sortButton}</SortButton>
         </Space>
         <CocktailWrapperSpace wrap={true}>
-            {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }) => name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
+            {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }: CocktailDetails) => name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
             )}
         </CocktailWrapperSpace>
     </GallerySpace>
