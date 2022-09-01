@@ -13,7 +13,7 @@ export const GalleryAnt = () => {
     
     // típusokat beírni => enum
     const [sort, setSort] = useState<CocktailDetails[] | []>([]);
-    const [searchInput, setSearchInput] = useState('');
+    const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState('Sort ascending')
     
     const { data: cocktails } = useFetch('http://localhost:3001/cocktails');
