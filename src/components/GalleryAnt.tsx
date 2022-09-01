@@ -13,7 +13,6 @@ export const GalleryAnt = () => {
     // típusokat beírni => enum
     const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([]);
     const [searchInput, setSearchInput] = useState('');
-    const [sortByName, setSortByName] = useState('asc');
     const [sortButton, setSortButton] = useState('Sort ascending')
 
     const getCocktails = async () => {
@@ -31,8 +30,7 @@ export const GalleryAnt = () => {
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
     const sortButtonChangeHandle = () => {
-        setCocktails([...cocktails.sort( (a,b) => sortByName === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
-        setSortByName(sortByName === 'asc' ? 'desc' : 'asc');
+        setCocktails([...cocktails.sort( (a,b) => sortButton === 'Sort ascending' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
         setSortButton(sortButton === 'Sort ascending' ? 'Sort descending' : 'Sort ascending');
     };
 
