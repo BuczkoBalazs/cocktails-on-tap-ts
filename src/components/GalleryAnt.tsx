@@ -1,38 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { CocktailDetails } from './types/Types';
+import React, { useState } from 'react';
 import { CocktailAnt } from './CocktailAnt';
 import { Input, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { GallerySpace, SortButton } from './GalleryAntStyle';
 import { CocktailWrapperSpace } from './FavouritesAntStyle';
+import { useFetch } from './hooks/useFetch';
+import { CocktailDetails } from './types/Types';
 
 const { Title } = Typography;
 
 export const GalleryAnt = () => {
     
     // típusokat beírni => enum
-    const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([]);
+    const [sort, setSort] = useState<CocktailDetails[] | []>([]);
     const [searchInput, setSearchInput] = useState('');
     const [sortButton, setSortButton] = useState('Sort ascending')
-
-    const getCocktails = async () => {
-
-        const response = await fetch('http://localhost:3001/cocktails');
-        const responseJSON = await response.json();
-        setCocktails(responseJSON);
-    }
-
-    useEffect(() => {
-        getCocktails();
-    }, []);
-
+    
+    const { data: cocktails } = useFetch('http://localhost:3001/cocktails');
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
     const sortButtonChangeHandle = () => {
-        setCocktails([...cocktails.sort( (a,b) => sortButton === 'Sort ascending' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
+        setSort([...cocktails.sort( (a,b) => sortButton === 'Sort ascending' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
         setSortButton(sortButton === 'Sort ascending' ? 'Sort descending' : 'Sort ascending');
     };
+
 
     /* react comp-ba kiszervezni a div-et, komponens-t*/
     return (
