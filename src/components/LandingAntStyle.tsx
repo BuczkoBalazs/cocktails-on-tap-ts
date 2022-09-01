@@ -16,7 +16,7 @@ export const LandingCarousel = styled(Carousel)( () => ({
 
 export const LandingSlide = styled(Space)( () => ({
     width: '100%',
-    height: '100%',
+    height: '99vh',
     'h1, div': {
         color: 'darkkhaki'
     },
