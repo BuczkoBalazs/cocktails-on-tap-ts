@@ -6,7 +6,6 @@ import { GalleryAnt } from './components/GalleryAnt';
 import { HeaderAnt } from './components/HeaderAnt';
 import { LandingAnt } from './components/LandingAnt';
 import { RouteNotFound } from './components/RouteNotFound';
-// import './index.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
