@@ -5,6 +5,8 @@ import styled from '@emotion/styled';
 import background from '../image/landing5.jpg';
 
 export const FavSpace = styled(Space)( () => ({
+    width: '100%',
+    minHeight: '100vh',
     alignItems: 'center',
     backgroundImage: `url(${background})`,
     backgroundSize: 'cover',
