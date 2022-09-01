@@ -80,5 +80,22 @@
       "image": "https://www.thecocktaildb.com/images/media/drink/tyb4a41515793339.jpg",
       "favourite": true
     }
+  ],
+  "landingSlides": [
+    {
+      "id": 0,
+      "title": "Welcome to Cocktails on Draft!",
+      "text": "Are you thirsty? Have you tried already all pubs and winery nearby? Then it's time to have some adventures with cocktails. We would like to help a bit for beginners why cocktails are so much fun. Browse our page and found you recipes which are easy to do at home. Let the adventure begin!"
+    },
+    {
+      "id": 1,
+      "title": "Cocktail gallery",
+      "text": "We have gathered some cocktails which is easy to create but hard to master. Check out our collection and learn more. Mark up your favourites and it will be save to your account."
+    },
+    {
+      "id": 2,
+      "title": "Favourites section",
+      "text": "Have you checked our cocktails and found some interesting? You can reach them here and save yourselves some time. Life is too short to spend it on searching when you can make a cocktail instead."
+    }
   ]
 }
