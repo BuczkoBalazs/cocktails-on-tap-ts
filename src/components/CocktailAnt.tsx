@@ -29,9 +29,18 @@ export const CocktailAnt = ({ id, name, howto, ingredients, image, favourite }: 
         setFav(!fav)
     };
 
+    const DeleteCocktail = async () => {
+        await fetch('http://localhost:3001/cocktails/' + id, {
+            method: 'DELETE'
+        })
+    }
+
     return (
     <CocktailCard hoverable title={name} extra={
-        <SortButton shape='round' onClick={favouriteToggle}>{fav === true ? 'Favourite' : 'Not favourite'}</SortButton>
+        <>
+            <SortButton shape='round' onClick={favouriteToggle}>{fav === true ? 'Favourite' : 'Not favourite'}</SortButton>
+            <SortButton shape='round' onClick={DeleteCocktail}>Delete</SortButton>
+        </>
     }>
         <Space>
             <Image src={image} alt={name} width={200}/>
