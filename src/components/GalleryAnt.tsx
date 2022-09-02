@@ -34,7 +34,7 @@ export const GalleryAnt = () => {
             <SortButton onClick={sortButtonChangeHandle} block >{sortButton}</SortButton>
         </Space>
         <CocktailWrapperSpace wrap={true}>
-            {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }: CocktailDetails) => name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
+            {cocktails && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} />
             )}
         </CocktailWrapperSpace>
         <BackTop />

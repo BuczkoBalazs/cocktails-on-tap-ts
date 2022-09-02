@@ -7,22 +7,26 @@ import { CocktailCard, CocktailInfoSpace } from './CocktailAntStyle';
 
 const { Paragraph } = Typography;
 
-export const CocktailAnt = ({ id, name, howto, ingredients, image, favourite }: CocktailDetails) => {
+type CocktailAntProps = {
+    cocktail: CocktailDetails,
+}
 
-    const [fav, setFav] = useState<boolean>(favourite);
+export const CocktailAnt = ({ cocktail }: CocktailAntProps) => {
+
+    const [fav, setFav] = useState<boolean>(cocktail.favourite);
 
     const favouriteToggle = async () => {
-        await fetch('http://localhost:3001/cocktails/' + id, {
+        await fetch('http://localhost:3001/cocktails/' + cocktail.id, {
             method: 'PUT',
             headers: {
                 "Content-type": "application/json",
             },
             body: JSON.stringify({
-                id: id,
-                name: name,
-                howto: howto,
-                ingredients: ingredients,
-                image: image,
+                id: cocktail.id,
+                name: cocktail.name,
+                howto: cocktail.howto,
+                ingredients: cocktail.ingredients,
+                image: cocktail.image,
                 favourite: !fav
             }),
         });
@@ -30,25 +34,25 @@ export const CocktailAnt = ({ id, name, howto, ingredients, image, favourite }: 
     };
 
     const DeleteCocktail = async () => {
-        await fetch('http://localhost:3001/cocktails/' + id, {
+        await fetch('http://localhost:3001/cocktails/' + cocktail.id, {
             method: 'DELETE'
         })
     }
 
     return (
-    <CocktailCard hoverable title={name} extra={
+    <CocktailCard hoverable title={cocktail.name} extra={
         <>
             <SortButton shape='round' onClick={favouriteToggle}>{fav === true ? 'Favourite' : 'Not favourite'}</SortButton>
             <SortButton shape='round' onClick={DeleteCocktail}>Delete</SortButton>
         </>
     }>
         <Space>
-            <Image src={image} alt={name} width={200}/>
+            <Image src={cocktail.image} alt={cocktail.name} width={200}/>
             <CocktailInfoSpace direction='vertical'>
                 <Divider orientation='left'>How to make:</Divider>
-                <Paragraph>{howto}</Paragraph>
+                <Paragraph>{cocktail.howto}</Paragraph>
                 <Divider orientation='left'>Ingredients:</Divider>
-                <Paragraph>{ingredients}</Paragraph>
+                <Paragraph>{cocktail.ingredients}</Paragraph>
             </CocktailInfoSpace>
         </Space>
     </CocktailCard>
