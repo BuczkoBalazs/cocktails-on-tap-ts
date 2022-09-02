@@ -15,16 +15,13 @@ export const NavBar = styled(Affix)( () => ({
     position: 'fixed',
     width: '100%',
     height: '60px',
-    margin: '0 auto',
     zIndex:2,
 }));
 
 export const MenuWrapper = styled(Space)( () => ({
     width: '100%',
     height: '60px',
-    margin: '0 auto',
     justifyContent: 'space-between',
-    alignItems: 'center'
 }));
 
 export const MenuItem = styled(Menu)( () => ({
@@ -45,7 +42,7 @@ export const MenuItem = styled(Menu)( () => ({
     a: {
         color: 'darkkhaki',
         ':hover': {
-            color: 'white'
+            color: 'white',
         }
     },
 }));
