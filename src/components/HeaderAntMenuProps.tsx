@@ -1,5 +1,5 @@
 import { MenuProps } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
+import { HomeIcon } from './HeaderAntStyle';
 
 
 export const logo: MenuProps['items'] = [
@@ -21,7 +21,7 @@ export const items: MenuProps['items'] = [
       </a>
     ),
     key: 'home',
-    icon: <HomeOutlined />,
+    icon: <HomeIcon />,
   },
   {
     label: (

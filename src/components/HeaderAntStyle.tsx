@@ -1,6 +1,15 @@
 import { Affix, Menu, Space } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import styled from '@emotion/styled';
+
+export const HomeIcon = styled(HomeOutlined)( () => ({
+    color: 'darkkhaki',
+    ':': {
+        color: 'white'
+    }
+    })
+);
 
 export const NavBar = styled(Affix)( () => ({
     position: 'fixed',
@@ -39,10 +48,10 @@ export const MenuItem = styled(Menu)( () => ({
             color: 'white'
         }
     },
-    svg: {
-        color: 'darkkhaki',
-        ':hover': {
-            color: 'white'
-        }
-    }
+    // svg: {
+    //     color: 'darkkhaki',
+    //     ':hover': {
+    //         color: 'white'
+    //     }
+    // }
 }));
