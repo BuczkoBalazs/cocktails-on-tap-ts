@@ -12,3 +12,8 @@ export type LandingSlides = {
     title: string,
     text: string
 };
+
+export enum SortCocktails {
+    ASC = 'Sort ascending',
+    DESC = 'Sort descending'
+};

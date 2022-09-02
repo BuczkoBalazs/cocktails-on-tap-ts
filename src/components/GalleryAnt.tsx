@@ -5,24 +5,23 @@ import 'antd/dist/antd.css';
 import { GallerySpace, SortButton } from './GalleryAntStyle';
 import { CocktailWrapperSpace } from './FavouritesAntStyle';
 import { useFetch } from './hooks/useFetch';
-import { CocktailDetails } from './types/Types';
+import { CocktailDetails, SortCocktails } from './types/Types';
 
 const { Title } = Typography;
 
 export const GalleryAnt = () => {
     
-    // típusokat beírni => enum
     const [sort, setSort] = useState<CocktailDetails[] | []>([]);
     const [searchInput, setSearchInput] = useState<string>('');
-    const [sortButton, setSortButton] = useState('Sort ascending')
+    const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC)
     
     const { data: cocktails } = useFetch('http://localhost:3001/cocktails');
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
     const sortButtonChangeHandle = () => {
-        setSort([...cocktails.sort( (a: CocktailDetails,b: CocktailDetails) => sortButton === 'Sort ascending' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
-        setSortButton(sortButton === 'Sort ascending' ? 'Sort descending' : 'Sort ascending');
+        setSort([...cocktails.sort( (a: CocktailDetails,b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))]);
+        setSortButton(sortButton === SortCocktails.ASC ? SortCocktails.DESC : SortCocktails.ASC);
     };
 
 
