@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CocktailAnt } from './CocktailAnt';
-import { Input, Space, Typography } from 'antd';
+import { BackTop, Input, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { GallerySpace, SortButton } from './GalleryAntStyle';
 import { CocktailWrapperSpace } from './FavouritesAntStyle';
@@ -38,6 +38,7 @@ export const GalleryAnt = () => {
             {cocktails && cocktails.map(({ id, name, howto, ingredients, image, favourite }: CocktailDetails) => name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={id} id={id} name={name} howto={howto} ingredients={ingredients} image={image} favourite={favourite} />
             )}
         </CocktailWrapperSpace>
+        <BackTop />
     </GallerySpace>
     )
 }
