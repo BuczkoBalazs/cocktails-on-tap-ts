@@ -1,12 +1,12 @@
 import { LandingSlide, LandingSlideTitle, LandingSlideText } from './LandingAntStyle';
-import { LandingSlides } from './types/Types';
+import { LandingSlideDetailsProps } from './types/Types';
 
-export const LandingSlideDetails = ({ title, text}: LandingSlides) => {
+export const LandingSlideDetails = ({ slide }: LandingSlideDetailsProps) => {
   return (
     <LandingSlide direction='vertical'>
-        <LandingSlideTitle>{title}</LandingSlideTitle>
+        <LandingSlideTitle>{slide.title}</LandingSlideTitle>
         <LandingSlideText>
-            {text}
+            {slide.text}
         </LandingSlideText>
     </LandingSlide>
   )

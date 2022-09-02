@@ -17,3 +17,7 @@ export enum SortCocktails {
     ASC = 'Sort ascending',
     DESC = 'Sort descending'
 };
+
+export type LandingSlideDetailsProps = {
+    slide: LandingSlides
+  };
