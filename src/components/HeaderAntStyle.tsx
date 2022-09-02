@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 export const HomeIcon = styled(HomeOutlined)( () => ({
     color: 'darkkhaki',
-    ':': {
+    ':hover': {
         color: 'white'
     }
     })
@@ -48,10 +48,4 @@ export const MenuItem = styled(Menu)( () => ({
             color: 'white'
         }
     },
-    // svg: {
-    //     color: 'darkkhaki',
-    //     ':hover': {
-    //         color: 'white'
-    //     }
-    // }
 }));
