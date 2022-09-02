@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form, Input, message, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { AddForm, AddSpace } from './AddCocktailStyle';
 
@@ -14,10 +14,12 @@ export const AddCocktail = () => {
         },
         body: JSON.stringify(values),
       })
+      message.success(`${values.name} has been added.`);
       console.log('Success:', values);
     };
 
     const onFinishFailed = (errorInfo: any) => {
+      message.error('Something went wrong!');
       console.log('Failed:', errorInfo);
     };
 
@@ -84,5 +86,4 @@ export const AddCocktail = () => {
     </AddForm>
   </AddSpace>
   )
-
 }
