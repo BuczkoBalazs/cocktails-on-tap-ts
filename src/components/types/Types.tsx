@@ -20,4 +20,8 @@ export enum SortCocktails {
 
 export type LandingSlideDetailsProps = {
     slide: LandingSlides
-  };
+};
+
+export type CocktailAntProps = {
+    cocktail: CocktailDetails,
+}

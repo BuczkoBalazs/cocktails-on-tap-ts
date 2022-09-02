@@ -1,15 +1,11 @@
 import { useState } from 'react';
-import { CocktailDetails } from './types/Types';
+import { CocktailAntProps } from './types/Types';
 import { Divider, Image, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { SortButton } from './GalleryAntStyle';
 import { CocktailCard, CocktailInfoSpace } from './CocktailAntStyle';
 
 const { Paragraph } = Typography;
-
-type CocktailAntProps = {
-    cocktail: CocktailDetails,
-}
 
 export const CocktailAnt = ({ cocktail }: CocktailAntProps) => {
 
