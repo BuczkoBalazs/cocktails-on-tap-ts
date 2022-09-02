@@ -12,7 +12,13 @@ export const AddCocktail = () => {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          name: values.name,
+          howto: values.howto,
+          ingredients: values.ingredients,
+          image: values.image,
+          favourite: JSON.parse(values.favourite),
+        }),
       })
       message.success(`${values.name} has been added.`);
       console.log('Success:', values);
@@ -72,7 +78,7 @@ export const AddCocktail = () => {
         name="favourite"
         rules={[{ required: true, message: 'Please input the ingredients needed!' }]}
       >
-        <Select defaultValue='Yes'>
+        <Select>
           <Option value='true'>Yes</Option>
           <Option value='false'>No</Option>
         </Select>
