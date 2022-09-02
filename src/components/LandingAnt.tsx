@@ -18,7 +18,7 @@ export const LandingAnt = () => {
     pauseOnHover={false}
     pauseOnDotsHover={true}
     >
-        {slides && slides.map( ({id, title, text}: LandingSlides) => <LandingSlideDetails id={id} title={title} text={text} />
+        {slides && slides.map( ({id, title, text}: LandingSlides) => <LandingSlideDetails key={id} id={id} title={title} text={text} />
         )}
     </LandingCarousel>
     )
