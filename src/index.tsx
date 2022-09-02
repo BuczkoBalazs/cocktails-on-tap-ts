@@ -6,6 +6,7 @@ import { GalleryAnt } from './components/GalleryAnt';
 import { HeaderAnt } from './components/HeaderAnt';
 import { LandingAnt } from './components/LandingAnt';
 import { RouteNotFound } from './components/RouteNotFound';
+import { AddCocktail } from './components/AddCocktail';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ root.render(
           <Route path='/' element={<LandingAnt />} />
           <Route path='/gallery' element={<GalleryAnt />} />
           <Route path='/favourites' element={<FavouritesAnt />} />
+          <Route path='/add' element={<AddCocktail />} />
           <Route path='*' element={<RouteNotFound />} />
         </Routes>
       </BrowserRouter>

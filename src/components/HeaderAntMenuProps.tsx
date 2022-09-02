@@ -39,4 +39,12 @@ export const items: MenuProps['items'] = [
     ),
     key: 'favourites',
   },
+  {
+    label: (
+      <a href="http://localhost:3000/add" rel="noopener noreferrer">
+        Add Cocktail
+      </a>
+    ),
+    key: 'add',
+  }
 ];
