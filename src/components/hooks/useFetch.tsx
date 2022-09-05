@@ -1,8 +1,8 @@
 import { useState, useEffect} from 'react';
 
-export const useFetch = (url: string) => {
+export const useFetch = <T,>(url: string): {data: T | []} => {
 
-    const [data, setData] = useState<any>([]);
+    const [data, setData] = useState<T | []>([]);
 
     const getCocktails = async (link: string) => {
 

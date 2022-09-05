@@ -6,7 +6,7 @@ import { LandingSlides } from './types/Types';
 
 export const LandingAnt = () => {
 
-    const { data: slides } = useFetch('http://localhost:3001/landingSlides')
+    const { data: slides } = useFetch<LandingSlides[]>('http://localhost:3001/landingSlides')
 
     return (
     <LandingCarousel

@@ -15,7 +15,7 @@ export const GalleryAnt = () => {
     const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC)
     
-    const { data: cocktails } = useFetch('http://localhost:3001/cocktails');
+    const { data: cocktails } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 

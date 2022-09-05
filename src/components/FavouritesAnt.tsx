@@ -9,7 +9,7 @@ const { Title } = Typography;
 
 export const FavouritesAnt = () => {
 
-    const { data: cocktails } = useFetch('http://localhost:3001/cocktails');
+    const { data: cocktails } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
 
     return (
     <FavSpace direction='vertical'>
