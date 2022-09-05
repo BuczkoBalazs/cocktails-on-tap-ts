@@ -15,8 +15,7 @@ export const FavouritesAnt = () => {
     <FavSpace direction='vertical'>
         <Title>Here you find your favourite cocktails!</Title>
         <CocktailWrapperSpace wrap={true}>
-            {cocktails && cocktails.map((cocktail: CocktailDetails) => cocktail.favourite && <CocktailAnt key={cocktail.id} cocktail={cocktail} />
-            )}
+            {cocktails && cocktails.map((cocktail: CocktailDetails) => cocktail.favourite && <CocktailAnt key={cocktail.id} cocktail={cocktail} />)}
         </CocktailWrapperSpace>
         <BackTop />
     </FavSpace>
