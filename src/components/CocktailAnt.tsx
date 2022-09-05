@@ -38,7 +38,7 @@ export const CocktailAnt = ({ cocktail }: CocktailAntProps) => {
     return (
     <CocktailCard hoverable title={cocktail.name} extra={
         <>
-            <SortButton shape='round' onClick={favouriteToggle}>{fav === true ? 'Favourite' : 'Not favourite'}</SortButton>
+            <SortButton shape='round' onClick={favouriteToggle}>{fav ? 'Favourite' : 'Not favourite'}</SortButton>
             <SortButton shape='round' onClick={DeleteCocktail}>Delete</SortButton>
         </>
     }>
