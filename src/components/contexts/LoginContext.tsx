@@ -5,7 +5,7 @@ export type User = {
     name: string
 }
 
-export type Login = {
+export type LoginContextType = {
     user: User | null,
     setUser: React.Dispatch<React.SetStateAction<User | null>>
 }
@@ -14,11 +14,11 @@ type LoginContextProviderProps = {
     children: React.ReactNode
 }
 
-export const LoginContext = createContext<Login | null>(null);
+export const LoginContext = createContext({} as LoginContextType);
 
 export const LoginContextProvider = ({ children }: LoginContextProviderProps) => {
 
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<User | null>({name: 'Guest'})
     return (
         <LoginContext.Provider value={{ user, setUser }}>
             {children}

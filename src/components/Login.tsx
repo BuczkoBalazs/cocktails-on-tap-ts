@@ -7,17 +7,9 @@ export const Login = () => {
 
     const loginContext = useContext(LoginContext);
 
-    const handleLogin = () => {
-        if(loginContext) {
-            loginContext.setUser({name: input})
-        }
-    };
+    const handleLogin = () => loginContext.setUser({name: input});
 
-    const handleLogout = () => {
-        if(loginContext) {
-            loginContext.setUser({name: 'Guest'})
-        }
-    };
+    const handleLogout = () => loginContext.setUser({name: 'Guest'});
 
     const [input, setInput] = useState('');
 
