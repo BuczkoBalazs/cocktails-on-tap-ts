@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
+import { CocktailDetails } from '../components/types/Types';
 
-interface CocktailProps {
-    id: string,
-    name: string,
-    howto: string,
-    ingredients: string,
-    image: string,
-    favourite: string
-}
+export const Cocktail = ({ id, name, howto, ingredients, image, favourite }: CocktailDetails) => {
 
-export const Cocktail = ({ id, name, howto, ingredients, image, favourite }: CocktailProps) => {
-
-    const [fav, setFav] = useState<boolean>(favourite === 'true' ? true : false);
+    const [fav, setFav] = useState<boolean>(favourite);
 
     const favouriteToggle = async () => {
         await fetch('http://localhost:3001/cocktails/' + id, {
@@ -25,7 +17,7 @@ export const Cocktail = ({ id, name, howto, ingredients, image, favourite }: Coc
                 howto: howto,
                 ingredients: ingredients,
                 image: image,
-                favourite: `${!fav}`
+                favourite: !fav
             }),
         });
         setFav(!fav)
