@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
-import { BackTop, Input, Space, Typography } from 'antd';
+import { BackTop, Button, Input, Space, Spin, Result, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { GallerySpace, SortButton } from './GalleryAntStyle';
 import { CocktailWrapperSpace } from '../Favourites/FavouritesAntStyle';
@@ -27,7 +27,7 @@ export const GalleryAnt = () => {
     const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC)
     
-    const { data: cocktails } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
+    const { data: cocktails, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
@@ -48,6 +48,13 @@ export const GalleryAnt = () => {
         <CocktailWrapperSpace wrap={true}>
             {cocktails && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} />
             )}
+            {loading && <Spin />}
+            {error && <Result
+            status="500"
+            title="500"
+            subTitle={error}
+            extra={<Button type="link" href='http://localhost:3000/'>Back Home</Button>}
+            />}
         </CocktailWrapperSpace>
         <BackTop />
     </GallerySpace>
