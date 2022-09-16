@@ -2,7 +2,12 @@ import 'antd/dist/antd.css';
 import { useFetch } from '../hooks/useFetch';
 import { LandingSlideDetails } from './LandingSlideDetails';
 import { LandingCarousel } from './LandingAntStyle';
-import { LandingSlides } from '../types/Types';
+
+type LandingSlides = {
+    id: number,
+    title: string,
+    text: string
+};
 
 export const LandingAnt = () => {
 
