@@ -1,8 +1,10 @@
 import { useState, useEffect} from 'react';
 
-export const useFetch = <T,>(url: string): {data: T | []} => {
+export const useFetch = <T,>(url: string): {data: T | null, loading: boolean, error: string | null} => {
 
-    const [data, setData] = useState<T | []>([]);
+    const [data, setData] = useState<T | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     const getCocktails = async (link: string) => {
 
@@ -11,13 +13,22 @@ export const useFetch = <T,>(url: string): {data: T | []} => {
             throw Error('Something went wrong during fetch!')
         }
         const responseJSON = await response.json();
-        return setData(responseJSON);
+        return responseJSON;
     }
 
     useEffect(() => {
         getCocktails(url)
-            .catch(err => console.log(err.message))
+        .then(data => {
+            setData(data);
+            setLoading(false);
+            setError(null);
+        }
+        )
+        .catch(err => {
+            setLoading(false);
+            setError(err.message);
+        })
     }, [url]);
 
-    return { data }
+    return { data, loading, error }
 }

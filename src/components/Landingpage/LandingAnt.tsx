@@ -1,7 +1,9 @@
 import 'antd/dist/antd.css';
+import { Spin } from 'antd';
 import { useFetch } from '../hooks/useFetch';
 import { LandingSlideDetails } from './LandingSlideDetails';
 import { LandingCarousel } from './LandingAntStyle';
+import { RouteNotFound } from '../ErrorPage/RouteNotFound';
 
 type LandingSlide = {
     id: number,
@@ -11,20 +13,24 @@ type LandingSlide = {
 
 export const LandingAnt = () => {
 
-    const { data: slides } = useFetch<LandingSlide[]>('http://localhost:3001/landingSlides')
+    const { data: slides, loading, error } = useFetch<LandingSlide[]>('http://localhost:3001/landingSlides')
 
     return (
-    <LandingCarousel
-    autoplay={true}
-    effect="fade"
-    dotPosition='right'
-    draggable={true}
-    infinite={true}
-    pauseOnHover={false}
-    pauseOnDotsHover={true}
-    >
-        {slides && slides.map( (slide: LandingSlide) => <LandingSlideDetails key={slide.id} slide={slide} />
-        )}
-    </LandingCarousel>
+    <>
+        {slides && <LandingCarousel
+        autoplay={true}
+        effect="fade"
+        dotPosition='right'
+        draggable={true}
+        infinite={true}
+        pauseOnHover={false}
+        pauseOnDotsHover={true}
+        >
+            {slides.map( (slide: LandingSlide) => <LandingSlideDetails key={slide.id} slide={slide} />
+            )}
+        </LandingCarousel>}
+        {loading && <Spin />}
+        {error && <RouteNotFound />}
+    </>
     )
 };
