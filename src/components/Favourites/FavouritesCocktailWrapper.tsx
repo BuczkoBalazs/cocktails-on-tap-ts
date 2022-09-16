@@ -2,7 +2,7 @@ import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import 'antd/dist/antd.css';
 import { CocktailWrapperSpace } from './FavouritesAntStyle';
 import { useFetch } from '../hooks/useFetch';
-import { CocktailDetails,  } from '../types/Types';
+import { CocktailDetails } from '../types/Types';
 
 export const FavouritesCocktailWrapper = () => {
 
