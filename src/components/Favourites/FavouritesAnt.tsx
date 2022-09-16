@@ -1,22 +1,16 @@
-import { CocktailAnt } from '../CocktailCard/CocktailAnt';
+import { FavouritesCocktailWrapper } from './FavouritesCocktailWrapper';
 import { BackTop, Typography } from 'antd';
 import 'antd/dist/antd.css';
-import { FavSpace, CocktailWrapperSpace } from './FavouritesAntStyle';
-import { useFetch } from '../hooks/useFetch';
-import { CocktailDetails,  } from '../types/Types';
+import { FavSpace } from './FavouritesAntStyle';
 
 const { Title } = Typography;
 
 export const FavouritesAnt = () => {
 
-    const { data: cocktails } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
-
     return (
     <FavSpace direction='vertical'>
         <Title>Here you find your favourite cocktails!</Title>
-        <CocktailWrapperSpace wrap={true}>
-            {cocktails && cocktails.map((cocktail: CocktailDetails) => cocktail.favourite && <CocktailAnt key={cocktail.id} cocktail={cocktail} />)}
-        </CocktailWrapperSpace>
+        <FavouritesCocktailWrapper />
         <BackTop />
     </FavSpace>
     )
