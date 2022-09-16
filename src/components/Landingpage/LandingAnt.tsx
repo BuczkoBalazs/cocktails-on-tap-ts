@@ -3,7 +3,7 @@ import { useFetch } from '../hooks/useFetch';
 import { LandingSlideDetails } from './LandingSlideDetails';
 import { LandingCarousel } from './LandingAntStyle';
 
-type LandingSlides = {
+type LandingSlide = {
     id: number,
     title: string,
     text: string
@@ -11,7 +11,7 @@ type LandingSlides = {
 
 export const LandingAnt = () => {
 
-    const { data: slides } = useFetch<LandingSlides[]>('http://localhost:3001/landingSlides')
+    const { data: slides } = useFetch<LandingSlide[]>('http://localhost:3001/landingSlides')
 
     return (
     <LandingCarousel
@@ -23,7 +23,7 @@ export const LandingAnt = () => {
     pauseOnHover={false}
     pauseOnDotsHover={true}
     >
-        {slides && slides.map( (slide: LandingSlides) => <LandingSlideDetails key={slide.id} slide={slide} />
+        {slides && slides.map( (slide: LandingSlide) => <LandingSlideDetails key={slide.id} slide={slide} />
         )}
     </LandingCarousel>
     )
