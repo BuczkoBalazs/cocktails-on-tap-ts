@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { CocktailAnt } from './CocktailAnt';
+import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import { BackTop, Input, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { GallerySpace, SortButton } from './GalleryAntStyle';
-import { CocktailWrapperSpace } from './FavouritesAntStyle';
-import { useFetch } from './hooks/useFetch';
-import { CocktailDetails, SortCocktails } from './types/Types';
+import { CocktailWrapperSpace } from '../Favourites/FavouritesAntStyle';
+import { useFetch } from '../hooks/useFetch';
+import { CocktailDetails, SortCocktails } from '../types/Types';
 
 const { Title } = Typography;
 

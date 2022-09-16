@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 import { NavBar, MenuWrapper, MenuItem } from './HeaderAntStyle';
-import { LoginContextProvider } from './contexts/LoginContext';
+import { LoginContextProvider } from '../contexts/LoginContext';
 import { Login } from './Login';
 
 import { logo, items } from './HeaderAntMenuProps';

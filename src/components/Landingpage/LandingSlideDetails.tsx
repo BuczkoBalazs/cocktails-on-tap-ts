@@ -1,5 +1,5 @@
 import { LandingSlide, LandingSlideTitle, LandingSlideText } from './LandingAntStyle';
-import { LandingSlideDetailsProps } from './types/Types';
+import { LandingSlideDetailsProps } from '../types/Types';
 
 export const LandingSlideDetails = ({ slide }: LandingSlideDetailsProps) => {
   return (

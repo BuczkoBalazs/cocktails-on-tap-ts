@@ -1,9 +1,9 @@
-import { CocktailAnt } from './CocktailAnt';
+import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import { BackTop, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { FavSpace, CocktailWrapperSpace } from './FavouritesAntStyle';
-import { useFetch } from './hooks/useFetch';
-import { CocktailDetails,  } from './types/Types';
+import { useFetch } from '../hooks/useFetch';
+import { CocktailDetails,  } from '../types/Types';
 
 const { Title } = Typography;
 

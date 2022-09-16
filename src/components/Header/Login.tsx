@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { LoginContext } from './contexts/LoginContext';
+import { LoginContext } from '../contexts/LoginContext';
 import { Button, Input, Space } from 'antd';
 import 'antd/dist/antd.css';
 
