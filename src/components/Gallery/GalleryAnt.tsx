@@ -5,9 +5,22 @@ import 'antd/dist/antd.css';
 import { GallerySpace, SortButton } from './GalleryAntStyle';
 import { CocktailWrapperSpace } from '../Favourites/FavouritesAntStyle';
 import { useFetch } from '../hooks/useFetch';
-import { CocktailDetails, SortCocktails } from '../types/Types';
 
 const { Title } = Typography;
+
+type CocktailDetails = {
+    id: number,
+    name: string,
+    howto: string,
+    ingredients: string,
+    image: string,
+    favourite: boolean
+};
+
+enum SortCocktails {
+    ASC = 'Sort ascending',
+    DESC = 'Sort descending'
+};
 
 export const GalleryAnt = () => {
     

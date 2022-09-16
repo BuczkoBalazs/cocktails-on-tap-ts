@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { CocktailDetails } from '../components/types/Types';
 import { Cocktail } from './Cocktail';
+
+type CocktailDetails = {
+    id: number,
+    name: string,
+    howto: string,
+    ingredients: string,
+    image: string,
+    favourite: boolean
+};
 
 export const Favourites = () => {
 
