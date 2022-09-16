@@ -16,7 +16,7 @@ export const LandingAnt = () => {
 
     return (
     <>
-        {(slides.length > 1) && <LandingCarousel
+        {(slides.length > 0) && <LandingCarousel
         autoplay={true}
         effect="fade"
         dotPosition='right'
