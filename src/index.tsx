@@ -14,9 +14,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-        <LoginContextProvider>
-          <HeaderAnt />
+      <LoginContextProvider>
+        <HeaderAnt />
+        <BrowserRouter>
           <Routes>
             <Route path='/' element={<LandingAnt />} />
             <Route path='/gallery' element={<GalleryAnt />} />
@@ -24,7 +24,7 @@ root.render(
             <Route path='/add' element={<AddCocktail />} />
             <Route path='*' element={<RouteNotFound />} />
           </Routes>
-        </LoginContextProvider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </LoginContextProvider>
   </React.StrictMode>
 );
