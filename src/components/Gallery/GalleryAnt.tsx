@@ -26,11 +26,11 @@ enum SortCocktails {
 export const GalleryAnt = () => {
 
     const loginContext = useContext(LoginContext);
+
+    const { data: cocktails, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
     
     const [searchInput, setSearchInput] = useState<string>('');
-    const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC)
-    
-    const { data: cocktails, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
+    const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC);
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
@@ -39,6 +39,11 @@ export const GalleryAnt = () => {
         setSortButton(sortButton === SortCocktails.ASC ? SortCocktails.DESC : SortCocktails.ASC);
     };
 
+    const deleteCocktail = async (id: number) => {
+        await fetch('http://localhost:3001/cocktails/' + id, {
+            method: 'DELETE'
+        })      
+    };
 
     /* react comp-ba kiszervezni a div-et, komponens-t*/
     return (
@@ -49,7 +54,7 @@ export const GalleryAnt = () => {
             <SortButton onClick={sortButtonChangeHandle} block >{sortButton}</SortButton>
         </Space>
         <CocktailWrapperSpace wrap={true}>
-            {cocktails.length > 0 && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} />
+            {cocktails.length > 0 && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} />
             )}
             {loading && <Spin />}
             {error && <Result

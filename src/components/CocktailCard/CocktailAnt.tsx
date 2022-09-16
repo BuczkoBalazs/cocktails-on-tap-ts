@@ -17,9 +17,10 @@ type CocktailDetails = {
 
 type CocktailAntProps = {
     cocktail: CocktailDetails,
+    deleteCocktail: (id: number) => void
 };
 
-export const CocktailAnt = ({ cocktail }: CocktailAntProps) => {
+export const CocktailAnt = ({ cocktail, deleteCocktail }: CocktailAntProps ) => {
 
     const [fav, setFav] = useState<boolean>(cocktail.favourite);
 
@@ -41,17 +42,11 @@ export const CocktailAnt = ({ cocktail }: CocktailAntProps) => {
         setFav(!fav)
     };
 
-    const DeleteCocktail = async () => {
-        await fetch('http://localhost:3001/cocktails/' + cocktail.id, {
-            method: 'DELETE'
-        })
-    }
-
     return (
     <CocktailCard hoverable title={cocktail.name} extra={
         <>
             <SortButton shape='round' onClick={favouriteToggle}>{fav ? 'Favourite' : 'Not favourite'}</SortButton>
-            <SortButton shape='round' onClick={DeleteCocktail}>Delete</SortButton>
+            <SortButton shape='round' onClick={() => deleteCocktail(cocktail.id)}>Delete</SortButton>
         </>
     }>
         <Space>

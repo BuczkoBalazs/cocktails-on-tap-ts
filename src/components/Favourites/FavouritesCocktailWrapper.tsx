@@ -17,10 +17,16 @@ export const FavouritesCocktailWrapper = () => {
 
     const { data: cocktails, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
 
+    const deleteCocktail = async (id: number) => {
+        await fetch('http://localhost:3001/cocktails/' + id, {
+            method: 'DELETE'
+        })     
+    };
+
     return (
         <>
             {cocktails.length > 0 && <CocktailWrapperSpace wrap={true}>
-                {cocktails.map((cocktail: CocktailDetails) => cocktail.favourite && <CocktailAnt key={cocktail.id} cocktail={cocktail} />)}
+                {cocktails.map((cocktail: CocktailDetails) => cocktail.favourite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} />)}
                 </CocktailWrapperSpace>
             }
             {loading && <Spin />}
