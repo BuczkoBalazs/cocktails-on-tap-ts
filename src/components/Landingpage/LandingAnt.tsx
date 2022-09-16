@@ -1,9 +1,8 @@
 import 'antd/dist/antd.css';
-import { Spin } from 'antd';
+import { Button, Spin, Result } from 'antd';
 import { useFetch } from '../hooks/useFetch';
 import { LandingSlideDetails } from './LandingSlideDetails';
 import { LandingCarousel } from './LandingAntStyle';
-import { RouteNotFound } from '../ErrorPage/RouteNotFound';
 
 type LandingSlide = {
     id: number,
@@ -17,7 +16,7 @@ export const LandingAnt = () => {
 
     return (
     <>
-        {slides && <LandingCarousel
+        {(slides.length > 1) && <LandingCarousel
         autoplay={true}
         effect="fade"
         dotPosition='right'
@@ -30,7 +29,12 @@ export const LandingAnt = () => {
             )}
         </LandingCarousel>}
         {loading && <Spin />}
-        {error && <RouteNotFound />}
+        {error && <Result
+            status="500"
+            title="500"
+            subTitle={error}
+            extra={<Button type="link" href='http://localhost:3000/'>Back Home</Button>}
+        />}
     </>
     )
 };
