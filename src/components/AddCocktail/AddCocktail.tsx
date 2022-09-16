@@ -4,9 +4,17 @@ import { AddForm, AddSpace } from './AddCocktailStyle';
 
 const { Option } = Select;
 
+type AddCocktail = {
+  name: string,
+  howto: string,
+  ingredients: string,
+  image: string,
+  favourite: string
+}
+
 export const AddCocktail = () => {
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: AddCocktail) => {
       await fetch('http://localhost:3001/cocktails/', {
         method: 'POST',
         headers: {
@@ -37,7 +45,7 @@ export const AddCocktail = () => {
     labelCol={{ span: 6 }}
     wrapperCol={{ span: 16 }}
     initialValues={{ remember: true }}
-    onFinish={onFinish}
+    onFinish={(values) => onFinish(values as AddCocktail)}
     onFinishFailed={onFinishFailed}
     autoComplete="off"
     >
