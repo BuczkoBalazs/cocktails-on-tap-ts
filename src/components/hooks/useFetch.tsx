@@ -6,9 +6,11 @@ export const useFetch = <T,>(url: string): {data: T | [], loading: boolean, erro
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    const getCocktails = async (link: string, signal: any) => {
+    const getCocktails = async (link: string) => {
 
-        const response = await fetch(link, signal);
+        const abortController = new AbortController();
+
+        const response = await fetch(link, {signal: abortController.signal});
         if(!response.ok) {
             throw Error('Something went wrong during fetch!')
         }
@@ -20,7 +22,7 @@ export const useFetch = <T,>(url: string): {data: T | [], loading: boolean, erro
 
         const abortFetch = new AbortController();
 
-        getCocktails(url, { signal: abortFetch.signal })
+        getCocktails(url)
         .then(data => {
             setData(data);
             setLoading(false);
