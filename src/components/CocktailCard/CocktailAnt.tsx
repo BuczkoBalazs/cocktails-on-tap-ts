@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { Divider, Image, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { SortButton } from '../Gallery/GalleryAntStyle';
-import { CocktailCard, CocktailInfoSpace } from './CocktailAntStyle';
-
-const { Paragraph } = Typography;
+import { CocktailCard} from './CocktailAntStyle';
+import { CocktailDetailed } from './CocktailDetailed';
 
 type CocktailDetails = {
     id: number,
@@ -37,15 +35,7 @@ export const CocktailAnt = ({ cocktail, deleteCocktail, favouriteToggle }: Cockt
             <SortButton shape='round' onClick={() => deleteCocktail(cocktail.id)}>Delete</SortButton>
         </>
     }>
-        <Space>
-            <Image src={cocktail.image} alt={cocktail.name} width={200}/>
-            <CocktailInfoSpace direction='vertical'>
-                <Divider orientation='left'>How to make:</Divider>
-                <Paragraph>{cocktail.howto}</Paragraph>
-                <Divider orientation='left'>Ingredients:</Divider>
-                <Paragraph>{cocktail.ingredients}</Paragraph>
-            </CocktailInfoSpace>
-        </Space>
+        <CocktailDetailed cocktail={cocktail} />
     </CocktailCard>
     )
 }
