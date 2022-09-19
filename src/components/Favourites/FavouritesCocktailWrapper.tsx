@@ -42,16 +42,7 @@ export const FavouritesCocktailWrapper = () => {
                 favourite: favourite
             }),
         });
-        const updatedCocktail = {
-            id,
-            name,
-            howto,
-            ingredients,
-            image,
-            favourite
-        };
-        const updatedCocktails = cocktails.filter(cocktail => cocktail.favourite && cocktail.id !== updatedCocktail.id)
-        setCocktails(updatedCocktails)
+        setCocktails(cocktails.filter(cocktail => cocktail.favourite && cocktail.id !== id))
     };
 
     useEffect( () => {
