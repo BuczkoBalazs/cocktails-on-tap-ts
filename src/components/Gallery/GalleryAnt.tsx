@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import { GalleryHeader } from './GalleryHeader';
-import { BackTop, Button, Spin, Result } from 'antd';
+import { BackTop } from 'antd';
 import 'antd/dist/antd.css';
 import { GallerySpace } from './GalleryAntStyle';
-import { CocktailWrapperSpace } from '../Favourites/FavouritesAntStyle';
 import { useFetch } from '../hooks/useFetch';
+import { GalleryCocktailWrapper } from './GalleryCocktailWrapper';
 
 type CocktailDetails = {
     id: number,
@@ -58,21 +57,10 @@ export const GalleryAnt = () => {
         });
     };
 
-    /* react comp-ba kiszervezni a div-et, komponens-t*/
     return (
     <GallerySpace direction='vertical'>
         <GalleryHeader searchInput={searchInput} inputChangeHandle={inputChangeHandle} sortButton={sortButton} sortButtonChangeHandle={sortButtonChangeHandle} />
-        <CocktailWrapperSpace wrap={true}>
-            {cocktails.length > 0 && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favouriteToggle={favouriteToggle} />
-            )}
-            {loading && <Spin />}
-            {error && <Result
-            status="500"
-            title="500"
-            subTitle={error}
-            extra={<Button type="link" href='http://localhost:3000/'>Back Home</Button>}
-            />}
-        </CocktailWrapperSpace>
+        <GalleryCocktailWrapper  cocktails={cocktails} searchInput={searchInput} deleteCocktail={deleteCocktail} favouriteToggle={favouriteToggle} loading={loading} error={error} />
         <BackTop />
     </GallerySpace>
     )
