@@ -6,9 +6,7 @@ export const useFetch = <T,>(url: string): {data: T | [], loading: boolean, erro
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    const getCocktails = async (link: string) => {
-
-        const abortController = new AbortController();
+    const getCocktails = async (link: string, abortController: AbortController) => {
 
         const response = await fetch(link, {signal: abortController.signal});
         if(!response.ok) {
@@ -22,7 +20,7 @@ export const useFetch = <T,>(url: string): {data: T | [], loading: boolean, erro
 
         const abortFetch = new AbortController();
 
-        getCocktails(url)
+        getCocktails(url, abortFetch)
         .then(data => {
             setData(data);
             setLoading(false);
