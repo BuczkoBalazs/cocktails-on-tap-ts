@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import 'antd/dist/antd.css';
-import { SortButton } from '../Gallery/GalleryAntStyle';
 import { CocktailCard} from './CocktailAntStyle';
 import { CocktailDetailed } from './CocktailDetailed';
+import { CocktailCardButtons } from './CocktailCardButtons';
 
 type CocktailDetails = {
     id: number,
@@ -21,20 +20,8 @@ type CocktailAntProps = {
 
 export const CocktailAnt = ({ cocktail, deleteCocktail, favouriteToggle }: CocktailAntProps ) => {
 
-    const [fav, setFav] = useState<boolean>(cocktail.favourite);
-
     return (
-    <CocktailCard hoverable title={cocktail.name} extra={
-        <>
-            <SortButton shape='round' onClick={() => {
-                favouriteToggle(cocktail.id, cocktail.name, cocktail.howto, cocktail.ingredients, cocktail.image, !fav)
-                setFav(!fav)
-            }}>
-                {fav ? 'Favourite' : 'Not favourite'}
-            </SortButton>     
-            <SortButton shape='round' onClick={() => deleteCocktail(cocktail.id)}>Delete</SortButton>
-        </>
-    }>
+    <CocktailCard hoverable title={cocktail.name} extra={<CocktailCardButtons cocktail={cocktail} deleteCocktail={deleteCocktail} favouriteToggle={favouriteToggle} />}>
         <CocktailDetailed cocktail={cocktail} />
     </CocktailCard>
     )
