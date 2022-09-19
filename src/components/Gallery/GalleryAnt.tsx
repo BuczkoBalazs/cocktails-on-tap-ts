@@ -45,6 +45,23 @@ export const GalleryAnt = () => {
         })      
     };
 
+    const favouriteToggle = async (id: number, name: string, howto: string, ingredients: string, image: string, favourite: boolean) => {
+        await fetch('http://localhost:3001/cocktails/' + id, {
+            method: 'PUT',
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                id: id,
+                name: name,
+                howto: howto,
+                ingredients: ingredients,
+                image: image,
+                favourite: favourite
+            }),
+        });
+    };
+
     /* react comp-ba kiszervezni a div-et, komponens-t*/
     return (
     <GallerySpace direction='vertical'>
@@ -54,7 +71,7 @@ export const GalleryAnt = () => {
             <SortButton onClick={sortButtonChangeHandle} block >{sortButton}</SortButton>
         </Space>
         <CocktailWrapperSpace wrap={true}>
-            {cocktails.length > 0 && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} />
+            {cocktails.length > 0 && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favouriteToggle={favouriteToggle} />
             )}
             {loading && <Spin />}
             {error && <Result

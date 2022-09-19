@@ -23,10 +23,27 @@ export const FavouritesCocktailWrapper = () => {
         })     
     };
 
+    const favouriteToggle = async (id: number, name: string, howto: string, ingredients: string, image: string, favourite: boolean) => {
+        await fetch('http://localhost:3001/cocktails/' + id, {
+            method: 'PUT',
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                id: id,
+                name: name,
+                howto: howto,
+                ingredients: ingredients,
+                image: image,
+                favourite: favourite
+            }),
+        });
+    };
+
     return (
         <>
             {cocktails.length > 0 && <CocktailWrapperSpace wrap={true}>
-                {cocktails.map((cocktail: CocktailDetails) => cocktail.favourite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} />)}
+                {cocktails.map((cocktail: CocktailDetails) => cocktail.favourite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favouriteToggle={favouriteToggle} />)}
                 </CocktailWrapperSpace>
             }
             {loading && <Spin />}

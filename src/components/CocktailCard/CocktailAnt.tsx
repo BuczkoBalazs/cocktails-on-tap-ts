@@ -17,35 +17,23 @@ type CocktailDetails = {
 
 type CocktailAntProps = {
     cocktail: CocktailDetails,
-    deleteCocktail: (id: number) => void
+    deleteCocktail: (id: number) => void,
+    favouriteToggle: (id: number, name: string, howto: string, ingredients: string, image: string, favourite: boolean) => void 
 };
 
-export const CocktailAnt = ({ cocktail, deleteCocktail }: CocktailAntProps ) => {
+export const CocktailAnt = ({ cocktail, deleteCocktail, favouriteToggle }: CocktailAntProps ) => {
 
     const [fav, setFav] = useState<boolean>(cocktail.favourite);
-
-    const favouriteToggle = async () => {
-        await fetch('http://localhost:3001/cocktails/' + cocktail.id, {
-            method: 'PUT',
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-                id: cocktail.id,
-                name: cocktail.name,
-                howto: cocktail.howto,
-                ingredients: cocktail.ingredients,
-                image: cocktail.image,
-                favourite: !fav
-            }),
-        });
-        setFav(!fav)
-    };
 
     return (
     <CocktailCard hoverable title={cocktail.name} extra={
         <>
-            <SortButton shape='round' onClick={favouriteToggle}>{fav ? 'Favourite' : 'Not favourite'}</SortButton>
+            <SortButton shape='round' onClick={() => {
+                favouriteToggle(cocktail.id, cocktail.name, cocktail.howto, cocktail.ingredients, cocktail.image, !fav)
+                setFav(!fav)
+            }}>
+                {fav ? 'Favourite' : 'Not favourite'}
+            </SortButton>     
             <SortButton shape='round' onClick={() => deleteCocktail(cocktail.id)}>Delete</SortButton>
         </>
     }>
