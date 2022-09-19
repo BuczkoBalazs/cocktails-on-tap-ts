@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { Button, Spin, Result } from 'antd';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import 'antd/dist/antd.css';
@@ -15,12 +16,15 @@ type CocktailDetails = {
 
 export const FavouritesCocktailWrapper = () => {
 
-    const { data: cocktails, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
+    const { data, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
+
+    const [cocktails, setCocktails] =useState<CocktailDetails[] | []>([])
 
     const deleteCocktail = async (id: number) => {
         await fetch('http://localhost:3001/cocktails/' + id, {
             method: 'DELETE'
-        })     
+        });
+        setCocktails(cocktails.filter( cocktail => cocktail.id !== id))
     };
 
     const favouriteToggle = async (id: number, name: string, howto: string, ingredients: string, image: string, favourite: boolean) => {
@@ -38,7 +42,21 @@ export const FavouritesCocktailWrapper = () => {
                 favourite: favourite
             }),
         });
+        const updatedCocktail = {
+            id,
+            name,
+            howto,
+            ingredients,
+            image,
+            favourite
+        };
+        const updatedCocktails = cocktails.filter(cocktail => cocktail.favourite && cocktail.id !== updatedCocktail.id)
+        setCocktails(updatedCocktails)
     };
+
+    useEffect( () => {
+        setCocktails(data)
+    }, [data]);
 
     return (
         <>

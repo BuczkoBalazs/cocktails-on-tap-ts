@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GalleryHeader } from './GalleryHeader';
 import { BackTop } from 'antd';
 import 'antd/dist/antd.css';
@@ -22,10 +22,11 @@ enum SortCocktails {
 
 export const GalleryAnt = () => {
 
-    const { data: cocktails, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
+    const { data, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
     
     const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC);
+    const [cocktails, setCocktails] =useState<CocktailDetails[] | []>([])
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
@@ -37,7 +38,8 @@ export const GalleryAnt = () => {
     const deleteCocktail = async (id: number) => {
         await fetch('http://localhost:3001/cocktails/' + id, {
             method: 'DELETE'
-        })      
+        });
+        setCocktails(cocktails.filter( cocktail => cocktail.id !== id))
     };
 
     const favouriteToggle = async (id: number, name: string, howto: string, ingredients: string, image: string, favourite: boolean) => {
@@ -56,6 +58,10 @@ export const GalleryAnt = () => {
             }),
         });
     };
+
+    useEffect( () => {
+        setCocktails(data)
+    }, [data]);
 
     return (
     <GallerySpace direction='vertical'>
