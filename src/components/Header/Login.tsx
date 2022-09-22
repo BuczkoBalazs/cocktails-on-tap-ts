@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { LoginContext } from './contexts/LoginContext';
+import { LoginContext } from '../contexts/LoginContext';
 import { Button, Input, Space } from 'antd';
 import 'antd/dist/antd.css';
 
@@ -19,8 +19,8 @@ export const Login = () => {
 
     <Space>
         <Input type="text" value={input} onChange={inputChangeHandle} />
-        <Button onClick={handleLogin}>Login</Button>
-        <Button onClick={handleLogout}>Logout</Button>
+        {loginContext.user.name === 'Guest' && <Button onClick={handleLogin}>Login</Button>}
+        {loginContext.user.name !== 'Guest' && <Button onClick={handleLogout}>Logout</Button>}
         <p style={{ color: 'darkkhaki' }}>Hello, {loginContext?.user?.name}!</p>
     </Space>
     )

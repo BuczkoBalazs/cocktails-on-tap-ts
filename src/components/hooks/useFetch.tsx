@@ -1,23 +1,44 @@
 import { useState, useEffect} from 'react';
 
-export const useFetch = <T,>(url: string): {data: T | []} => {
+export const useFetch = <T,>(url: string): {data: T | [], loading: boolean, error: string | null} => {
 
     const [data, setData] = useState<T | []>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const getCocktails = async (link: string) => {
+    const getCocktails = async (link: string, abortController: AbortController) => {
 
-        const response = await fetch(link);
+        const response = await fetch(link, {signal: abortController.signal});
         if(!response.ok) {
             throw Error('Something went wrong during fetch!')
         }
         const responseJSON = await response.json();
-        return setData(responseJSON);
+        return responseJSON;
     }
 
     useEffect(() => {
-        getCocktails(url)
-            .catch(err => console.log(err.message))
+
+        const abortFetch = new AbortController();
+
+        getCocktails(url, abortFetch)
+        .then(data => {
+            setData(data);
+            setLoading(false);
+            setError(null);
+        }
+        )
+        .catch(err => {
+            if (err.name === 'AbortError') {
+                console.log('Fetch aborted.')
+            } else {
+                setLoading(false);
+                setError(err.message);
+            }
+        })
+
+        return () => abortFetch.abort();
+
     }, [url]);
 
-    return { data }
+    return { data, loading, error }
 }
