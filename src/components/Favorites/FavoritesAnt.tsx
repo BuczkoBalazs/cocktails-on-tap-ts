@@ -1,20 +1,20 @@
 import { useContext } from 'react';
 import { LoginContext } from '../contexts/LoginContext';
-import { FavouritesCocktailWrapper } from './FavouritesCocktailWrapper';
+import { FavoritesCocktailWrapper } from './FavoritesCocktailWrapper';
 import { BackTop, Typography } from 'antd';
 import 'antd/dist/antd.css';
-import { FavSpace } from './FavouritesAntStyle';
+import { FavSpace } from './FavoritesAntStyle';
 
 const { Title } = Typography;
 
-export const FavouritesAnt = () => {
+export const FavoritesAnt = () => {
 
     const loginContext = useContext(LoginContext);
 
     return (
     <FavSpace direction='vertical'>
-        <Title>Here you find your favourite cocktails, {loginContext.user.name}!</Title>
-        <FavouritesCocktailWrapper />
+        <Title>Here you find your favorite cocktails, {loginContext.user.name}!</Title>
+        <FavoritesCocktailWrapper />
         <BackTop />
     </FavSpace>
     )

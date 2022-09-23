@@ -9,10 +9,10 @@ import { GalleryCocktailWrapper } from './GalleryCocktailWrapper';
 type CocktailDetails = {
     id: number,
     name: string,
-    howto: string,
+    howTo: string,
     ingredients: string,
     image: string,
-    favourite: boolean
+    favorite: boolean
 };
 
 enum SortCocktails {
@@ -42,7 +42,7 @@ export const GalleryAnt = () => {
         setCocktails(cocktails.filter( cocktail => cocktail.id !== id))
     };
 
-    const favouriteToggle = async (id: number, name: string, howto: string, ingredients: string, image: string, favourite: boolean) => {
+    const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
         await fetch('http://localhost:3001/cocktails/' + id, {
             method: 'PUT',
             headers: {
@@ -51,10 +51,10 @@ export const GalleryAnt = () => {
             body: JSON.stringify({
                 id: id,
                 name: name,
-                howto: howto,
+                howTo: howTo,
                 ingredients: ingredients,
                 image: image,
-                favourite: favourite
+                favorite: favorite
             }),
         });
     };
@@ -66,7 +66,7 @@ export const GalleryAnt = () => {
     return (
     <GallerySpace direction='vertical'>
         <GalleryHeader searchInput={searchInput} inputChangeHandle={inputChangeHandle} sortButton={sortButton} sortButtonChangeHandle={sortButtonChangeHandle} />
-        <GalleryCocktailWrapper  cocktails={cocktails} searchInput={searchInput} deleteCocktail={deleteCocktail} favouriteToggle={favouriteToggle} loading={loading} error={error} />
+        <GalleryCocktailWrapper  cocktails={cocktails} searchInput={searchInput} deleteCocktail={deleteCocktail} favoriteToggle={favoriteToggle} loading={loading} error={error} />
         <BackTop />
     </GallerySpace>
     )

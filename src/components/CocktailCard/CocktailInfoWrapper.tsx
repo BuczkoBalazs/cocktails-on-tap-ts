@@ -7,10 +7,10 @@ const { Paragraph } = Typography;
 type CocktailDetails = {
     id: number,
     name: string,
-    howto: string,
+    howTo: string,
     ingredients: string,
     image: string,
-    favourite: boolean
+    favorite: boolean
 };
 
 type CocktailInfoWrapperProps = {
@@ -21,7 +21,7 @@ export const CocktailInfoWrapper = ({ cocktail }: CocktailInfoWrapperProps) => {
   return (
     <CocktailInfoSpace direction='vertical'>
         <Divider orientation='left'>How to make:</Divider>
-        <Paragraph>{cocktail.howto}</Paragraph>
+        <Paragraph>{cocktail.howTo}</Paragraph>
         <Divider orientation='left'>Ingredients:</Divider>
         <Paragraph>{cocktail.ingredients}</Paragraph>
     </CocktailInfoSpace>

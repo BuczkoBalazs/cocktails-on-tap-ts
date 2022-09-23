@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Spin, Result } from 'antd';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import 'antd/dist/antd.css';
-import { CocktailWrapperSpace } from './FavouritesAntStyle';
+import { CocktailWrapperSpace } from './FavoritesAntStyle';
 import { useFetch } from '../hooks/useFetch';
 
 type CocktailDetails = {
     id: number,
     name: string,
-    howto: string,
+    howTo: string,
     ingredients: string,
     image: string,
-    favourite: boolean
+    favorite: boolean
 };
 
-export const FavouritesCocktailWrapper = () => {
+export const FavoritesCocktailWrapper = () => {
 
     const { data, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
 
@@ -27,7 +27,7 @@ export const FavouritesCocktailWrapper = () => {
         setCocktails(cocktails.filter( cocktail => cocktail.id !== id))
     };
 
-    const favouriteToggle = async (id: number, name: string, howto: string, ingredients: string, image: string, favourite: boolean) => {
+    const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
         await fetch('http://localhost:3001/cocktails/' + id, {
             method: 'PUT',
             headers: {
@@ -36,13 +36,13 @@ export const FavouritesCocktailWrapper = () => {
             body: JSON.stringify({
                 id: id,
                 name: name,
-                howto: howto,
+                howTo: howTo,
                 ingredients: ingredients,
                 image: image,
-                favourite: favourite
+                favorite: favorite
             }),
         });
-        setCocktails(cocktails.filter(cocktail => cocktail.favourite && cocktail.id !== id))
+        setCocktails(cocktails.filter(cocktail => cocktail.favorite && cocktail.id !== id))
     };
 
     useEffect( () => {
@@ -52,7 +52,7 @@ export const FavouritesCocktailWrapper = () => {
     return (
         <>
             {cocktails.length > 0 && <CocktailWrapperSpace wrap={true}>
-                {cocktails.map((cocktail: CocktailDetails) => cocktail.favourite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favouriteToggle={favouriteToggle} />)}
+                {cocktails.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favoriteToggle={favoriteToggle} />)}
                 </CocktailWrapperSpace>
             }
             {loading && <Spin />}

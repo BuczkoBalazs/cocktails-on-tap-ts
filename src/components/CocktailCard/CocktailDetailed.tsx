@@ -5,10 +5,10 @@ import { CocktailInfoWrapper } from './CocktailInfoWrapper';
 type CocktailDetails = {
     id: number,
     name: string,
-    howto: string,
+    howTo: string,
     ingredients: string,
     image: string,
-    favourite: boolean
+    favorite: boolean
 };
 
 type CocktailDetailedProps = {

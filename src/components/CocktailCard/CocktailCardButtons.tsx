@@ -5,29 +5,29 @@ import { SortButton } from '../Gallery/GalleryAntStyle';
 type CocktailDetails = {
     id: number,
     name: string,
-    howto: string,
+    howTo: string,
     ingredients: string,
     image: string,
-    favourite: boolean
+    favorite: boolean
 };
 
 type CocktailCardButtonsProps = {
     cocktail: CocktailDetails,
     deleteCocktail: (id: number) => void,
-    favouriteToggle: (id: number, name: string, howto: string, ingredients: string, image: string, favourite: boolean) => void 
+    favoriteToggle: (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => void 
 };
 
-export const CocktailCardButtons = ({ cocktail, deleteCocktail, favouriteToggle }: CocktailCardButtonsProps) => {
+export const CocktailCardButtons = ({ cocktail, deleteCocktail, favoriteToggle }: CocktailCardButtonsProps) => {
 
-    const [fav, setFav] = useState<boolean>(cocktail.favourite);
+    const [fav, setFav] = useState<boolean>(cocktail.favorite);
 
     return (
     <>
         <SortButton shape='round' onClick={() => {
-            favouriteToggle(cocktail.id, cocktail.name, cocktail.howto, cocktail.ingredients, cocktail.image, !fav)
+            favoriteToggle(cocktail.id, cocktail.name, cocktail.howTo, cocktail.ingredients, cocktail.image, !fav)
             setFav(!fav)
         }}>
-            {fav ? 'Favourite' : 'Not favourite'}
+            {fav ? 'Favorite' : 'Not favorite'}
         </SortButton>     
         <SortButton shape='round' onClick={() => deleteCocktail(cocktail.id)}>Delete</SortButton>
     </>

@@ -9,7 +9,7 @@ type AddCocktailInput = {
   howto: string,
   ingredients: string,
   image: string,
-  favourite: string
+  favorite: string
 }
 
 export const AddCocktail = () => {
@@ -25,7 +25,7 @@ export const AddCocktail = () => {
           howto: values.howto,
           ingredients: values.ingredients,
           image: values.image,
-          favourite: JSON.parse(values.favourite),
+          favorite: JSON.parse(values.favorite),
         }),
       })
       message.success(`${values.name} has been added.`);
@@ -82,8 +82,8 @@ export const AddCocktail = () => {
       </Form.Item>
   
       <Form.Item
-        label="Favourite"
-        name="favourite"
+        label="favorite"
+        name="favorite"
         rules={[{ required: true, message: 'Please input the ingredients needed!' }]}
       >
         <Select>

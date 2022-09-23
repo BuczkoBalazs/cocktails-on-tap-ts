@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { FavouritesAnt } from './components/Favourites/FavouritesAnt';
+import { FavoritesAnt } from './components/Favorites/FavoritesAnt';
 import { GalleryAnt } from './components/Gallery/GalleryAnt';
 import { HeaderAnt } from './components/Header/HeaderAnt';
 import { LandingAnt } from './components/Landingpage/LandingAnt';
@@ -20,7 +20,7 @@ root.render(
           <Routes>
             <Route path='/' element={<LandingAnt />} />
             <Route path='/gallery' element={<GalleryAnt />} />
-            <Route path='/favourites' element={<FavouritesAnt />} />
+            <Route path='/favourites' element={<FavoritesAnt />} />
             <Route path='/add' element={<AddCocktail />} />
             <Route path='*' element={<RouteNotFound />} />
           </Routes>
