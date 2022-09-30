@@ -7,7 +7,10 @@ export const Login = () => {
 
     const loginContext = useContext(LoginContext);
 
-    const handleLogin = () => loginContext.setUser({name: input});
+    const handleLogin = () => {
+        loginContext.setUser({name: input});
+        setInput('')
+    }
 
     const handleLogout = () => loginContext.setUser({name: 'Guest'});
 
