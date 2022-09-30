@@ -33,11 +33,11 @@ export const items: MenuProps['items'] = [
   },
   {
     label: (
-      <a href="http://localhost:3000/favourites" rel="noopener noreferrer">
-        Favourites
+      <a href="http://localhost:3000/favorites" rel="noopener noreferrer">
+        Favorites
       </a>
     ),
-    key: 'favourites',
+    key: 'favorites',
   },
   {
     label: (

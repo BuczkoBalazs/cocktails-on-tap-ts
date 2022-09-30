@@ -20,7 +20,7 @@ root.render(
           <Routes>
             <Route path='/' element={<LandingAnt />} />
             <Route path='/gallery' element={<GalleryAnt />} />
-            <Route path='/favourites' element={<FavoritesAnt />} />
+            <Route path='/favorites' element={<FavoritesAnt />} />
             <Route path='/add' element={<AddCocktail />} />
             <Route path='*' element={<RouteNotFound />} />
           </Routes>
