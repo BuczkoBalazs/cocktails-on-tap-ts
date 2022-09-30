@@ -1,13 +1,14 @@
 import { MenuProps } from 'antd';
 import { HomeIcon } from './HeaderAntStyle';
+import { Link } from "react-router-dom";
 
 
 export const logo: MenuProps['items'] = [
   {
     label: (
-      <a href="http://localhost:3000/" rel="noopener noreferrer">
+      <Link to="/">
         Cocktails on tap
-      </a>
+      </Link>
     ),
     key: 'home',
   },
@@ -16,34 +17,34 @@ export const logo: MenuProps['items'] = [
 export const items: MenuProps['items'] = [
   {
     label: (
-      <a href="http://localhost:3000/" rel="noopener noreferrer">
+      <Link to="/">
         Home
-      </a>
+      </Link>
     ),
     key: 'home',
     icon: <HomeIcon />,
   },
   {
     label: (
-      <a href="http://localhost:3000/gallery" rel="noopener noreferrer">
+      <Link to="/gallery">
         Gallery
-      </a>
+      </Link>
     ),
     key: 'gallery',
   },
   {
     label: (
-      <a href="http://localhost:3000/favorites" rel="noopener noreferrer">
+      <Link to="/favorites">
         Favorites
-      </a>
+      </Link>
     ),
     key: 'favorites',
   },
   {
     label: (
-      <a href="http://localhost:3000/add" rel="noopener noreferrer">
+      <Link to="/add">
         Add Cocktail
-      </a>
+      </Link>
     ),
     key: 'add',
   }

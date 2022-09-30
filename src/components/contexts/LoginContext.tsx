@@ -19,6 +19,7 @@ export const LoginContext = createContext({} as LoginContextType);
 export const LoginContextProvider = ({ children }: LoginContextProviderProps) => {
 
     const [user, setUser] = useState<User>({name: 'Guest'})
+    
     return (
         <LoginContext.Provider value={{ user, setUser }}>
             {children}
