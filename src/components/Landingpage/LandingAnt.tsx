@@ -19,7 +19,7 @@ export const LandingAnt = () => {
         {(slides.length > 0) && <LandingCarousel
         autoplay={true}
         effect="fade"
-        dotPosition='right'
+        dotPosition='bottom'
         draggable={true}
         infinite={true}
         pauseOnHover={false}
