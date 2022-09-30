@@ -18,7 +18,7 @@ export const Login = () => {
     return (
 
     <Space>
-        <Input type="text" value={input} onChange={inputChangeHandle} />
+        {loginContext.user.name === 'Guest' && <Input type="text" value={input} onChange={inputChangeHandle} />}
         {loginContext.user.name === 'Guest' && <Button onClick={handleLogin}>Login</Button>}
         {loginContext.user.name !== 'Guest' && <Button onClick={handleLogout}>Logout</Button>}
         <p style={{ color: 'darkkhaki' }}>Hello, {loginContext?.user?.name}!</p>
