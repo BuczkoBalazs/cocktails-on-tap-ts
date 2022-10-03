@@ -1,18 +1,17 @@
 import React, { createContext, useState } from 'react';
 
-
 export type User = {
     name: string
-}
+};
 
 export type LoginContextType = {
     user: User,
     setUser: React.Dispatch<React.SetStateAction<User>>
-}
+};
 
 type LoginContextProviderProps = {
     children: React.ReactNode
-}
+};
 
 export const LoginContext = createContext({} as LoginContextType);
 
@@ -25,4 +24,4 @@ export const LoginContextProvider = ({ children }: LoginContextProviderProps) =>
             {children}
         </LoginContext.Provider>
     )
-}
+};

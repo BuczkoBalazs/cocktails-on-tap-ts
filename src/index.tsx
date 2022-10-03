@@ -14,17 +14,17 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <LoginContextProvider>
-        <BrowserRouter>
-          <HeaderAnt />
-          <Routes>
-            <Route path='/' element={<LandingAnt />} />
-            <Route path='/gallery' element={<GalleryAnt />} />
-            <Route path='/favorites' element={<FavoritesAnt />} />
-            <Route path='/add' element={<AddCocktail />} />
-            <Route path='*' element={<RouteNotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </LoginContextProvider>
+    <LoginContextProvider>
+      <BrowserRouter>
+        <HeaderAnt />
+        <Routes>
+          <Route path='/' element={<LandingAnt />} />
+          <Route path='/gallery' element={<GalleryAnt />} />
+          <Route path='/favorites' element={<FavoritesAnt />} />
+          <Route path='/add' element={<AddCocktail />} />
+          <Route path='*' element={<RouteNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </LoginContextProvider>
   </React.StrictMode>
 );

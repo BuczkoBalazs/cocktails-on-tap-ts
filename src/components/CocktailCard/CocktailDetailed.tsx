@@ -14,4 +14,4 @@ export const CocktailDetailed = ({ cocktail }: CocktailDetailedProps) => {
         <CocktailInfoWrapper cocktail={cocktail} />
     </Space>
   )
-}
+};

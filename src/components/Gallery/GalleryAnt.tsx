@@ -14,7 +14,7 @@ enum SortCocktails {
 
 export const GalleryAnt = () => {
 
-    console.log("GalleryAnt rendered")
+    console.log("GalleryAnt rendered");
 
     const { data, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
     
@@ -33,7 +33,7 @@ export const GalleryAnt = () => {
         await fetch('http://localhost:3001/cocktails/' + id, {
             method: 'DELETE'
         });
-        setCocktails(cocktails.filter( cocktail => cocktail.id !== id))
+        setCocktails(cocktails.filter( cocktail => cocktail.id !== id));
     };
 
     const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
@@ -54,7 +54,7 @@ export const GalleryAnt = () => {
     };
 
     useEffect( () => {
-        setCocktails(data)
+        setCocktails(data);
     }, [data]);
 
     return (
@@ -64,4 +64,4 @@ export const GalleryAnt = () => {
         <BackTop />
     </GallerySpace>
     )
-}
+};

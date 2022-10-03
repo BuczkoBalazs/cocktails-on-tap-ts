@@ -6,19 +6,19 @@ import { CocktailWrapperSpace } from './FavoritesAntStyle';
 import { useFetch } from '../hooks/useFetch';
 import { CocktailDetails } from '../Type/CocktailDetailsType';
 
-export const FavoritesCocktailWrapper = React.memo(() => {
+export const FavoritesCocktailWrapper = React.memo( () => {
 
     console.log("FavoritesCocktailWrapper rendered")
 
     const { data, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
 
-    const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([])
+    const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([]);
 
     const deleteCocktail = async (id: number) => {
         await fetch('http://localhost:3001/cocktails/' + id, {
             method: 'DELETE'
         });
-        setCocktails(cocktails.filter( cocktail => cocktail.id !== id))
+        setCocktails(cocktails.filter( cocktail => cocktail.id !== id));
     };
 
     const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
@@ -36,11 +36,11 @@ export const FavoritesCocktailWrapper = React.memo(() => {
                 favorite: favorite
             }),
         });
-        setCocktails(cocktails.filter(cocktail => cocktail.favorite && cocktail.id !== id))
+        setCocktails(cocktails.filter(cocktail => cocktail.favorite && cocktail.id !== id));
     };
 
     useEffect( () => {
-        setCocktails(data)
+        setCocktails(data);
     }, [data]);
 
     return (
@@ -58,4 +58,4 @@ export const FavoritesCocktailWrapper = React.memo(() => {
             />}
         </>
     )
-})
+});

@@ -1,4 +1,3 @@
-import React from 'react';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import { Button, Spin, Result } from 'antd';
 import 'antd/dist/antd.css';
@@ -12,11 +11,11 @@ type GalleryCocktailWrapperProps = {
     favoriteToggle: (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => void,
     loading: boolean,
     error: string | null
-}
+};
 
 export const GalleryCocktailWrapper = ({ cocktails, searchInput, deleteCocktail, favoriteToggle, loading, error  }: GalleryCocktailWrapperProps) => {
 
-    console.log("GalleryCocktailWrapper rendered")
+    console.log("GalleryCocktailWrapper rendered");
 
     return (
     <CocktailWrapperSpace wrap={true}>
@@ -31,4 +30,4 @@ export const GalleryCocktailWrapper = ({ cocktails, searchInput, deleteCocktail,
         />}
     </CocktailWrapperSpace>
     )
-}
+};

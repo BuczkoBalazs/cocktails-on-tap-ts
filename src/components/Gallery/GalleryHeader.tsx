@@ -26,4 +26,4 @@ export const GalleryHeader = React.memo(({ searchInput, inputChangeHandle, sortB
         <SortButton onClick={sortButtonChangeHandle} block >{sortButton}</SortButton>
     </Space>
     )
-})
+});

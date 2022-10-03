@@ -16,12 +16,12 @@ export const CocktailCardButtons = ({ cocktail, deleteCocktail, favoriteToggle }
     return (
     <>
         <SortButton shape='round' onClick={() => {
-            favoriteToggle(cocktail.id, cocktail.name, cocktail.howTo, cocktail.ingredients, cocktail.image, !fav)
-            setFav(!fav)
+            favoriteToggle(cocktail.id, cocktail.name, cocktail.howTo, cocktail.ingredients, cocktail.image, !fav);
+            setFav(!fav);
         }}>
             {fav ? 'Favorite' : 'Not favorite'}
         </SortButton>     
         <SortButton shape='round' onClick={() => deleteCocktail(cocktail.id)}>Delete</SortButton>
     </>
     )
-}
+};

@@ -12,7 +12,7 @@ type LandingSlide = {
 
 export const LandingAnt = () => {
 
-    const { data: slides, loading, error } = useFetch<LandingSlide[]>('http://localhost:3001/landingSlides')
+    const { data: slides, loading, error } = useFetch<LandingSlide[]>('http://localhost:3001/landingSlides');
 
     return (
     <>

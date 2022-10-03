@@ -12,10 +12,10 @@ type CocktailInfoWrapperProps = {
 export const CocktailInfoWrapper = ({ cocktail }: CocktailInfoWrapperProps) => {
   return (
     <CocktailInfoSpace direction='vertical'>
-        <Divider orientation='left'>How to make:</Divider>
-        <Paragraph>{cocktail.howTo}</Paragraph>
-        <Divider orientation='left'>Ingredients:</Divider>
-        <Paragraph>{cocktail.ingredients}</Paragraph>
+      <Divider orientation='left'>How to make:</Divider>
+      <Paragraph>{cocktail.howTo}</Paragraph>
+      <Divider orientation='left'>Ingredients:</Divider>
+      <Paragraph>{cocktail.ingredients}</Paragraph>
     </CocktailInfoSpace>
   )
-}
+};

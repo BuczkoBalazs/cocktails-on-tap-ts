@@ -9,8 +9,8 @@ export const Login = () => {
 
     const handleLogin = () => {
         loginContext.setUser({name: input});
-        setInput('')
-    }
+        setInput('');
+    };
 
     const handleLogout = () => loginContext.setUser({name: 'Guest'});
 
@@ -19,7 +19,6 @@ export const Login = () => {
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
 
     return (
-
     <Space>
         {loginContext.user.name === 'Guest' && <Input type="text" value={input} onChange={inputChangeHandle} />}
         {loginContext.user.name === 'Guest' && <Button onClick={handleLogin}>Login</Button>}
@@ -27,4 +26,4 @@ export const Login = () => {
         <p style={{ color: 'darkkhaki' }}>Hello, {loginContext?.user?.name}!</p>
     </Space>
     )
-}
+};

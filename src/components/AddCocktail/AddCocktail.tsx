@@ -6,11 +6,11 @@ const { Option } = Select;
 
 type AddCocktailInput = {
   name: string,
-  howto: string,
+  howTo: string,
   ingredients: string,
   image: string,
   favorite: string
-}
+};
 
 export const AddCocktail = () => {
 
@@ -22,12 +22,12 @@ export const AddCocktail = () => {
         },
         body: JSON.stringify({
           name: values.name,
-          howto: values.howto,
+          howTo: values.howTo,
           ingredients: values.ingredients,
           image: values.image,
           favorite: JSON.parse(values.favorite),
-        }),
-      })
+        })
+      });
       message.success(`${values.name} has been added.`);
       console.log('Success:', values);
     };
@@ -99,5 +99,4 @@ export const AddCocktail = () => {
       </Form.Item>
     </AddForm>
   </AddSpace>
-  )
-}
+)};

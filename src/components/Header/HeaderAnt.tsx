@@ -14,4 +14,4 @@ export const HeaderAnt = () => {
       </MenuWrapper>
     </NavBar>
   )
-}
+};
