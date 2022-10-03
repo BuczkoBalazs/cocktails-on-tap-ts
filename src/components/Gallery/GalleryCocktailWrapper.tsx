@@ -25,6 +25,8 @@ type GalleryCocktailWrapperProps = {
 
 export const GalleryCocktailWrapper = ({ cocktails, searchInput, deleteCocktail, favoriteToggle, loading, error  }: GalleryCocktailWrapperProps) => {
 
+    console.log("GalleryCocktailWrapper rendered")
+
     return (
     <CocktailWrapperSpace wrap={true}>
         {cocktails.length > 0 && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favoriteToggle={favoriteToggle} />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Spin, Result } from 'antd';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import 'antd/dist/antd.css';
@@ -14,11 +14,13 @@ type CocktailDetails = {
     favorite: boolean
 };
 
-export const FavoritesCocktailWrapper = () => {
+export const FavoritesCocktailWrapper = React.memo(() => {
+
+    console.log("FavoritesCocktailWrapper rendered")
 
     const { data, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
 
-    const [cocktails, setCocktails] =useState<CocktailDetails[] | []>([])
+    const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([])
 
     const deleteCocktail = async (id: number) => {
         await fetch('http://localhost:3001/cocktails/' + id, {
@@ -64,4 +66,4 @@ export const FavoritesCocktailWrapper = () => {
             />}
         </>
     )
-}
+})

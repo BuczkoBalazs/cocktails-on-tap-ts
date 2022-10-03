@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { GalleryHeader } from './GalleryHeader';
 import { BackTop } from 'antd';
 import 'antd/dist/antd.css';
@@ -22,18 +22,20 @@ enum SortCocktails {
 
 export const GalleryAnt = () => {
 
+    console.log("GaaleryAnt rendered")
+
     const { data, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
     
     const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC);
     const [cocktails, setCocktails] =useState<CocktailDetails[] | []>([])
 
-    const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
+    const inputChangeHandle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value), []);
 
-    const sortButtonChangeHandle = () => {
+    const sortButtonChangeHandle = useCallback(() => {
         cocktails.sort( (a: CocktailDetails,b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
         setSortButton(sortButton === SortCocktails.ASC ? SortCocktails.DESC : SortCocktails.ASC);
-    };
+    }, [sortButton]);
 
     const deleteCocktail = async (id: number) => {
         await fetch('http://localhost:3001/cocktails/' + id, {

@@ -9,6 +9,8 @@ const { Title } = Typography;
 
 export const FavoritesAnt = () => {
 
+    console.log("FavoritesAnt rendered")
+
     const loginContext = useContext(LoginContext);
 
     return (
