@@ -3,16 +3,7 @@ import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import { Button, Spin, Result } from 'antd';
 import 'antd/dist/antd.css';
 import { CocktailWrapperSpace } from '../Favorites/FavoritesAntStyle';
-
-
-type CocktailDetails = {
-    id: number,
-    name: string,
-    howTo: string,
-    ingredients: string,
-    image: string,
-    favorite: boolean
-};
+import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 type GalleryCocktailWrapperProps = {
     cocktails: CocktailDetails[],

@@ -4,15 +4,7 @@ import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import 'antd/dist/antd.css';
 import { CocktailWrapperSpace } from './FavoritesAntStyle';
 import { useFetch } from '../hooks/useFetch';
-
-type CocktailDetails = {
-    id: number,
-    name: string,
-    howTo: string,
-    ingredients: string,
-    image: string,
-    favorite: boolean
-};
+import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 export const FavoritesCocktailWrapper = React.memo(() => {
 

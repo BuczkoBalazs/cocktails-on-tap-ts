@@ -1,15 +1,7 @@
 import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { SortButton } from '../Gallery/GalleryAntStyle';
-
-type CocktailDetails = {
-    id: number,
-    name: string,
-    howTo: string,
-    ingredients: string,
-    image: string,
-    favorite: boolean
-};
+import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 type CocktailCardButtonsProps = {
     cocktail: CocktailDetails,

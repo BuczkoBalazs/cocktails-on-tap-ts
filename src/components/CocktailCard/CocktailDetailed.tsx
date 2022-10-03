@@ -1,15 +1,7 @@
 import { Image, Space } from 'antd';
 import 'antd/dist/antd.css';
 import { CocktailInfoWrapper } from './CocktailInfoWrapper';
-
-type CocktailDetails = {
-    id: number,
-    name: string,
-    howTo: string,
-    ingredients: string,
-    image: string,
-    favorite: boolean
-};
+import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 type CocktailDetailedProps = {
     cocktail: CocktailDetails

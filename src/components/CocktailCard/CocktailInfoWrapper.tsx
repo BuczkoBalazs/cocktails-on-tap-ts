@@ -1,17 +1,9 @@
 import { Divider, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { CocktailInfoSpace } from './CocktailAntStyle';
+import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 const { Paragraph } = Typography;
-
-type CocktailDetails = {
-    id: number,
-    name: string,
-    howTo: string,
-    ingredients: string,
-    image: string,
-    favorite: boolean
-};
 
 type CocktailInfoWrapperProps = {
     cocktail: CocktailDetails

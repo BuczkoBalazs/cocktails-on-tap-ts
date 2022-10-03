@@ -2,15 +2,7 @@ import 'antd/dist/antd.css';
 import { CocktailCard} from './CocktailAntStyle';
 import { CocktailDetailed } from './CocktailDetailed';
 import { CocktailCardButtons } from './CocktailCardButtons';
-
-type CocktailDetails = {
-    id: number,
-    name: string,
-    howTo: string,
-    ingredients: string,
-    image: string,
-    favorite: boolean
-};
+import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 type CocktailAntProps = {
     cocktail: CocktailDetails,
