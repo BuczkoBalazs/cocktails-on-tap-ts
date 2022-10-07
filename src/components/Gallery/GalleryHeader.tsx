@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Input, Space, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { SortButton } from './GalleryAntStyle';
@@ -13,7 +13,9 @@ type GalleryHeaderProps = {
     sortButton: string
 };
 
-export const GalleryHeader = ({ searchInput, inputChangeHandle, sortButtonChangeHandle, sortButton }: GalleryHeaderProps) => {
+export const GalleryHeader = React.memo(({ searchInput, inputChangeHandle, sortButtonChangeHandle, sortButton }: GalleryHeaderProps) => {
+
+    console.log("GalleryHeader")
 
     const loginContext = useContext(LoginContext);
 
@@ -24,4 +26,4 @@ export const GalleryHeader = ({ searchInput, inputChangeHandle, sortButtonChange
         <SortButton onClick={sortButtonChangeHandle} block >{sortButton}</SortButton>
     </Space>
     )
-}
+});

@@ -1,33 +1,25 @@
-import React from 'react';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import { Button, Spin, Result } from 'antd';
 import 'antd/dist/antd.css';
-import { CocktailWrapperSpace } from '../Favourites/FavouritesAntStyle';
-
-
-type CocktailDetails = {
-    id: number,
-    name: string,
-    howto: string,
-    ingredients: string,
-    image: string,
-    favourite: boolean
-};
+import { CocktailWrapperSpace } from '../Favorites/FavoritesAntStyle';
+import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 type GalleryCocktailWrapperProps = {
     cocktails: CocktailDetails[],
     searchInput: string,
     deleteCocktail: (id: number) => void,
-    favouriteToggle: (id: number, name: string, howto: string, ingredients: string, image: string, favourite: boolean) => void,
+    favoriteToggle: (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => void,
     loading: boolean,
     error: string | null
-}
+};
 
-export const GalleryCocktailWrapper = ({ cocktails, searchInput, deleteCocktail, favouriteToggle, loading, error  }: GalleryCocktailWrapperProps) => {
+export const GalleryCocktailWrapper = ({ cocktails, searchInput, deleteCocktail, favoriteToggle, loading, error  }: GalleryCocktailWrapperProps) => {
+
+    console.log("GalleryCocktailWrapper rendered");
 
     return (
     <CocktailWrapperSpace wrap={true}>
-        {cocktails.length > 0 && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favouriteToggle={favouriteToggle} />
+        {cocktails.length > 0 && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favoriteToggle={favoriteToggle} />
         )}
         {loading && <Spin />}
         {error && <Result
@@ -38,4 +30,4 @@ export const GalleryCocktailWrapper = ({ cocktails, searchInput, deleteCocktail,
         />}
     </CocktailWrapperSpace>
     )
-}
+};

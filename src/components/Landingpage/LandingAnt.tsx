@@ -12,14 +12,14 @@ type LandingSlide = {
 
 export const LandingAnt = () => {
 
-    const { data: slides, loading, error } = useFetch<LandingSlide[]>('http://localhost:3001/landingSlides')
+    const { data: slides, loading, error } = useFetch<LandingSlide[]>('http://localhost:3001/landingSlides');
 
     return (
     <>
         {(slides.length > 0) && <LandingCarousel
         autoplay={true}
         effect="fade"
-        dotPosition='right'
+        dotPosition='bottom'
         draggable={true}
         infinite={true}
         pauseOnHover={false}

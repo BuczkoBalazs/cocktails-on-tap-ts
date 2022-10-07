@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import { FavSpace } from '../Favourites/FavouritesAntStyle';
+import { FavSpace } from '../Favorites/FavoritesAntStyle';
 import 'antd/dist/antd.css';
 import styled from '@emotion/styled';
 

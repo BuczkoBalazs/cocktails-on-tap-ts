@@ -1,15 +1,7 @@
 import { Image, Space } from 'antd';
 import 'antd/dist/antd.css';
 import { CocktailInfoWrapper } from './CocktailInfoWrapper';
-
-type CocktailDetails = {
-    id: number,
-    name: string,
-    howto: string,
-    ingredients: string,
-    image: string,
-    favourite: boolean
-};
+import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 type CocktailDetailedProps = {
     cocktail: CocktailDetails
@@ -22,4 +14,4 @@ export const CocktailDetailed = ({ cocktail }: CocktailDetailedProps) => {
         <CocktailInfoWrapper cocktail={cocktail} />
     </Space>
   )
-}
+};

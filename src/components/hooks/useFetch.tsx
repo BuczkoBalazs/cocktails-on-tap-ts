@@ -34,11 +34,11 @@ export const useFetch = <T,>(url: string): {data: T | [], loading: boolean, erro
                 setLoading(false);
                 setError(err.message);
             }
-        })
+        });
 
         return () => abortFetch.abort();
 
     }, [url]);
 
-    return { data, loading, error }
-}
+    return { data, loading, error };
+};
