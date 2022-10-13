@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useQuery, gql } from '@apollo/client';
 import { GalleryHeader } from './GalleryHeader';
 import { BackTop } from 'antd';
 import 'antd/dist/antd.css';
 import { GallerySpace } from './GalleryAntStyle';
-import { useFetch } from '../hooks/useFetch';
 import { GalleryCocktailWrapper } from './GalleryCocktailWrapper';
 import { CocktailDetails } from '../Type/CocktailDetailsType';
 
@@ -12,28 +12,45 @@ enum SortCocktails {
     DESC = 'Sort descending'
 };
 
+type CocktailDetailsArray = {
+    cocktails: CocktailDetails[]
+};
+
 export const GalleryAnt = () => {
 
-    console.log("GalleryAnt rendered");
+    const GET_FAVORITES = gql`
+        query getFavorites {
+            cocktails {
+                id
+                name
+                howTo
+                ingredients
+                image
+                favorite
+            }
+        }
+    `
 
-    const { data, loading, error } = useFetch<CocktailDetails[]>('http://localhost:3001/cocktails');
+    const { data, loading, error } = useQuery<CocktailDetailsArray | null>(GET_FAVORITES);
+
+    console.log(data?.cocktails)
     
     const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC);
-    const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([]);
+    // const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([]);
 
-    const inputChangeHandle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value), []);
+    const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
-    const sortButtonChangeHandle = useCallback(() => {
-        cocktails.sort((a: CocktailDetails,b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+    const sortButtonChangeHandle = () => {
+        [...data?.cocktails!].sort((a: CocktailDetails, b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
         setSortButton(sortButton === SortCocktails.ASC ? SortCocktails.DESC : SortCocktails.ASC);
-    }, [sortButton]);
+    };
 
     const deleteCocktail = async (id: number) => {
         await fetch('http://localhost:3001/cocktails/' + id, {
             method: 'DELETE'
         });
-        setCocktails(cocktails.filter( cocktail => cocktail.id !== id));
+        // setCocktails(cocktails.filter( cocktail => cocktail.id !== id));
     };
 
     const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
@@ -53,14 +70,14 @@ export const GalleryAnt = () => {
         });
     };
 
-    useEffect( () => {
-        setCocktails(data);
-    }, [data]);
+    // useEffect( () => {
+    //     setCocktails(data);
+    // }, [data]);
 
     return (
     <GallerySpace direction='vertical'>
         <GalleryHeader searchInput={searchInput} inputChangeHandle={inputChangeHandle} sortButton={sortButton} sortButtonChangeHandle={sortButtonChangeHandle} />
-        <GalleryCocktailWrapper  cocktails={cocktails} searchInput={searchInput} deleteCocktail={deleteCocktail} favoriteToggle={favoriteToggle} loading={loading} error={error} />
+        <GalleryCocktailWrapper  data={data} searchInput={searchInput} deleteCocktail={deleteCocktail} favoriteToggle={favoriteToggle} loading={loading} error={error} />
         <BackTop />
     </GallerySpace>
     )

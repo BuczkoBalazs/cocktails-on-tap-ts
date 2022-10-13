@@ -1,6 +1,7 @@
+import { gql, useQuery } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Button, Spin, Result } from 'antd';
-import { useFetch } from '../hooks/useFetch';
 import { LandingSlideDetails } from './LandingSlideDetails';
 import { LandingCarousel } from './LandingAntStyle';
 
@@ -10,13 +11,29 @@ type LandingSlide = {
     text: string
 };
 
+type LandingSlides = {
+    landingSlides: LandingSlide[]
+};
+
 export const LandingAnt = () => {
 
-    const { data: slides, loading, error } = useFetch<LandingSlide[]>('http://localhost:3001/landingSlides');
+    const GET_SLIDES = gql`
+        query getSlides {
+            landingSlides {
+                id
+                title
+                text
+            }
+        }
+    `
+
+    const { data: slides, loading, error }= useQuery<LandingSlides | null>(GET_SLIDES);
+
+    const navigate = useNavigate();
 
     return (
     <>
-        {(slides.length > 0) && <LandingCarousel
+        {slides && <LandingCarousel
         autoplay={true}
         effect="fade"
         dotPosition='bottom'
@@ -25,15 +42,15 @@ export const LandingAnt = () => {
         pauseOnHover={false}
         pauseOnDotsHover={true}
         >
-            {slides.map( (slide: LandingSlide) => <LandingSlideDetails key={slide.id} slide={slide} />
+            {slides.landingSlides.map( (slide: LandingSlide) => <LandingSlideDetails key={slide.id} slide={slide} />
             )}
         </LandingCarousel>}
         {loading && <Spin />}
         {error && <Result
             status="500"
             title="500"
-            subTitle={error}
-            extra={<Button type="link" href='http://localhost:3000/'>Back Home</Button>}
+            subTitle={error.message}
+            extra={<Button type="primary" onClick={() => navigate('/')}>Back Home</Button>}
         />}
     </>
     )

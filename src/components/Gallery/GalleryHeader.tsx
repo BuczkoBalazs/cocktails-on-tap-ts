@@ -13,9 +13,7 @@ type GalleryHeaderProps = {
     sortButton: string
 };
 
-export const GalleryHeader = React.memo(({ searchInput, inputChangeHandle, sortButtonChangeHandle, sortButton }: GalleryHeaderProps) => {
-
-    console.log("GalleryHeader")
+export const GalleryHeader = ({ searchInput, inputChangeHandle, sortButtonChangeHandle, sortButton }: GalleryHeaderProps) => {
 
     const loginContext = useContext(LoginContext);
 
@@ -26,4 +24,4 @@ export const GalleryHeader = React.memo(({ searchInput, inputChangeHandle, sortB
         <SortButton onClick={sortButtonChangeHandle} block >{sortButton}</SortButton>
     </Space>
     )
-});
+};
