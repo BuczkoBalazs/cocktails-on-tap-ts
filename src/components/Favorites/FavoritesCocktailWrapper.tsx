@@ -33,7 +33,7 @@ const GET_FAVORITES = gql`
 `;
 
 const TOGGLE_FAVORITES = gql`
-    mutation updateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
+    mutation updateCocktail($updateCocktailId: Int!, $input: UpdateCocktailInput!) {
         updateCocktail(id: $updateCocktailId, input: $input) {
             name
             howTo
@@ -49,7 +49,7 @@ export const FavoritesCocktailWrapper = React.memo( () => {
 
     const { data, loading, error } = useQuery<CocktailDetailsArray | null>(GET_FAVORITES);
 
-    const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { id: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
+    const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { updateCocktailId: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
 
 
     // const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>();
@@ -61,8 +61,8 @@ export const FavoritesCocktailWrapper = React.memo( () => {
         // setCocktails(cocktails?.filter( cocktail => cocktail.id !== id));
     };
 
-    const favoriteToggle = (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
-        updateCocktail({ variables: { id: id, input: {
+    const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
+        await updateCocktail({ variables: { updateCocktailId: id, input: {
             name: name,
             howTo: howTo,
             ingredients: ingredients,
