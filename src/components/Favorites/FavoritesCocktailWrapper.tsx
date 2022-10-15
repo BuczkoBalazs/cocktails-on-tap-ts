@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useMutation } from '@apollo/client';
 import { Button, Spin, Result } from 'antd';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import 'antd/dist/antd.css';
@@ -11,22 +11,46 @@ type CocktailDetailsArray = {
     cocktails: CocktailDetails[]
 };
 
+type UpdatedCocktailInput = {
+    name: string,
+    howTo: string,
+    ingredients: string,
+    image: string,
+    favorite: boolean
+};
+
+const GET_FAVORITES = gql`
+    query getFavorites {
+        cocktails {
+            id
+            name
+            howTo
+            ingredients
+            image
+            favorite
+        }
+    }
+`;
+
+const TOGGLE_FAVORITES = gql`
+    mutation updateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
+        updateCocktail(id: $updateCocktailId, input: $input) {
+            name
+            howTo
+            ingredients
+            image
+            favorite
+        }
+    }
+`;
+
 export const FavoritesCocktailWrapper = React.memo( () => {
 
-    const GET_FAVORITES = gql`
-        query getFavorites {
-            cocktails {
-                id
-                name
-                howTo
-                ingredients
-                image
-                favorite
-            }
-        }
-    `
 
     const { data, loading, error } = useQuery<CocktailDetailsArray | null>(GET_FAVORITES);
+
+    const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { id: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
+
 
     // const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>();
 
@@ -37,21 +61,14 @@ export const FavoritesCocktailWrapper = React.memo( () => {
         // setCocktails(cocktails?.filter( cocktail => cocktail.id !== id));
     };
 
-    const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
-        await fetch('http://localhost:3001/cocktails/' + id, {
-            method: 'PUT',
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-                id: id,
-                name: name,
-                howTo: howTo,
-                ingredients: ingredients,
-                image: image,
-                favorite: favorite
-            }),
-        });
+    const favoriteToggle = (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
+        updateCocktail({ variables: { id: id, input: {
+            name: name,
+            howTo: howTo,
+            ingredients: ingredients,
+            image: image,
+            favorite: favorite
+        }}});
         // setCocktails(cocktails?.filter(cocktail => cocktail.favorite && cocktail.id !== id));
     };
 

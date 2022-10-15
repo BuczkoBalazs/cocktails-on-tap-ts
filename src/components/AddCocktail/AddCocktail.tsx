@@ -37,7 +37,7 @@ type AddCocktailInput = {
 
 export const AddCocktail = () => {
 
-  const [newCocktail] = useMutation<{ newCocktail: CocktailDetails}, { input: AddCocktailInput}>(NEW_COCKTAIL)
+  const [newCocktail] = useMutation<{ newCocktail: CocktailDetails }, { input: AddCocktailInput }>(NEW_COCKTAIL);
   
   const onFinish = (values: AddCocktailFormValue) => {
       newCocktail({variables: { input: {
