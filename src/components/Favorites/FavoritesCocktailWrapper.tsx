@@ -33,7 +33,7 @@ const GET_FAVORITES = gql`
 `;
 
 const TOGGLE_FAVORITES = gql`
-    mutation updateCocktail($updateCocktailId: Int!, $input: UpdateCocktailInput!) {
+    mutation updateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
         updateCocktail(id: $updateCocktailId, input: $input) {
             name
             howTo
@@ -44,6 +44,12 @@ const TOGGLE_FAVORITES = gql`
     }
 `;
 
+const DELETE_COCKTAIL = gql`
+    mutation deleteCocktail($deleteCocktailId: ID!) {
+        deleteCocktail(id: $deleteCocktailId)
+    }
+`;
+
 export const FavoritesCocktailWrapper = React.memo( () => {
 
 
@@ -51,13 +57,13 @@ export const FavoritesCocktailWrapper = React.memo( () => {
 
     const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { updateCocktailId: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
 
+    const [deleteCocktail] = useMutation<{ deleteCocktail: boolean }, { deleteCocktailId: number }>(DELETE_COCKTAIL);
+
 
     // const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>();
 
-    const deleteCocktail = async (id: number) => {
-        await fetch('http://localhost:3001/cocktails/' + id, {
-            method: 'DELETE'
-        });
+    const deleteCocktailHandle = async (id: number) => {
+        await deleteCocktail({ variables: { deleteCocktailId: id }})
         // setCocktails(cocktails?.filter( cocktail => cocktail.id !== id));
     };
 
@@ -81,7 +87,7 @@ export const FavoritesCocktailWrapper = React.memo( () => {
     return (
         <>
             {data && <CocktailWrapperSpace wrap={true}>
-                {data.cocktails.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favoriteToggle={favoriteToggle} />)}
+                {data.cocktails.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktailHandle={deleteCocktailHandle} favoriteToggle={favoriteToggle} />)}
                 </CocktailWrapperSpace>
             }
             {loading && <Spin />}

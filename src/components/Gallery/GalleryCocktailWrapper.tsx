@@ -9,7 +9,7 @@ import { CocktailDetails } from '../Type/CocktailDetailsType';
 type GalleryCocktailWrapperProps = {
     data: CocktailDetailsArray | null | undefined,
     searchInput: string,
-    deleteCocktail: (id: number) => void,
+    deleteCocktailHandle: (id: number) => void,
     favoriteToggle: (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => void,
     loading: boolean,
     error: ApolloError | undefined
@@ -19,13 +19,13 @@ type CocktailDetailsArray = {
     cocktails: CocktailDetails[]
 };
 
-export const GalleryCocktailWrapper = ({ data, searchInput, deleteCocktail, favoriteToggle, loading, error  }: GalleryCocktailWrapperProps) => {
+export const GalleryCocktailWrapper = ({ data, searchInput, deleteCocktailHandle, favoriteToggle, loading, error  }: GalleryCocktailWrapperProps) => {
 
     const navigate = useNavigate();
 
     return (
     <CocktailWrapperSpace wrap={true}>
-        {data && data.cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktail={deleteCocktail} favoriteToggle={favoriteToggle} />
+        {data && data.cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktailHandle={deleteCocktailHandle} favoriteToggle={favoriteToggle} />
         )}
         {loading && <Spin />}
         {error && <Result
