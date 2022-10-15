@@ -1,4 +1,5 @@
 import { ApolloError } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import { Button, Spin, Result } from 'antd';
 import 'antd/dist/antd.css';
@@ -20,7 +21,7 @@ type CocktailDetailsArray = {
 
 export const GalleryCocktailWrapper = ({ data, searchInput, deleteCocktail, favoriteToggle, loading, error  }: GalleryCocktailWrapperProps) => {
 
-    console.log("GalleryCocktailWrapper rendered");
+    const navigate = useNavigate();
 
     return (
     <CocktailWrapperSpace wrap={true}>
@@ -31,7 +32,7 @@ export const GalleryCocktailWrapper = ({ data, searchInput, deleteCocktail, favo
         status="500"
         title="500"
         subTitle={error.message}
-        extra={<Button type="link" href='http://localhost:3000/'>Back Home</Button>}
+        extra={<Button type="primary" onClick={() => navigate('/')}>Back Home</Button>}
         />}
     </CocktailWrapperSpace>
     )

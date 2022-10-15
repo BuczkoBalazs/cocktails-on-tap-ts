@@ -30,10 +30,8 @@ export const GalleryAnt = () => {
             }
         }
     `
-
+    
     const { data, loading, error } = useQuery<CocktailDetailsArray | null>(GET_FAVORITES);
-
-    console.log(data?.cocktails)
     
     const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC);

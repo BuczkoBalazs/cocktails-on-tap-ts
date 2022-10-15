@@ -1,10 +1,25 @@
+import { useMutation, gql } from '@apollo/client';
 import { Button, Form, Input, message, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { AddForm, AddSpace } from './AddCocktailStyle';
+import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 const { Option } = Select;
 
-type AddCocktailInput = {
+const NEW_COCKTAIL = gql`
+  mutation addCocktail($input: AddCocktailInput!) {
+    addCocktail(input: $input) {
+      id
+      name
+      howTo
+      ingredients
+      image
+      favorite
+    }
+  }
+`;
+
+type AddCocktailFormValue = {
   name: string,
   howTo: string,
   ingredients: string,
@@ -12,22 +27,26 @@ type AddCocktailInput = {
   favorite: string
 };
 
+type AddCocktailInput = {
+  name: string,
+  howTo: string,
+  ingredients: string,
+  image: string,
+  favorite: boolean
+};
+
 export const AddCocktail = () => {
 
-  const onFinish = async (values: AddCocktailInput) => {
-      await fetch('http://localhost:3001/cocktails/', {
-        method: 'POST',
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          name: values.name,
-          howTo: values.howTo,
-          ingredients: values.ingredients,
-          image: values.image,
-          favorite: JSON.parse(values.favorite),
-        })
-      });
+  const [newCocktail] = useMutation<{ newCocktail: CocktailDetails}, { input: AddCocktailInput}>(NEW_COCKTAIL)
+  
+  const onFinish = (values: AddCocktailFormValue) => {
+      newCocktail({variables: { input: {
+        name: values.name,
+        howTo: values.howTo,
+        ingredients: values.ingredients,
+        image: values.image,
+        favorite: JSON.parse(values.favorite)
+      }}});
       message.success(`${values.name} has been added.`);
       console.log('Success:', values);
     };
@@ -45,7 +64,7 @@ export const AddCocktail = () => {
     labelCol={{ span: 6 }}
     wrapperCol={{ span: 16 }}
     initialValues={{ remember: true }}
-    onFinish={(values) => onFinish(values as AddCocktailInput)}
+    onFinish={(values) => onFinish(values as AddCocktailFormValue)}
     onFinishFailed={onFinishFailed}
     autoComplete="off"
     >
@@ -59,7 +78,7 @@ export const AddCocktail = () => {
   
       <Form.Item
         label="How to make"
-        name="howto"
+        name="howTo"
         rules={[{ required: true, message: 'Please input how to make the cocktail!' }]}
       >
         <Input />
