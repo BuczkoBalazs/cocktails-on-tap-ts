@@ -53,7 +53,7 @@ const DELETE_COCKTAIL = gql`
 export const FavoritesCocktailWrapper = React.memo( () => {
 
 
-    const { data, loading, error } = useQuery<CocktailDetailsArray | null>(GET_FAVORITES);
+    const { data, loading, error, refetch } = useQuery<CocktailDetailsArray | null>(GET_FAVORITES);
 
     const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { updateCocktailId: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
 
@@ -63,7 +63,8 @@ export const FavoritesCocktailWrapper = React.memo( () => {
     const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>(data?.cocktails);
 
     const deleteCocktailHandle = async (id: number) => {
-        await deleteCocktail({ variables: { deleteCocktailId: id }})
+        await deleteCocktail({ variables: { deleteCocktailId: id }});
+        await refetch(GET_FAVORITES);
         setCocktails(cocktails?.filter( cocktail => cocktail.id !== id));
     };
 
@@ -75,6 +76,7 @@ export const FavoritesCocktailWrapper = React.memo( () => {
             image: image,
             favorite: favorite
         }}});
+        await refetch(GET_FAVORITES);
         setCocktails(cocktails?.filter(cocktail => cocktail.favorite && cocktail.id !== id));
     };
 

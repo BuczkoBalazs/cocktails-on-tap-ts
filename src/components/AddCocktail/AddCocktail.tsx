@@ -1,4 +1,4 @@
-import { useMutation, gql } from '@apollo/client';
+import { useMutation, gql, useQuery } from '@apollo/client';
 import { Button, Form, Input, message, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { AddForm, AddSpace } from './AddCocktailStyle';
@@ -38,7 +38,6 @@ type AddCocktailInput = {
 export const AddCocktail = () => {
 
   const [form] = Form.useForm();
-
   const [newCocktail] = useMutation<{ newCocktail: CocktailDetails }, { input: AddCocktailInput }>(NEW_COCKTAIL);
   
   const onFinish = (values: AddCocktailFormValue) => {

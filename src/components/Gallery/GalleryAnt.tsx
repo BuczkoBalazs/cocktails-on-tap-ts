@@ -56,7 +56,7 @@ const DELETE_COCKTAIL = gql`
 
 export const GalleryAnt = () => {
     
-    const { data, loading, error } = useQuery<CocktailDetailsArray | null>(GET_FAVORITES);
+    const { data, loading, error, refetch} = useQuery<CocktailDetailsArray | null>(GET_FAVORITES);
 
     const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { updateCocktailId: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
 
@@ -64,18 +64,19 @@ export const GalleryAnt = () => {
     
     const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC);
-    const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>(data?.cocktails);
+    const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>([]);
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
-    const sortButtonChangeHandle = () => {
-        console.log(cocktails)
-        cocktails!.sort((a: CocktailDetails, b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+    const sortButtonChangeHandle = async () => {
+        await refetch(GET_FAVORITES)
+        cocktails!.slice().sort((a: CocktailDetails, b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
         setSortButton(sortButton === SortCocktails.ASC ? SortCocktails.DESC : SortCocktails.ASC);
     };
 
     const deleteCocktailHandle = async (id: number) => {
-        await deleteCocktail({ variables: { deleteCocktailId: id }})
+        await deleteCocktail({ variables: { deleteCocktailId: id }});
+        await refetch(GET_FAVORITES);
         setCocktails(cocktails?.filter( cocktail => cocktail.id !== id));
     };
 
@@ -87,6 +88,7 @@ export const GalleryAnt = () => {
             image: image,
             favorite: favorite
         }}});
+        await refetch(GET_FAVORITES);
     };
 
     useEffect( () => {
@@ -96,7 +98,7 @@ export const GalleryAnt = () => {
     return (
     <GallerySpace direction='vertical'>
         <GalleryHeader searchInput={searchInput} inputChangeHandle={inputChangeHandle} sortButton={sortButton} sortButtonChangeHandle={sortButtonChangeHandle} />
-        <GalleryCocktailWrapper  data={data} searchInput={searchInput} deleteCocktailHandle={deleteCocktailHandle} favoriteToggle={favoriteToggle} loading={loading} error={error} />
+        <GalleryCocktailWrapper  cocktails={cocktails} searchInput={searchInput} deleteCocktailHandle={deleteCocktailHandle} favoriteToggle={favoriteToggle} loading={loading} error={error} />
         <BackTop />
     </GallerySpace>
     )

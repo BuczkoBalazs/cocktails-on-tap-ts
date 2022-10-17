@@ -12,7 +12,7 @@ import { LoginContextProvider } from './components/contexts/LoginContext';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/',
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache()
 });
 
 const root = ReactDOM.createRoot(
