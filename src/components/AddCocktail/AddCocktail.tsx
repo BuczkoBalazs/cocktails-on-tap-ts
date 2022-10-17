@@ -19,6 +19,23 @@ const NEW_COCKTAIL = gql`
   }
 `;
 
+const GET_COCKTAILS = gql`
+    query getFavorites {
+        cocktails {
+            id
+            name
+            howTo
+            ingredients
+            image
+            favorite
+        }
+    }
+`;
+
+type CocktailDetailsArray = {
+  cocktails: CocktailDetails[]
+};
+
 type AddCocktailFormValue = {
   name: string,
   howTo: string,
@@ -37,17 +54,21 @@ type AddCocktailInput = {
 
 export const AddCocktail = () => {
 
+  const { refetch } = useQuery<CocktailDetailsArray | null>(GET_COCKTAILS);
+
+
   const [form] = Form.useForm();
   const [newCocktail] = useMutation<{ newCocktail: CocktailDetails }, { input: AddCocktailInput }>(NEW_COCKTAIL);
   
-  const onFinish = (values: AddCocktailFormValue) => {
-      newCocktail({variables: { input: {
+  const onFinish = async (values: AddCocktailFormValue) => {
+      await newCocktail({variables: { input: {
         name: values.name,
         howTo: values.howTo,
         ingredients: values.ingredients,
         image: values.image,
         favorite: JSON.parse(values.favorite)
       }}});
+      await refetch(GET_COCKTAILS);
       form.resetFields();
       message.success(`${values.name} has been added.`);
       console.log('Success:', values);
@@ -66,7 +87,7 @@ export const AddCocktail = () => {
     form={form}
     labelCol={{ span: 6 }}
     wrapperCol={{ span: 16 }}
-    initialValues={{ name: "", howTo: "", ingredients: "", image: ""}}
+    // initialValues={{ name: "", howTo: "", ingredients: "", image: ""}}
     onFinish={(values) => onFinish(values as AddCocktailFormValue)}
     onFinishFailed={onFinishFailed}
     autoComplete="off"

@@ -19,7 +19,7 @@ type UpdatedCocktailInput = {
     favorite: boolean
 };
 
-const GET_FAVORITES = gql`
+const GET_COCKTAILS = gql`
     query getFavorites {
         cocktails {
             id
@@ -53,19 +53,15 @@ const DELETE_COCKTAIL = gql`
 export const FavoritesCocktailWrapper = React.memo( () => {
 
 
-    const { data, loading, error, refetch } = useQuery<CocktailDetailsArray | null>(GET_FAVORITES);
+    const { data, loading, error, refetch } = useQuery<CocktailDetailsArray | null>(GET_COCKTAILS);
 
     const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { updateCocktailId: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
 
     const [deleteCocktail] = useMutation<{ deleteCocktail: boolean }, { deleteCocktailId: number }>(DELETE_COCKTAIL);
 
-
-    const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>(data?.cocktails);
-
     const deleteCocktailHandle = async (id: number) => {
         await deleteCocktail({ variables: { deleteCocktailId: id }});
-        await refetch(GET_FAVORITES);
-        setCocktails(cocktails?.filter( cocktail => cocktail.id !== id));
+        await refetch(GET_COCKTAILS);
     };
 
     const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
@@ -76,20 +72,15 @@ export const FavoritesCocktailWrapper = React.memo( () => {
             image: image,
             favorite: favorite
         }}});
-        await refetch(GET_FAVORITES);
-        setCocktails(cocktails?.filter(cocktail => cocktail.favorite && cocktail.id !== id));
+        await refetch(GET_COCKTAILS);
     };
-
-    useEffect( () => {
-        setCocktails(data?.cocktails);
-    }, [data?.cocktails]);
 
     const navigate = useNavigate();
 
     return (
         <>
-            {cocktails && <CocktailWrapperSpace wrap={true}>
-                {cocktails.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktailHandle={deleteCocktailHandle} favoriteToggle={favoriteToggle} />)}
+            {data && <CocktailWrapperSpace wrap={true}>
+                {data.cocktails.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktailHandle={deleteCocktailHandle} favoriteToggle={favoriteToggle} />)}
                 </CocktailWrapperSpace>
             }
             {loading && <Spin />}
