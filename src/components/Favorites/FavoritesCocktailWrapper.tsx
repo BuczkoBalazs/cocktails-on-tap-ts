@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, gql, useMutation } from '@apollo/client';
 import { Button, Spin, Result } from 'antd';

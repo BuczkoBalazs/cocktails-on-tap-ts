@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery, gql, useMutation } from '@apollo/client';
 import { GalleryHeader } from './GalleryHeader';
 import { BackTop } from 'antd';
