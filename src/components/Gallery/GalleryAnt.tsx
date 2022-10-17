@@ -67,8 +67,9 @@ export const GalleryAnt = () => {
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
-    const sortButtonChangeHandle = () => {
-        data?.cocktails?.sort((a: CocktailDetails, b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+    const sortButtonChangeHandle = async () => {
+        data?.cocktails.sort((a: CocktailDetails, b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+        await refetch(GET_COCKTAILS);
         setSortButton(sortButton === SortCocktails.ASC ? SortCocktails.DESC : SortCocktails.ASC);
     };
 
