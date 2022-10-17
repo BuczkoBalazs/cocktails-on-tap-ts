@@ -60,11 +60,11 @@ export const FavoritesCocktailWrapper = React.memo( () => {
     const [deleteCocktail] = useMutation<{ deleteCocktail: boolean }, { deleteCocktailId: number }>(DELETE_COCKTAIL);
 
 
-    // const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>();
+    const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>(data?.cocktails);
 
     const deleteCocktailHandle = async (id: number) => {
         await deleteCocktail({ variables: { deleteCocktailId: id }})
-        // setCocktails(cocktails?.filter( cocktail => cocktail.id !== id));
+        setCocktails(cocktails?.filter( cocktail => cocktail.id !== id));
     };
 
     const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
@@ -75,19 +75,19 @@ export const FavoritesCocktailWrapper = React.memo( () => {
             image: image,
             favorite: favorite
         }}});
-        // setCocktails(cocktails?.filter(cocktail => cocktail.favorite && cocktail.id !== id));
+        setCocktails(cocktails?.filter(cocktail => cocktail.favorite && cocktail.id !== id));
     };
 
-    // useEffect( () => {
-    //     setCocktails(data?.cocktails);
-    // }, [data?.cocktails]);
+    useEffect( () => {
+        setCocktails(data?.cocktails);
+    }, [data?.cocktails]);
 
     const navigate = useNavigate();
 
     return (
         <>
-            {data && <CocktailWrapperSpace wrap={true}>
-                {data.cocktails.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktailHandle={deleteCocktailHandle} favoriteToggle={favoriteToggle} />)}
+            {cocktails && <CocktailWrapperSpace wrap={true}>
+                {cocktails.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} deleteCocktailHandle={deleteCocktailHandle} favoriteToggle={favoriteToggle} />)}
                 </CocktailWrapperSpace>
             }
             {loading && <Spin />}

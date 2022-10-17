@@ -64,18 +64,19 @@ export const GalleryAnt = () => {
     
     const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC);
-    // const [cocktails, setCocktails] = useState<CocktailDetails[] | []>([]);
+    const [cocktails, setCocktails] = useState<CocktailDetails[] | undefined>(data?.cocktails);
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
     const sortButtonChangeHandle = () => {
-        [...data?.cocktails!].sort((a: CocktailDetails, b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+        console.log(cocktails)
+        cocktails!.sort((a: CocktailDetails, b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
         setSortButton(sortButton === SortCocktails.ASC ? SortCocktails.DESC : SortCocktails.ASC);
     };
 
     const deleteCocktailHandle = async (id: number) => {
         await deleteCocktail({ variables: { deleteCocktailId: id }})
-        // setCocktails(cocktails.filter( cocktail => cocktail.id !== id));
+        setCocktails(cocktails?.filter( cocktail => cocktail.id !== id));
     };
 
     const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
@@ -88,9 +89,9 @@ export const GalleryAnt = () => {
         }}});
     };
 
-    // useEffect( () => {
-    //     setCocktails(data);
-    // }, [data]);
+    useEffect( () => {
+        setCocktails(data?.cocktails);
+    }, [data?.cocktails]);
 
     return (
     <GallerySpace direction='vertical'>
