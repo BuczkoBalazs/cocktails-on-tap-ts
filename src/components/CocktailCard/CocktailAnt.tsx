@@ -6,14 +6,12 @@ import { CocktailDetails } from '../Type/CocktailDetailsType';
 
 type CocktailAntProps = {
     cocktail: CocktailDetails,
-    deleteCocktailHandle: (id: number) => void,
-    favoriteToggle: (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => void 
 };
 
-export const CocktailAnt = ({ cocktail, deleteCocktailHandle, favoriteToggle }: CocktailAntProps ) => {
+export const CocktailAnt = ({ cocktail }: CocktailAntProps ) => {
 
     return (
-    <CocktailCard hoverable title={cocktail.name} extra={<CocktailCardButtons cocktail={cocktail} deleteCocktailHandle={deleteCocktailHandle} favoriteToggle={favoriteToggle} />}>
+    <CocktailCard hoverable title={cocktail.name} extra={<CocktailCardButtons cocktail={cocktail} />}>
         <CocktailDetailed cocktail={cocktail} />
     </CocktailCard>
     )

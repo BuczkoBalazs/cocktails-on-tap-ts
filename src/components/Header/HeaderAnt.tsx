@@ -1,4 +1,3 @@
-import 'antd/dist/antd.css';
 import { NavBar, MenuWrapper, MenuItem } from './HeaderAntStyle';
 import { Login } from './Login';
 
