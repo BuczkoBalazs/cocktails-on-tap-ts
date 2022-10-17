@@ -1,15 +1,63 @@
 import { useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
 import 'antd/dist/antd.css';
 import { SortButton } from '../Gallery/GalleryAntStyle';
 import { CocktailDetails } from '../Type/CocktailDetailsType';
+import { useGetCocktails } from '../hooks/useGetCocktails';
 
 type CocktailCardButtonsProps = {
     cocktail: CocktailDetails,
-    deleteCocktailHandle: (id: number) => void,
-    favoriteToggle: (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => void 
 };
 
-export const CocktailCardButtons = ({ cocktail, deleteCocktailHandle, favoriteToggle }: CocktailCardButtonsProps) => {
+type UpdatedCocktailInput = {
+    name: string,
+    howTo: string,
+    ingredients: string,
+    image: string,
+    favorite: boolean
+};
+
+const TOGGLE_FAVORITES = gql`
+    mutation updateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
+        updateCocktail(id: $updateCocktailId, input: $input) {
+            name
+            howTo
+            ingredients
+            image
+            favorite
+        }
+    }
+`;
+
+const DELETE_COCKTAIL = gql`
+    mutation deleteCocktail($deleteCocktailId: ID!) {
+        deleteCocktail(id: $deleteCocktailId)
+    }
+`;
+
+export const CocktailCardButtons = ({ cocktail }: CocktailCardButtonsProps) => {
+    
+    const { refetch } = useGetCocktails();
+    
+    const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { updateCocktailId: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
+    
+    const [deleteCocktail] = useMutation<{ deleteCocktail: boolean }, { deleteCocktailId: number }>(DELETE_COCKTAIL);
+    
+    const deleteCocktailHandle = async (id: number) => {
+        await deleteCocktail({ variables: { deleteCocktailId: id }});
+        await refetch();
+    };
+    
+    const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
+        await updateCocktail({ variables: { updateCocktailId: id, input: {
+            name: name,
+            howTo: howTo,
+            ingredients: ingredients,
+            image: image,
+            favorite: favorite
+        }}});
+        await refetch();
+    };
 
     const [fav, setFav] = useState<boolean>(cocktail.favorite);
 
