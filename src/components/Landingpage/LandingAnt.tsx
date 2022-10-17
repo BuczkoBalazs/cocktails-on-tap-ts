@@ -1,6 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import 'antd/dist/antd.css';
 import { Button, Spin, Result } from 'antd';
 import { LandingSlideDetails } from './LandingSlideDetails';
 import { LandingCarousel } from './LandingAntStyle';

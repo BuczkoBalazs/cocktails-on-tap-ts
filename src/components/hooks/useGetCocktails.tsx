@@ -23,4 +23,4 @@ export const useGetCocktails = () => {
     const { data, loading, error, refetch } = useQuery<CocktailDetailsArray | null>(GET_COCKTAILS);
 
     return { data, loading, error, refetch}
-}
+};
