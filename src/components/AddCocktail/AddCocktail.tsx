@@ -37,6 +37,8 @@ type AddCocktailInput = {
 
 export const AddCocktail = () => {
 
+  const [form] = Form.useForm();
+
   const [newCocktail] = useMutation<{ newCocktail: CocktailDetails }, { input: AddCocktailInput }>(NEW_COCKTAIL);
   
   const onFinish = (values: AddCocktailFormValue) => {
@@ -47,6 +49,7 @@ export const AddCocktail = () => {
         image: values.image,
         favorite: JSON.parse(values.favorite)
       }}});
+      form.resetFields();
       message.success(`${values.name} has been added.`);
       console.log('Success:', values);
     };
@@ -61,9 +64,10 @@ export const AddCocktail = () => {
   <AddSpace>
     <AddForm
     name="basic"
+    form={form}
     labelCol={{ span: 6 }}
     wrapperCol={{ span: 16 }}
-    initialValues={{ remember: true }}
+    initialValues={{ name: "", howTo: "", ingredients: "", image: ""}}
     onFinish={(values) => onFinish(values as AddCocktailFormValue)}
     onFinishFailed={onFinishFailed}
     autoComplete="off"
@@ -101,7 +105,7 @@ export const AddCocktail = () => {
       </Form.Item>
   
       <Form.Item
-        label="favorite"
+        label="Favorite"
         name="favorite"
         rules={[{ required: true, message: 'Please input the ingredients needed!' }]}
       >
