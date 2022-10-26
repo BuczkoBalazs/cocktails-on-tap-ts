@@ -5,9 +5,10 @@ import { Button, Spin, Result } from 'antd';
 import 'antd/dist/antd.css';
 import { CocktailWrapperSpace } from '../Favorites/FavoritesAntStyle';
 import { CocktailDetails } from '../Type/CocktailDetailsType';
+import { Cocktail } from '../../generate/graphql';
 
 type GalleryCocktailWrapperProps = {
-    cocktails: CocktailDetails[] | undefined,
+    cocktails: Cocktail[] | null | undefined,
     searchInput: string,
     loading: boolean,
     error: ApolloError | undefined

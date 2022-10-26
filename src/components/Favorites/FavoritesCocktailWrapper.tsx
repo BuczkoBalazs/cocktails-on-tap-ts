@@ -5,19 +5,19 @@ import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import 'antd/dist/antd.css';
 import { CocktailWrapperSpace } from './FavoritesAntStyle';
 import { CocktailDetails } from '../Type/CocktailDetailsType';
-import { useGetCocktails } from '../hooks/useGetCocktails';
+import { useCocktailsQuery } from '../../generate/graphql';
 
 
 export const FavoritesCocktailWrapper = React.memo( () => {
 
-    const { data, loading, error } = useGetCocktails();
+    const { data, loading, error } = useCocktailsQuery();
 
     const navigate = useNavigate();
 
     return (
         <>
             {data && <CocktailWrapperSpace wrap={true}>
-                {data.cocktails.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} />)}
+                {data.cocktails?.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} />)}
                 </CocktailWrapperSpace>
             }
             {loading && <Spin />}

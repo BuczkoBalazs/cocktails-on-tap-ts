@@ -37,15 +37,12 @@ const DELETE_COCKTAIL = gql`
 
 export const CocktailCardButtons = ({ cocktail }: CocktailCardButtonsProps) => {
     
-    const { refetch } = useGetCocktails();
-    
     const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { updateCocktailId: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
     
     const [deleteCocktail] = useMutation<{ deleteCocktail: boolean }, { deleteCocktailId: number }>(DELETE_COCKTAIL);
     
     const deleteCocktailHandle = async (id: number) => {
         await deleteCocktail({ variables: { deleteCocktailId: id }});
-        await refetch();
     };
     
     const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
@@ -56,7 +53,6 @@ export const CocktailCardButtons = ({ cocktail }: CocktailCardButtonsProps) => {
             image: image,
             favorite: favorite
         }}});
-        await refetch();
     };
 
     const [fav, setFav] = useState<boolean>(cocktail.favorite);

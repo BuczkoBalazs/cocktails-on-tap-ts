@@ -247,13 +247,46 @@ export type UsersFilterInput = {
   age: Scalars['Int'];
 };
 
+export type CocktailsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CocktailsQuery = { __typename?: 'Query', cocktails?: Array<{ __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean }> | null };
+
 export type LandingSlidesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LandingSlidesQuery = { __typename?: 'Query', landingSlides?: Array<{ __typename?: 'LandingSlide', id: number, title: string, text: string }> | null };
 
 
+export const CocktailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Cocktails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cocktails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"howTo"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"favorite"}}]}}]}}]} as unknown as DocumentNode<CocktailsQuery, CocktailsQueryVariables>;
 export const LandingSlidesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LandingSlides"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"landingSlides"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}}]} as unknown as DocumentNode<LandingSlidesQuery, LandingSlidesQueryVariables>;
+
+/**
+ * __useCocktailsQuery__
+ *
+ * To run a query within a React component, call `useCocktailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCocktailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCocktailsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCocktailsQuery(baseOptions?: Apollo.QueryHookOptions<CocktailsQuery, CocktailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CocktailsQuery, CocktailsQueryVariables>(CocktailsDocument, options);
+      }
+export function useCocktailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CocktailsQuery, CocktailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CocktailsQuery, CocktailsQueryVariables>(CocktailsDocument, options);
+        }
+export type CocktailsQueryHookResult = ReturnType<typeof useCocktailsQuery>;
+export type CocktailsLazyQueryHookResult = ReturnType<typeof useCocktailsLazyQuery>;
+export type CocktailsQueryResult = Apollo.QueryResult<CocktailsQuery, CocktailsQueryVariables>;
 
 /**
  * __useLandingSlidesQuery__
