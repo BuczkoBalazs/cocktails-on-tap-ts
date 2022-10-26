@@ -247,6 +247,13 @@ export type UsersFilterInput = {
   age: Scalars['Int'];
 };
 
+export type AddCocktailMutationVariables = Exact<{
+  input: AddCocktailInput;
+}>;
+
+
+export type AddCocktailMutation = { __typename?: 'Mutation', addCocktail: { __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean } };
+
 export type CocktailsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -257,9 +264,53 @@ export type LandingSlidesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type LandingSlidesQuery = { __typename?: 'Query', landingSlides?: Array<{ __typename?: 'LandingSlide', id: number, title: string, text: string }> | null };
 
+export type DeleteCocktailMutationVariables = Exact<{
+  deleteCocktailId: Scalars['ID'];
+}>;
 
+
+export type DeleteCocktailMutation = { __typename?: 'Mutation', deleteCocktail: boolean };
+
+export type UpdateCocktailMutationVariables = Exact<{
+  updateCocktailId: Scalars['ID'];
+  input: UpdateCocktailInput;
+}>;
+
+
+export type UpdateCocktailMutation = { __typename?: 'Mutation', updateCocktail: { __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean } };
+
+
+export const AddCocktailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddCocktail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddCocktailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addCocktail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"howTo"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"favorite"}}]}}]}}]} as unknown as DocumentNode<AddCocktailMutation, AddCocktailMutationVariables>;
 export const CocktailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Cocktails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cocktails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"howTo"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"favorite"}}]}}]}}]} as unknown as DocumentNode<CocktailsQuery, CocktailsQueryVariables>;
 export const LandingSlidesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LandingSlides"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"landingSlides"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}}]} as unknown as DocumentNode<LandingSlidesQuery, LandingSlidesQueryVariables>;
+export const DeleteCocktailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteCocktail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteCocktailId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteCocktail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteCocktailId"}}}]}]}}]} as unknown as DocumentNode<DeleteCocktailMutation, DeleteCocktailMutationVariables>;
+export const UpdateCocktailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateCocktail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateCocktailId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCocktailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCocktail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateCocktailId"}}},{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"howTo"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"favorite"}}]}}]}}]} as unknown as DocumentNode<UpdateCocktailMutation, UpdateCocktailMutationVariables>;
+export type AddCocktailMutationFn = Apollo.MutationFunction<AddCocktailMutation, AddCocktailMutationVariables>;
+
+/**
+ * __useAddCocktailMutation__
+ *
+ * To run a mutation, you first call `useAddCocktailMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCocktailMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCocktailMutation, { data, loading, error }] = useAddCocktailMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddCocktailMutation(baseOptions?: Apollo.MutationHookOptions<AddCocktailMutation, AddCocktailMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddCocktailMutation, AddCocktailMutationVariables>(AddCocktailDocument, options);
+      }
+export type AddCocktailMutationHookResult = ReturnType<typeof useAddCocktailMutation>;
+export type AddCocktailMutationResult = Apollo.MutationResult<AddCocktailMutation>;
+export type AddCocktailMutationOptions = Apollo.BaseMutationOptions<AddCocktailMutation, AddCocktailMutationVariables>;
 
 /**
  * __useCocktailsQuery__
@@ -314,3 +365,56 @@ export function useLandingSlidesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type LandingSlidesQueryHookResult = ReturnType<typeof useLandingSlidesQuery>;
 export type LandingSlidesLazyQueryHookResult = ReturnType<typeof useLandingSlidesLazyQuery>;
 export type LandingSlidesQueryResult = Apollo.QueryResult<LandingSlidesQuery, LandingSlidesQueryVariables>;
+export type DeleteCocktailMutationFn = Apollo.MutationFunction<DeleteCocktailMutation, DeleteCocktailMutationVariables>;
+
+/**
+ * __useDeleteCocktailMutation__
+ *
+ * To run a mutation, you first call `useDeleteCocktailMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCocktailMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCocktailMutation, { data, loading, error }] = useDeleteCocktailMutation({
+ *   variables: {
+ *      deleteCocktailId: // value for 'deleteCocktailId'
+ *   },
+ * });
+ */
+export function useDeleteCocktailMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCocktailMutation, DeleteCocktailMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteCocktailMutation, DeleteCocktailMutationVariables>(DeleteCocktailDocument, options);
+      }
+export type DeleteCocktailMutationHookResult = ReturnType<typeof useDeleteCocktailMutation>;
+export type DeleteCocktailMutationResult = Apollo.MutationResult<DeleteCocktailMutation>;
+export type DeleteCocktailMutationOptions = Apollo.BaseMutationOptions<DeleteCocktailMutation, DeleteCocktailMutationVariables>;
+export type UpdateCocktailMutationFn = Apollo.MutationFunction<UpdateCocktailMutation, UpdateCocktailMutationVariables>;
+
+/**
+ * __useUpdateCocktailMutation__
+ *
+ * To run a mutation, you first call `useUpdateCocktailMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCocktailMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCocktailMutation, { data, loading, error }] = useUpdateCocktailMutation({
+ *   variables: {
+ *      updateCocktailId: // value for 'updateCocktailId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateCocktailMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCocktailMutation, UpdateCocktailMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCocktailMutation, UpdateCocktailMutationVariables>(UpdateCocktailDocument, options);
+      }
+export type UpdateCocktailMutationHookResult = ReturnType<typeof useUpdateCocktailMutation>;
+export type UpdateCocktailMutationResult = Apollo.MutationResult<UpdateCocktailMutation>;
+export type UpdateCocktailMutationOptions = Apollo.BaseMutationOptions<UpdateCocktailMutation, UpdateCocktailMutationVariables>;

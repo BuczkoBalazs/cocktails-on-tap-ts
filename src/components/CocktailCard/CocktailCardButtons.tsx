@@ -1,39 +1,19 @@
 import { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
 import 'antd/dist/antd.css';
 import { SortButton } from '../Gallery/GalleryAntStyle';
-import { Cocktail } from '../../generate/graphql';
-import { UpdateCocktailInput } from '../../generate/graphql'
-
-const TOGGLE_FAVORITES = gql`
-    mutation updateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
-        updateCocktail(id: $updateCocktailId, input: $input) {
-            name
-            howTo
-            ingredients
-            image
-            favorite
-        }
-    }
-`;
-
-const DELETE_COCKTAIL = gql`
-    mutation deleteCocktail($deleteCocktailId: ID!) {
-        deleteCocktail(id: $deleteCocktailId)
-    }
-`;
+import { Cocktail, useDeleteCocktailMutation, useUpdateCocktailMutation } from '../../generate/graphql';
 
 export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
     
-    const [updateCocktail] = useMutation<{ updateCocktail: Cocktail}, { updateCocktailId: number, input: UpdateCocktailInput }>(TOGGLE_FAVORITES);
+    const [updateCocktail] = useUpdateCocktailMutation();
     
-    const [deleteCocktail] = useMutation<{ deleteCocktail: boolean }, { deleteCocktailId: number }>(DELETE_COCKTAIL);
+    const [deleteCocktail] = useDeleteCocktailMutation();
     
-    const deleteCocktailHandle = async (id: number) => {
+    const deleteCocktailHandle = async (id: string) => {
         await deleteCocktail({ variables: { deleteCocktailId: id }});
     };
     
-    const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
+    const favoriteToggle = async (id: string, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
         await updateCocktail({ variables: { updateCocktailId: id, input: {
             name: name,
             howTo: howTo,
@@ -48,12 +28,12 @@ export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
     return (
     <>
         <SortButton shape='round' onClick={() => {
-            favoriteToggle(cocktail.id, cocktail.name, cocktail.howTo, cocktail.ingredients, cocktail.image, !fav);
+            favoriteToggle(cocktail.id.toString(), cocktail.name, cocktail.howTo, cocktail.ingredients, cocktail.image, !fav);
             setFav(!fav);
         }}>
             {fav ? 'Favorite' : 'Not favorite'}
         </SortButton>     
-        <SortButton shape='round' onClick={() => deleteCocktailHandle(cocktail.id)}>Delete</SortButton>
+        <SortButton shape='round' onClick={() => deleteCocktailHandle(cocktail.id.toString())}>Delete</SortButton>
     </>
     )
 };
