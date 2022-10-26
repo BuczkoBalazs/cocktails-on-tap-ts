@@ -21,8 +21,7 @@ export const LandingAnt = () => {
         pauseOnHover={false}
         pauseOnDotsHover={true}
         >
-            {slides.landingSlides?.map( (slide) => <LandingSlideDetails key={slide.id} slide={slide} />
-            )}
+            {slides.landingSlides?.map((slide) => <LandingSlideDetails key={slide.id} slide={slide} />)}
         </LandingCarousel>}
         {loading && <Spin />}
         {error && <Result

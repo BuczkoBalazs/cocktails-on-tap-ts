@@ -4,7 +4,6 @@ import { Button, Spin, Result } from 'antd';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import 'antd/dist/antd.css';
 import { CocktailWrapperSpace } from './FavoritesAntStyle';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
 import { useCocktailsQuery } from '../../generate/graphql';
 
 
@@ -17,8 +16,8 @@ export const FavoritesCocktailWrapper = React.memo( () => {
     return (
         <>
             {data && <CocktailWrapperSpace wrap={true}>
-                {data.cocktails?.map((cocktail: CocktailDetails) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} />)}
-                </CocktailWrapperSpace>
+                {data.cocktails?.map((cocktail) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} />)}
+            </CocktailWrapperSpace>
             }
             {loading && <Spin />}
             {error && <Result

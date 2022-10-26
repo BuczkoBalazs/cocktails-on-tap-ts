@@ -2,8 +2,8 @@ import { useMutation, gql } from '@apollo/client';
 import { Button, Form, Input, message, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { AddForm, AddSpace } from './AddCocktailStyle';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
 import { useGetCocktails } from '../hooks/useGetCocktails';
+import { AddCocktailInput, Cocktail } from '../../generate/graphql';
 
 const { Option } = Select;
 
@@ -28,20 +28,12 @@ type AddCocktailFormValue = {
   favorite: string
 };
 
-type AddCocktailInput = {
-  name: string,
-  howTo: string,
-  ingredients: string,
-  image: string,
-  favorite: boolean
-};
-
 export const AddCocktail = () => {
 
   const { refetch } = useGetCocktails();
 
   const [form] = Form.useForm();
-  const [newCocktail] = useMutation<{ newCocktail: CocktailDetails }, { input: AddCocktailInput }>(NEW_COCKTAIL);
+  const [newCocktail] = useMutation<{ newCocktail: Cocktail }, { input: AddCocktailInput }>(NEW_COCKTAIL);
   
   const onFinish = async (values: AddCocktailFormValue) => {
       await newCocktail({variables: { input: {

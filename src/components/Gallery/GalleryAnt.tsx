@@ -4,8 +4,7 @@ import { BackTop } from 'antd';
 import 'antd/dist/antd.css';
 import { GallerySpace } from './GalleryAntStyle';
 import { GalleryCocktailWrapper } from './GalleryCocktailWrapper';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
-import { useCocktailsQuery } from '../../generate/graphql';
+import { Cocktail, useCocktailsQuery } from '../../generate/graphql';
 
 enum SortCocktails {
     ASC = 'Sort ascending',
@@ -22,7 +21,7 @@ export const GalleryAnt = () => {
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
 
     const sortButtonChangeHandle = () => {
-        data?.cocktails?.sort((a: CocktailDetails, b: CocktailDetails) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+        data?.cocktails?.sort((a: Cocktail, b: Cocktail) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
         setSortButton(sortButton === SortCocktails.ASC ? SortCocktails.DESC : SortCocktails.ASC);
     };
 

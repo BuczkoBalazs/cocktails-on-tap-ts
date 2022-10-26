@@ -1,15 +1,11 @@
 import { Divider, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import { CocktailInfoSpace } from './CocktailAntStyle';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
+import { Cocktail } from '../../generate/graphql';
 
 const { Paragraph } = Typography;
 
-type CocktailInfoWrapperProps = {
-    cocktail: CocktailDetails
-};
-
-export const CocktailInfoWrapper = ({ cocktail }: CocktailInfoWrapperProps) => {
+export const CocktailInfoWrapper = ({ cocktail }: {cocktail: Cocktail}) => {
   return (
     <CocktailInfoSpace direction='vertical'>
       <Divider orientation='left'>How to make:</Divider>

@@ -2,20 +2,8 @@ import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import 'antd/dist/antd.css';
 import { SortButton } from '../Gallery/GalleryAntStyle';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
-import { useGetCocktails } from '../hooks/useGetCocktails';
-
-type CocktailCardButtonsProps = {
-    cocktail: CocktailDetails,
-};
-
-type UpdatedCocktailInput = {
-    name: string,
-    howTo: string,
-    ingredients: string,
-    image: string,
-    favorite: boolean
-};
+import { Cocktail } from '../../generate/graphql';
+import { UpdateCocktailInput } from '../../generate/graphql'
 
 const TOGGLE_FAVORITES = gql`
     mutation updateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
@@ -35,9 +23,9 @@ const DELETE_COCKTAIL = gql`
     }
 `;
 
-export const CocktailCardButtons = ({ cocktail }: CocktailCardButtonsProps) => {
+export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
     
-    const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { updateCocktailId: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
+    const [updateCocktail] = useMutation<{ updateCocktail: Cocktail}, { updateCocktailId: number, input: UpdateCocktailInput }>(TOGGLE_FAVORITES);
     
     const [deleteCocktail] = useMutation<{ deleteCocktail: boolean }, { deleteCocktailId: number }>(DELETE_COCKTAIL);
     

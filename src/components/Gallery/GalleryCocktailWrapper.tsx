@@ -4,7 +4,6 @@ import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import { Button, Spin, Result } from 'antd';
 import 'antd/dist/antd.css';
 import { CocktailWrapperSpace } from '../Favorites/FavoritesAntStyle';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
 import { Cocktail } from '../../generate/graphql';
 
 type GalleryCocktailWrapperProps = {
@@ -14,13 +13,13 @@ type GalleryCocktailWrapperProps = {
     error: ApolloError | undefined
 };
 
-export const GalleryCocktailWrapper = ({ cocktails, searchInput, loading, error  }: GalleryCocktailWrapperProps) => {
+export const GalleryCocktailWrapper = ({ cocktails, searchInput, loading, error }: GalleryCocktailWrapperProps) => {
 
     const navigate = useNavigate();
 
     return (
     <CocktailWrapperSpace wrap={true}>
-        {cocktails && cocktails.map((cocktail: CocktailDetails) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} />
+        {cocktails && cocktails.map((cocktail) => cocktail.name.toLowerCase().includes(searchInput.toLowerCase()) && <CocktailAnt key={cocktail.id} cocktail={cocktail} />
         )}
         {loading && <Spin />}
         {error && <Result

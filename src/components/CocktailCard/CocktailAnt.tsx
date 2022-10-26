@@ -4,11 +4,7 @@ import { CocktailDetailed } from './CocktailDetailed';
 import { CocktailCardButtons } from './CocktailCardButtons';
 import { Cocktail } from '../../generate/graphql';
 
-type CocktailAntProps = {
-    cocktail: Cocktail,
-};
-
-export const CocktailAnt = ({ cocktail }: CocktailAntProps ) => {
+export const CocktailAnt = ({ cocktail }: { cocktail: Cocktail }) => {
 
     return (
     <CocktailCard hoverable title={cocktail.name} extra={<CocktailCardButtons cocktail={cocktail} />}>
