@@ -4,12 +4,6 @@ import { LandingSlideDetails } from './LandingSlideDetails';
 import { LandingCarousel } from './LandingAntStyle';
 import { useLandingSlidesQuery } from '../../generate/graphql';
 
-type LandingSlide = {
-    id: number,
-    title: string,
-    text: string
-};
-
 export const LandingAnt = () => {
 
     const { data: slides, loading, error }= useLandingSlidesQuery();
@@ -27,7 +21,7 @@ export const LandingAnt = () => {
         pauseOnHover={false}
         pauseOnDotsHover={true}
         >
-            {slides.landingSlides?.map( (slide: LandingSlide) => <LandingSlideDetails key={slide.id} slide={slide} />
+            {slides.landingSlides?.map( (slide) => <LandingSlideDetails key={slide.id} slide={slide} />
             )}
         </LandingCarousel>}
         {loading && <Spin />}

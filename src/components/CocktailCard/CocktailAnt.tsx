@@ -2,10 +2,10 @@ import 'antd/dist/antd.css';
 import { CocktailCard} from './CocktailAntStyle';
 import { CocktailDetailed } from './CocktailDetailed';
 import { CocktailCardButtons } from './CocktailCardButtons';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
+import { Cocktail } from '../../generate/graphql';
 
 type CocktailAntProps = {
-    cocktail: CocktailDetails,
+    cocktail: Cocktail,
 };
 
 export const CocktailAnt = ({ cocktail }: CocktailAntProps ) => {

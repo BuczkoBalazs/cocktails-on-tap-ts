@@ -14,7 +14,7 @@ export const LandingCarousel = styled(Carousel)( () => ({
     backgroundPosition: 'center',
 }));
 
-export const LandingSlide = styled(Space)( () => ({
+export const Slide = styled(Space)( () => ({
     width: '100%',
     height: '99vh',
     'h1, div': {
