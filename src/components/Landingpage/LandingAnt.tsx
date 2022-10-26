@@ -1,8 +1,8 @@
-import { gql, useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { Button, Spin, Result } from 'antd';
 import { LandingSlideDetails } from './LandingSlideDetails';
 import { LandingCarousel } from './LandingAntStyle';
+import { useLandingSlidesQuery } from '../../generate/graphql';
 
 type LandingSlide = {
     id: number,
@@ -10,23 +10,9 @@ type LandingSlide = {
     text: string
 };
 
-type LandingSlides = {
-    landingSlides: LandingSlide[]
-};
-
 export const LandingAnt = () => {
 
-    const GET_SLIDES = gql`
-        query getSlides {
-            landingSlides {
-                id
-                title
-                text
-            }
-        }
-    `
-
-    const { data: slides, loading, error }= useQuery<LandingSlides | null>(GET_SLIDES);
+    const { data: slides, loading, error }= useLandingSlidesQuery();
 
     const navigate = useNavigate();
 
@@ -41,7 +27,7 @@ export const LandingAnt = () => {
         pauseOnHover={false}
         pauseOnDotsHover={true}
         >
-            {slides.landingSlides.map( (slide: LandingSlide) => <LandingSlideDetails key={slide.id} slide={slide} />
+            {slides.landingSlides?.map( (slide: LandingSlide) => <LandingSlideDetails key={slide.id} slide={slide} />
             )}
         </LandingCarousel>}
         {loading && <Spin />}
