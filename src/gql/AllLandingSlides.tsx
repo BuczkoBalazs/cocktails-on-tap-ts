@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-gql`
+const allLandinsSlides = gql`
   query LandingSlides {
     landingSlides {
       id

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-gql`
+const allCocktail = gql`
     query Cocktails {
         cocktails {
         id

@@ -279,12 +279,18 @@ export type UpdateCocktailMutationVariables = Exact<{
 
 export type UpdateCocktailMutation = { __typename?: 'Mutation', updateCocktail: { __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean } };
 
-
-export const AddCocktailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddCocktail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddCocktailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addCocktail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"howTo"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"favorite"}}]}}]}}]} as unknown as DocumentNode<AddCocktailMutation, AddCocktailMutationVariables>;
-export const CocktailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Cocktails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cocktails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"howTo"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"favorite"}}]}}]}}]} as unknown as DocumentNode<CocktailsQuery, CocktailsQueryVariables>;
-export const LandingSlidesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LandingSlides"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"landingSlides"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}}]} as unknown as DocumentNode<LandingSlidesQuery, LandingSlidesQueryVariables>;
-export const DeleteCocktailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteCocktail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"deleteCocktailId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteCocktail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"deleteCocktailId"}}}]}]}}]} as unknown as DocumentNode<DeleteCocktailMutation, DeleteCocktailMutationVariables>;
-export const UpdateCocktailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateCocktail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateCocktailId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCocktailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCocktail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateCocktailId"}}},{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"howTo"}},{"kind":"Field","name":{"kind":"Name","value":"ingredients"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"favorite"}}]}}]}}]} as unknown as DocumentNode<UpdateCocktailMutation, UpdateCocktailMutationVariables>;
+export const AddCocktailDocument = gql`
+    mutation AddCocktail($input: AddCocktailInput!) {
+  addCocktail(input: $input) {
+    id
+    name
+    howTo
+    ingredients
+    image
+    favorite
+  }
+}
+    `;
 export type AddCocktailMutationFn = Apollo.MutationFunction<AddCocktailMutation, AddCocktailMutationVariables>;
 
 /**
@@ -311,6 +317,18 @@ export function useAddCocktailMutation(baseOptions?: Apollo.MutationHookOptions<
 export type AddCocktailMutationHookResult = ReturnType<typeof useAddCocktailMutation>;
 export type AddCocktailMutationResult = Apollo.MutationResult<AddCocktailMutation>;
 export type AddCocktailMutationOptions = Apollo.BaseMutationOptions<AddCocktailMutation, AddCocktailMutationVariables>;
+export const CocktailsDocument = gql`
+    query Cocktails {
+  cocktails {
+    id
+    name
+    howTo
+    ingredients
+    image
+    favorite
+  }
+}
+    `;
 
 /**
  * __useCocktailsQuery__
@@ -338,6 +356,15 @@ export function useCocktailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type CocktailsQueryHookResult = ReturnType<typeof useCocktailsQuery>;
 export type CocktailsLazyQueryHookResult = ReturnType<typeof useCocktailsLazyQuery>;
 export type CocktailsQueryResult = Apollo.QueryResult<CocktailsQuery, CocktailsQueryVariables>;
+export const LandingSlidesDocument = gql`
+    query LandingSlides {
+  landingSlides {
+    id
+    title
+    text
+  }
+}
+    `;
 
 /**
  * __useLandingSlidesQuery__
@@ -365,6 +392,11 @@ export function useLandingSlidesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type LandingSlidesQueryHookResult = ReturnType<typeof useLandingSlidesQuery>;
 export type LandingSlidesLazyQueryHookResult = ReturnType<typeof useLandingSlidesLazyQuery>;
 export type LandingSlidesQueryResult = Apollo.QueryResult<LandingSlidesQuery, LandingSlidesQueryVariables>;
+export const DeleteCocktailDocument = gql`
+    mutation DeleteCocktail($deleteCocktailId: ID!) {
+  deleteCocktail(id: $deleteCocktailId)
+}
+    `;
 export type DeleteCocktailMutationFn = Apollo.MutationFunction<DeleteCocktailMutation, DeleteCocktailMutationVariables>;
 
 /**
@@ -391,6 +423,18 @@ export function useDeleteCocktailMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteCocktailMutationHookResult = ReturnType<typeof useDeleteCocktailMutation>;
 export type DeleteCocktailMutationResult = Apollo.MutationResult<DeleteCocktailMutation>;
 export type DeleteCocktailMutationOptions = Apollo.BaseMutationOptions<DeleteCocktailMutation, DeleteCocktailMutationVariables>;
+export const UpdateCocktailDocument = gql`
+    mutation UpdateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
+  updateCocktail(id: $updateCocktailId, input: $input) {
+    id
+    name
+    howTo
+    ingredients
+    image
+    favorite
+  }
+}
+    `;
 export type UpdateCocktailMutationFn = Apollo.MutationFunction<UpdateCocktailMutation, UpdateCocktailMutationVariables>;
 
 /**

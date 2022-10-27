@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-gql`
+const deleteCocktail = gql`
     mutation DeleteCocktail($deleteCocktailId: ID!) {
         deleteCocktail(id: $deleteCocktailId)
     }

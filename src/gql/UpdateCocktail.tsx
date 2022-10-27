@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-gql`
+const updateCocktail = gql`
     mutation UpdateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
         updateCocktail(id: $updateCocktailId, input: $input) {
         id

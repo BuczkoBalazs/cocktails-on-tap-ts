@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { AddForm, AddSpace } from './AddCocktailStyle';
-import { useAddCocktailMutation } from '../../generate/graphql';
+import { CocktailsDocument, CocktailsQuery, useAddCocktailMutation } from '../../generate/graphql';
 
 const { Option } = Select;
 
@@ -16,7 +16,23 @@ type AddCocktailFormValue = {
 export const AddCocktail = () => {
 
   const [form] = Form.useForm();
-  const [newCocktail] = useAddCocktailMutation();
+  const [newCocktail] = useAddCocktailMutation({
+    update(cache, { data }) {
+      const { cocktails }: any = cache.readQuery({
+        query: CocktailsDocument
+      })
+
+      cache.writeQuery({
+        query: CocktailsDocument,
+        data: {
+          cocktails: [
+            data?.addCocktail,
+            ...cocktails
+          ]
+        }
+      })
+    }
+  });
   
   const onFinish = async (values: AddCocktailFormValue) => {
       await newCocktail({variables: { input: {
