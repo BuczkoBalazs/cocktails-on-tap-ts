@@ -7,7 +7,20 @@ export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
     
     const [updateCocktail] = useUpdateCocktailMutation();
     
-    const [deleteCocktail] = useDeleteCocktailMutation();
+    const [deleteCocktail] = useDeleteCocktailMutation({
+        update(cache) {
+
+            const IdToDelete = cocktail.id
+
+            cache.modify({
+                fields: {
+                    cocktails: (existingFieldData, { readField }) => {
+                        return existingFieldData.filter((cocktail: Cocktail) => IdToDelete !== readField('id', cocktail))
+                    }
+                }
+            })
+        }
+    });
     
     const deleteCocktailHandle = async (id: string) => {
         await deleteCocktail({ variables: { deleteCocktailId: id }});
