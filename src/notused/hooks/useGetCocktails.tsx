@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
+import { CocktailDetails } from '../../components/Type/CocktailDetailsType';
 
 type CocktailDetailsArray = {
     cocktails: CocktailDetails[]

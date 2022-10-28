@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { AddForm, AddSpace } from './AddCocktailStyle';
-import { CocktailsDocument, useAddCocktailMutation } from '../../generate/graphql';
+import { useAddCocktailMutation } from '../../generate/graphql';
 
 const { Option } = Select;
 
@@ -16,7 +16,16 @@ type AddCocktailFormValue = {
 export const AddCocktail = () => {
 
   const [form] = Form.useForm();
-  const [newCocktail] = useAddCocktailMutation({
+  const [newCocktail] = useAddCocktailMutation();
+  
+  const onFinish = async (values: AddCocktailFormValue) => {
+    await newCocktail({variables: { input: {
+      name: values.name,
+      howTo: values.howTo,
+      ingredients: values.ingredients,
+      image: values.image,
+      favorite: JSON.parse(values.favorite)
+    }},
     update(cache, { data }) {
 
       const cacheId = cache.identify(data?.addCocktail!)
@@ -28,25 +37,16 @@ export const AddCocktail = () => {
         }
       })
     }
-  });
-  
-  const onFinish = async (values: AddCocktailFormValue) => {
-      await newCocktail({variables: { input: {
-        name: values.name,
-        howTo: values.howTo,
-        ingredients: values.ingredients,
-        image: values.image,
-        favorite: JSON.parse(values.favorite)
-      }}});
-      form.resetFields();
-      await message.success(`${values.name} has been added.`);
-      console.log('Success:', values);
-    };
+    });
+    form.resetFields();
+    await message.success(`${values.name} has been added.`);
+    console.log('Success:', values);
+  };
 
-    const onFinishFailed = (errorInfo: any) => {
-      message.error('Something went wrong!');
-      console.log('Failed:', errorInfo);
-    };
+  const onFinishFailed = (errorInfo: any) => {
+    message.error('Something went wrong!');
+    console.log('Failed:', errorInfo);
+  };
 
   return (
 

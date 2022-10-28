@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { GalleryHeader } from './GalleryHeader';
 import { BackTop } from 'antd';
 import 'antd/dist/antd.css';
 import { GallerySpace } from './GalleryAntStyle';
 import { GalleryCocktailWrapper } from './GalleryCocktailWrapper';
-import { Cocktail, useCocktailsQuery } from '../../generate/graphql';
+import { Cocktail, useCocktailsQuery, useCocktailsLazyQuery } from '../../generate/graphql';
 
 enum SortCocktails {
     ASC = 'Sort ascending',
@@ -13,15 +13,21 @@ enum SortCocktails {
 
 export const GalleryAnt = () => {
     
-    const { data, loading, error } = useCocktailsQuery();
+    const { data, loading, error, updateQuery } = useCocktailsQuery();
     
     const [searchInput, setSearchInput] = useState<string>('');
     const [sortButton, setSortButton] = useState<SortCocktails>(SortCocktails.ASC);
 
     const inputChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value);
-
+    
     const sortButtonChangeHandle = () => {
-        data?.cocktails?.sort((a: Cocktail, b: Cocktail) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+
+        const sortedCocktails = [...data?.cocktails!].sort((a: Cocktail, b: Cocktail) => sortButton === SortCocktails.ASC ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+
+        updateQuery(() => ({
+            cocktails: [...sortedCocktails]
+        }));
+
         setSortButton(sortButton === SortCocktails.ASC ? SortCocktails.DESC : SortCocktails.ASC);
     };
 
