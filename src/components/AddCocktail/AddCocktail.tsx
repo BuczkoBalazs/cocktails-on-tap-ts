@@ -63,7 +63,8 @@ export const AddCocktail = () => {
       <Form.Item
         label="Name of cocktail"
         name="name"
-        rules={[{ required: true, message: 'Please input the name of cocktail!' }]}
+        rules={[{ required: true, message: 'Please input the name of cocktail!' }, { whitespace: true}, { min: 3}]}
+        hasFeedback
       >
         <Input />
       </Form.Item>
@@ -71,7 +72,8 @@ export const AddCocktail = () => {
       <Form.Item
         label="How to make"
         name="howTo"
-        rules={[{ required: true, message: 'Please input how to make the cocktail!' }]}
+        rules={[{ required: true, message: 'Please input how to make the cocktail!' }, { whitespace: true}, { min: 3}]}
+        hasFeedback
       >
         <Input />
       </Form.Item>
@@ -79,7 +81,8 @@ export const AddCocktail = () => {
       <Form.Item
         label="Ingredients"
         name="ingredients"
-        rules={[{ required: true, message: 'Please input the ingredients needed!' }]}
+        rules={[{ required: true, message: 'Please input the ingredients needed!' }, { whitespace: true}, { min: 3}]}
+        hasFeedback
       >
         <Input />
       </Form.Item>
@@ -87,7 +90,8 @@ export const AddCocktail = () => {
       <Form.Item
         label="URL of image"
         name="image"
-        rules={[{ required: true, message: 'Please enter the url of the picture!' }]}
+        rules={[{ required: true, message: 'Please enter the url of the picture!' }, { type: "url", message: "Please enter a valid url!" }]}
+        hasFeedback
       >
         <Input />
       </Form.Item>
