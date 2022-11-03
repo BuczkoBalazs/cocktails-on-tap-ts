@@ -13,8 +13,8 @@ export const HeaderAnt = () => {
     <NavBar offsetTop={0}>
       <MenuWrapper>
         <MenuItem items={logo} />
-        <Login />
         <MenuItem items={loginContext.user.name !== "Guest" ? loggedIn : notLoggedIn} />
+        <Login />
       </MenuWrapper>
     </NavBar>
   )

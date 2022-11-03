@@ -12,16 +12,17 @@ export const Login = () => {
     const { data } = useUsersQuery();
 
     const handleLogin = () => {
-        const userData = data?.users?.filter(user => user.email === input)
+        const userData = data?.users?.filter(user => user.email === input);
+
         userData!.length >= 1 ?
         loginContext.setUser({id: userData![0].id, name: userData![0].name}) :
-        message.error("This e-mail address is not registered!")
+        message.error("This e-mail address is not registered!");
         setInput('');
     };
 
     const handleLogout = () => {
         loginContext.setUser({id: 0, name: 'Guest'});
-        navigate('/gallery')
+        navigate('/gallery');
     };
 
 
@@ -31,11 +32,11 @@ export const Login = () => {
 
     return (
     <Space>
+        <p style={{ color: 'darkkhaki' }}>Hello, {loginContext?.user?.name}!</p>
         {loginContext.user.name === 'Guest' && <Input type="text"    value={input} onChange={inputChangeHandle} />}
         {loginContext.user.name === 'Guest' && <Button onClick={handleLogin}>Login</Button>}
         {loginContext.user.name !== 'Guest' && <Button onClick={handleLogout}>Logout</Button>}
         {loginContext.user.name === 'Guest' && <Button onClick={() => navigate('/reg')}>Register</Button>}
-        <p style={{ color: 'darkkhaki' }}>Hello, {loginContext?.user?.name}!</p>
     </Space>
     )
 };
