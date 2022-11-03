@@ -9,11 +9,11 @@ export const Login = () => {
     const loginContext = useContext(LoginContext);
 
     const handleLogin = () => {
-        loginContext.setUser({name: input});
+        // loginContext.setUser({name: input});
         setInput('');
     };
 
-    const handleLogout = () => loginContext.setUser({name: 'Guest'});
+    const handleLogout = () => loginContext.setUser({id: 0, name: 'Guest'});
 
     const navigate = useNavigate();
 
