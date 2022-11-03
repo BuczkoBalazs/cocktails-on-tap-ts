@@ -1,8 +1,10 @@
 import { Button, Form, Input, InputNumber, message} from 'antd';
 import 'antd/dist/antd.css';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAddUserMutation } from '../../generate/graphql';
 import { AddForm, AddSpace } from '../AddCocktail/AddCocktailStyle';
+import { LoginContext } from '../contexts/LoginContext';
 
 type AddUserFormValue = {
     name: string,
@@ -14,6 +16,7 @@ export const AddUser = () => {
 
     const [newUser] = useAddUserMutation();
     const navigate = useNavigate();
+    const loginContext = useContext(LoginContext);
 
     const onFinish = async (values: AddUserFormValue) => {
         await newUser({ variables: { input: {
@@ -23,6 +26,7 @@ export const AddUser = () => {
         }},
         update(cache, { data }) {
             const cacheId = cache.identify(data?.addUser!);
+            loginContext.setUser({id: data?.addUser.id!, name: data?.addUser.name!});
             cache.modify({
                 fields: {
                     users: (existingUsers, { toReference }) => {
