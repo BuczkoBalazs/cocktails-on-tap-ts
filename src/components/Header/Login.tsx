@@ -8,7 +8,7 @@ import { useUsersQuery } from '../../generate/graphql';
 export const Login = () => {
 
     const loginContext = useContext(LoginContext);
-
+    const navigate = useNavigate();
     const { data } = useUsersQuery();
 
     const handleLogin = () => {
@@ -19,9 +19,11 @@ export const Login = () => {
         setInput('');
     };
 
-    const handleLogout = () => loginContext.setUser({id: 0, name: 'Guest'});
+    const handleLogout = () => {
+        loginContext.setUser({id: 0, name: 'Guest'});
+        navigate('/gallery')
+    };
 
-    const navigate = useNavigate();
 
     const [input, setInput] = useState('');
 
