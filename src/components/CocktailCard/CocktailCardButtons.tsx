@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import 'antd/dist/antd.css';
 import { SortButton } from '../Gallery/GalleryAntStyle';
 import { Cocktail, useDeleteCocktailMutation, useUpdateCocktailMutation } from '../../generate/graphql';
+import { LoginContext } from '../contexts/LoginContext';
 
 export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
-    
+
+    const loginContext = useContext(LoginContext);
+
     const [updateCocktail] = useUpdateCocktailMutation();
     
     const [deleteCocktail] = useDeleteCocktailMutation();
@@ -38,6 +41,7 @@ export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
     };
 
     const [fav, setFav] = useState<boolean>(cocktail.favorite);
+    const likedByUSer = cocktail.users?.filter(user => user.id === loginContext.user.id).length;
 
     return (
     <>
@@ -45,7 +49,7 @@ export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
             favoriteToggle(cocktail.id.toString(), cocktail.name, cocktail.howTo, cocktail.ingredients, cocktail.image, !fav);
             setFav(!fav);
         }}>
-            {fav ? 'Favorite' : 'Not favorite'}
+            {likedByUSer! > 0 ? 'Favorite' : 'Not favorite'}
         </SortButton>     
         <SortButton shape='round' onClick={() => deleteCocktailHandle(cocktail.id.toString())}>Delete</SortButton>
     </>

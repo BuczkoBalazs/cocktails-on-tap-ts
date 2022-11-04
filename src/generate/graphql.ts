@@ -264,7 +264,7 @@ export type AddUserMutation = { __typename?: 'Mutation', addUser: { __typename?:
 export type CocktailsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CocktailsQuery = { __typename?: 'Query', cocktails?: Array<{ __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean }> | null };
+export type CocktailsQuery = { __typename?: 'Query', cocktails?: Array<{ __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean, users?: Array<{ __typename?: 'User', id: number, name: string, email: string, age: number }> | null }> | null };
 
 export type LandingSlidesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -381,6 +381,12 @@ export const CocktailsDocument = gql`
     ingredients
     image
     favorite
+    users {
+      id
+      name
+      email
+      age
+    }
   }
 }
     `;

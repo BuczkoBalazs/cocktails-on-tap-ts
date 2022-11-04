@@ -1,14 +1,20 @@
 import { gql } from "@apollo/client";
 
-const allCocktail = gql`
+gql`
     query Cocktails {
         cocktails {
-        id
-        name
-        howTo
-        ingredients
-        image
-        favorite
+            id
+            name
+            howTo
+            ingredients
+            image
+            favorite
+            users {
+                id
+                name
+                email
+                age
+            }
         }
     }
 `;
