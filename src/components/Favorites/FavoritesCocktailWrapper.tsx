@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Spin, Result } from 'antd';
 import { CocktailAnt } from '../CocktailCard/CocktailAnt';
 import 'antd/dist/antd.css';
 import { CocktailWrapperSpace } from './FavoritesAntStyle';
-import { useCocktailsQuery } from '../../generate/graphql';
+import { useCocktailsQuery, useUserQuery } from '../../generate/graphql';
+import { LoginContext } from '../contexts/LoginContext';
 
 
 export const FavoritesCocktailWrapper = React.memo( () => {
+
+    const loginContext = useContext(LoginContext);
 
     const { data, loading, error } = useCocktailsQuery();
 
@@ -16,7 +19,7 @@ export const FavoritesCocktailWrapper = React.memo( () => {
     return (
         <>
             {data && <CocktailWrapperSpace wrap={true}>
-                {data.cocktails?.map((cocktail) => cocktail.favorite && <CocktailAnt key={cocktail.id} cocktail={cocktail} />)}
+                {data.cocktails!.map((cocktail) => cocktail.users!.filter(user => user.id === loginContext.user.id).length > 0 && <CocktailAnt key={cocktail.id} cocktail={cocktail} />)}
             </CocktailWrapperSpace>
             }
             {loading && <Spin />}
