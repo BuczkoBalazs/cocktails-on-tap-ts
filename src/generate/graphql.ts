@@ -60,6 +60,11 @@ export type CocktailUsersArgs = {
   filter?: InputMaybe<UsersFilterInput>;
 };
 
+export type CocktailUserConnectionInput = {
+  cocktailID: Scalars['Int'];
+  userID: Scalars['Int'];
+};
+
 export type CocktailsFilterInput = {
   name: Scalars['String'];
 };
@@ -77,10 +82,12 @@ export type Mutation = {
   addLandingSlide: LandingSlide;
   addReview: Review;
   addUser: User;
+  connectUser: Scalars['Boolean'];
   deleteCocktail: Scalars['Boolean'];
   deleteLandingSlide: Scalars['Boolean'];
   deleteReview: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
+  disconnectUser: Scalars['Boolean'];
   updateCocktail: Cocktail;
   updateLandingSlide: LandingSlide;
   updateReview: Review;
@@ -108,6 +115,11 @@ export type MutationAddUserArgs = {
 };
 
 
+export type MutationConnectUserArgs = {
+  input: CocktailUserConnectionInput;
+};
+
+
 export type MutationDeleteCocktailArgs = {
   id: Scalars['ID'];
 };
@@ -125,6 +137,11 @@ export type MutationDeleteReviewArgs = {
 
 export type MutationDeleteUserArgs = {
   id: Scalars['ID'];
+};
+
+
+export type MutationDisconnectUserArgs = {
+  input: CocktailUserConnectionInput;
 };
 
 
@@ -285,12 +302,26 @@ export type CocktailQueryVariables = Exact<{
 
 export type CocktailQuery = { __typename?: 'Query', cocktail?: { __typename?: 'Cocktail', id: number, name: string, reviews?: Array<{ __typename?: 'Review', id: number, title: string, text: string, user?: { __typename?: 'User', id: number, name: string } | null }> | null } | null };
 
+export type ConnectUserMutationVariables = Exact<{
+  input: CocktailUserConnectionInput;
+}>;
+
+
+export type ConnectUserMutation = { __typename?: 'Mutation', connectUser: boolean };
+
 export type DeleteCocktailMutationVariables = Exact<{
   deleteCocktailId: Scalars['ID'];
 }>;
 
 
 export type DeleteCocktailMutation = { __typename?: 'Mutation', deleteCocktail: boolean };
+
+export type DisconnectUserMutationVariables = Exact<{
+  input: CocktailUserConnectionInput;
+}>;
+
+
+export type DisconnectUserMutation = { __typename?: 'Mutation', disconnectUser: boolean };
 
 export type UpdateCocktailMutationVariables = Exact<{
   updateCocktailId: Scalars['ID'];
@@ -543,6 +574,37 @@ export function useCocktailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<C
 export type CocktailQueryHookResult = ReturnType<typeof useCocktailQuery>;
 export type CocktailLazyQueryHookResult = ReturnType<typeof useCocktailLazyQuery>;
 export type CocktailQueryResult = Apollo.QueryResult<CocktailQuery, CocktailQueryVariables>;
+export const ConnectUserDocument = gql`
+    mutation ConnectUser($input: CocktailUserConnectionInput!) {
+  connectUser(input: $input)
+}
+    `;
+export type ConnectUserMutationFn = Apollo.MutationFunction<ConnectUserMutation, ConnectUserMutationVariables>;
+
+/**
+ * __useConnectUserMutation__
+ *
+ * To run a mutation, you first call `useConnectUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useConnectUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [connectUserMutation, { data, loading, error }] = useConnectUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useConnectUserMutation(baseOptions?: Apollo.MutationHookOptions<ConnectUserMutation, ConnectUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ConnectUserMutation, ConnectUserMutationVariables>(ConnectUserDocument, options);
+      }
+export type ConnectUserMutationHookResult = ReturnType<typeof useConnectUserMutation>;
+export type ConnectUserMutationResult = Apollo.MutationResult<ConnectUserMutation>;
+export type ConnectUserMutationOptions = Apollo.BaseMutationOptions<ConnectUserMutation, ConnectUserMutationVariables>;
 export const DeleteCocktailDocument = gql`
     mutation DeleteCocktail($deleteCocktailId: ID!) {
   deleteCocktail(id: $deleteCocktailId)
@@ -574,6 +636,37 @@ export function useDeleteCocktailMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteCocktailMutationHookResult = ReturnType<typeof useDeleteCocktailMutation>;
 export type DeleteCocktailMutationResult = Apollo.MutationResult<DeleteCocktailMutation>;
 export type DeleteCocktailMutationOptions = Apollo.BaseMutationOptions<DeleteCocktailMutation, DeleteCocktailMutationVariables>;
+export const DisconnectUserDocument = gql`
+    mutation DisconnectUser($input: CocktailUserConnectionInput!) {
+  disconnectUser(input: $input)
+}
+    `;
+export type DisconnectUserMutationFn = Apollo.MutationFunction<DisconnectUserMutation, DisconnectUserMutationVariables>;
+
+/**
+ * __useDisconnectUserMutation__
+ *
+ * To run a mutation, you first call `useDisconnectUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDisconnectUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [disconnectUserMutation, { data, loading, error }] = useDisconnectUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDisconnectUserMutation(baseOptions?: Apollo.MutationHookOptions<DisconnectUserMutation, DisconnectUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DisconnectUserMutation, DisconnectUserMutationVariables>(DisconnectUserDocument, options);
+      }
+export type DisconnectUserMutationHookResult = ReturnType<typeof useDisconnectUserMutation>;
+export type DisconnectUserMutationResult = Apollo.MutationResult<DisconnectUserMutation>;
+export type DisconnectUserMutationOptions = Apollo.BaseMutationOptions<DisconnectUserMutation, DisconnectUserMutationVariables>;
 export const UpdateCocktailDocument = gql`
     mutation UpdateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
   updateCocktail(id: $updateCocktailId, input: $input) {
