@@ -82,12 +82,12 @@ export type Mutation = {
   addLandingSlide: LandingSlide;
   addReview: Review;
   addUser: User;
-  connectUser: Scalars['Boolean'];
+  connectUser: Cocktail;
   deleteCocktail: Scalars['Boolean'];
   deleteLandingSlide: Scalars['Boolean'];
   deleteReview: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
-  disconnectUser: Scalars['Boolean'];
+  disconnectUser: Cocktail;
   updateCocktail: Cocktail;
   updateLandingSlide: LandingSlide;
   updateReview: Review;
@@ -307,7 +307,7 @@ export type ConnectUserMutationVariables = Exact<{
 }>;
 
 
-export type ConnectUserMutation = { __typename?: 'Mutation', connectUser: boolean };
+export type ConnectUserMutation = { __typename?: 'Mutation', connectUser: { __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean, users?: Array<{ __typename?: 'User', id: number, name: string, email: string, age: number }> | null } };
 
 export type DeleteCocktailMutationVariables = Exact<{
   deleteCocktailId: Scalars['ID'];
@@ -321,7 +321,7 @@ export type DisconnectUserMutationVariables = Exact<{
 }>;
 
 
-export type DisconnectUserMutation = { __typename?: 'Mutation', disconnectUser: boolean };
+export type DisconnectUserMutation = { __typename?: 'Mutation', disconnectUser: { __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean, users?: Array<{ __typename?: 'User', id: number, name: string, email: string, age: number }> | null } };
 
 export type UpdateCocktailMutationVariables = Exact<{
   updateCocktailId: Scalars['ID'];
@@ -576,7 +576,20 @@ export type CocktailLazyQueryHookResult = ReturnType<typeof useCocktailLazyQuery
 export type CocktailQueryResult = Apollo.QueryResult<CocktailQuery, CocktailQueryVariables>;
 export const ConnectUserDocument = gql`
     mutation ConnectUser($input: CocktailUserConnectionInput!) {
-  connectUser(input: $input)
+  connectUser(input: $input) {
+    id
+    name
+    howTo
+    ingredients
+    image
+    favorite
+    users {
+      id
+      name
+      email
+      age
+    }
+  }
 }
     `;
 export type ConnectUserMutationFn = Apollo.MutationFunction<ConnectUserMutation, ConnectUserMutationVariables>;
@@ -638,7 +651,20 @@ export type DeleteCocktailMutationResult = Apollo.MutationResult<DeleteCocktailM
 export type DeleteCocktailMutationOptions = Apollo.BaseMutationOptions<DeleteCocktailMutation, DeleteCocktailMutationVariables>;
 export const DisconnectUserDocument = gql`
     mutation DisconnectUser($input: CocktailUserConnectionInput!) {
-  disconnectUser(input: $input)
+  disconnectUser(input: $input) {
+    id
+    name
+    howTo
+    ingredients
+    image
+    favorite
+    users {
+      id
+      name
+      email
+      age
+    }
+  }
 }
     `;
 export type DisconnectUserMutationFn = Apollo.MutationFunction<DisconnectUserMutation, DisconnectUserMutationVariables>;
