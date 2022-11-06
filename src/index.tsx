@@ -10,6 +10,7 @@ import { RouteNotFound } from './components/ErrorPage/RouteNotFound';
 import { AddCocktail } from './components/AddCocktail/AddCocktail';
 import { LoginContextProvider } from './components/contexts/LoginContext';
 import { AddUser } from './components/AddUser/AddUser';
+import { Reviews } from './components/Reviews/Reviews';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/',
@@ -31,6 +32,7 @@ root.render(
             <Route path='/favorites' element={<FavoritesAnt />} />
             <Route path='/add' element={<AddCocktail />} />
             <Route path='/reg' element={<AddUser />} />
+            <Route path='/reviews/:id' element={<Reviews />} />
             <Route path='*' element={<RouteNotFound />} />
           </Routes>
         </BrowserRouter>

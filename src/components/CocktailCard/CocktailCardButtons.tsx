@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import { SortButton } from '../Gallery/GalleryAntStyle';
 import { Cocktail, useDeleteCocktailMutation, useUpdateCocktailMutation } from '../../generate/graphql';
 import { LoginContext } from '../contexts/LoginContext';
+import { Link } from 'react-router-dom';
 
 export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
 
@@ -45,6 +46,9 @@ export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
 
     return (
     <>
+        <Link to={`/reviews/${cocktail.id}`}>
+            <SortButton shape='round'>Reviews</SortButton>
+        </Link>
         <SortButton shape='round' onClick={() => {
             favoriteToggle(cocktail.id.toString(), cocktail.name, cocktail.howTo, cocktail.ingredients, cocktail.image, !fav);
             setFav(!fav);

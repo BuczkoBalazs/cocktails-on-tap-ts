@@ -196,10 +196,12 @@ export type QueryUsersArgs = {
 export type Review = {
   __typename?: 'Review';
   cocktail?: Maybe<Cocktail>;
+  cocktailID: Scalars['Int'];
   id: Scalars['Int'];
   text: Scalars['String'];
   title: Scalars['String'];
   user?: Maybe<User>;
+  userID: Scalars['Int'];
 };
 
 export type UpdateCocktailInput = {
@@ -275,6 +277,13 @@ export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id: number, name: string, email: string }> | null };
+
+export type CocktailQueryVariables = Exact<{
+  cocktailId: Scalars['ID'];
+}>;
+
+
+export type CocktailQuery = { __typename?: 'Query', cocktail?: { __typename?: 'Cocktail', id: number, name: string, reviews?: Array<{ __typename?: 'Review', id: number, title: string, text: string, user?: { __typename?: 'User', id: number, name: string } | null }> | null } | null };
 
 export type DeleteCocktailMutationVariables = Exact<{
   deleteCocktailId: Scalars['ID'];
@@ -489,6 +498,51 @@ export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<User
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export const CocktailDocument = gql`
+    query Cocktail($cocktailId: ID!) {
+  cocktail(id: $cocktailId) {
+    id
+    name
+    reviews {
+      id
+      title
+      text
+      user {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useCocktailQuery__
+ *
+ * To run a query within a React component, call `useCocktailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCocktailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCocktailQuery({
+ *   variables: {
+ *      cocktailId: // value for 'cocktailId'
+ *   },
+ * });
+ */
+export function useCocktailQuery(baseOptions: Apollo.QueryHookOptions<CocktailQuery, CocktailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CocktailQuery, CocktailQueryVariables>(CocktailDocument, options);
+      }
+export function useCocktailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CocktailQuery, CocktailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CocktailQuery, CocktailQueryVariables>(CocktailDocument, options);
+        }
+export type CocktailQueryHookResult = ReturnType<typeof useCocktailQuery>;
+export type CocktailLazyQueryHookResult = ReturnType<typeof useCocktailLazyQuery>;
+export type CocktailQueryResult = Apollo.QueryResult<CocktailQuery, CocktailQueryVariables>;
 export const DeleteCocktailDocument = gql`
     mutation DeleteCocktail($deleteCocktailId: ID!) {
   deleteCocktail(id: $deleteCocktailId)

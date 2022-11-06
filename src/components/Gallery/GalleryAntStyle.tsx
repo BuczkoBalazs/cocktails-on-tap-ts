@@ -13,6 +13,7 @@ export const GallerySpace = styled(FavSpace)( () => ({
 }));
 
 export const SortButton = styled(Button)( () => ({
+    marginRight: "5px",
     color: 'darkkhaki',
     border: '1px solid darkkhaki',
     background: 'transparent',
