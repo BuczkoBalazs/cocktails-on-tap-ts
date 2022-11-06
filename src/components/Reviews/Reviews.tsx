@@ -16,9 +16,10 @@ export const Reviews = () => {
   return (
     <FavSpace direction='vertical'>
       <Title>Here you find the reviews of {data?.cocktail?.name} cocktail!</Title>
+      <SortButton shape='round'>Add review</SortButton>
       <ReviewWrapper data={data} loading={loading} error={error} />
       <Link to='/gallery'>
-        <SortButton>Back to Gallery</SortButton>
+        <SortButton shape='round'>Back to Gallery</SortButton>
       </Link>
       <BackTop />
     </FavSpace>
