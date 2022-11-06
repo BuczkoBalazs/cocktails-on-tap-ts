@@ -11,9 +11,9 @@ export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
     
     const [deleteCocktail] = useDeleteCocktailMutation();
     
-    const deleteCocktailHandle = async (id: string) => {
+    const deleteCocktailHandle = async (id: number) => {
         await deleteCocktail(
-            { variables: { deleteCocktailId: id },
+            { variables: { deleteCocktailId: id.toString() },
             update(cache) {
 
                 const IdToDelete = cocktail.id
@@ -59,7 +59,7 @@ export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
         <SortButton shape='round' onClick={favoriteToggle}>
             {likedByUSer! > 0 ? 'Favorite' : 'Not favorite'}
         </SortButton>     
-        <SortButton shape='round' onClick={() => deleteCocktailHandle(cocktail.id.toString())}>Delete</SortButton>
+        <SortButton shape='round' onClick={() => deleteCocktailHandle(cocktail.id)}>Delete</SortButton>
     </>
     )
 };
