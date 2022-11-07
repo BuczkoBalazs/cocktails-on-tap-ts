@@ -61,6 +61,7 @@ export const UpdateReviewForm = ({ review }: UpdateReviewFormProps) => {
         <Form
         name="basic"
         form={form}
+        initialValues={{title: review?.title, text: review?.text}}
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 16 }}
         onFinish={(values) => onFinish(values as UpdateReviewFormValue)}
