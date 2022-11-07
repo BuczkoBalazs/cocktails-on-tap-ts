@@ -297,6 +297,11 @@ export type LandingSlidesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type LandingSlidesQuery = { __typename?: 'Query', landingSlides?: Array<{ __typename?: 'LandingSlide', id: number, title: string, text: string }> | null };
 
+export type ReviewsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReviewsQuery = { __typename?: 'Query', reviews?: Array<{ __typename?: 'Review', id: number, title: string, text: string, user?: { __typename?: 'User', id: number, name: string } | null, cocktail?: { __typename?: 'Cocktail', id: number, name: string } | null }> | null };
+
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -307,7 +312,7 @@ export type CocktailQueryVariables = Exact<{
 }>;
 
 
-export type CocktailQuery = { __typename?: 'Query', cocktail?: { __typename?: 'Cocktail', id: number, name: string, reviews?: Array<{ __typename?: 'Review', id: number, title: string, text: string, user?: { __typename?: 'User', id: number, name: string } | null }> | null } | null };
+export type CocktailQuery = { __typename?: 'Query', cocktail?: { __typename?: 'Cocktail', id: number, name: string } | null };
 
 export type ConnectUserMutationVariables = Exact<{
   input: CocktailUserConnectionInput;
@@ -551,6 +556,50 @@ export function useLandingSlidesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type LandingSlidesQueryHookResult = ReturnType<typeof useLandingSlidesQuery>;
 export type LandingSlidesLazyQueryHookResult = ReturnType<typeof useLandingSlidesLazyQuery>;
 export type LandingSlidesQueryResult = Apollo.QueryResult<LandingSlidesQuery, LandingSlidesQueryVariables>;
+export const ReviewsDocument = gql`
+    query Reviews {
+  reviews {
+    id
+    title
+    text
+    user {
+      id
+      name
+    }
+    cocktail {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useReviewsQuery__
+ *
+ * To run a query within a React component, call `useReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReviewsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useReviewsQuery(baseOptions?: Apollo.QueryHookOptions<ReviewsQuery, ReviewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, options);
+      }
+export function useReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReviewsQuery, ReviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, options);
+        }
+export type ReviewsQueryHookResult = ReturnType<typeof useReviewsQuery>;
+export type ReviewsLazyQueryHookResult = ReturnType<typeof useReviewsLazyQuery>;
+export type ReviewsQueryResult = Apollo.QueryResult<ReviewsQuery, ReviewsQueryVariables>;
 export const UsersDocument = gql`
     query Users {
   users {
@@ -592,15 +641,6 @@ export const CocktailDocument = gql`
   cocktail(id: $cocktailId) {
     id
     name
-    reviews {
-      id
-      title
-      text
-      user {
-        id
-        name
-      }
-    }
   }
 }
     `;
