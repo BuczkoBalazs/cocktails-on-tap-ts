@@ -1,5 +1,8 @@
+import { Modal } from 'antd';
+import { useState } from 'react';
 import { useDeleteReviewMutation } from '../../generate/graphql';
 import { SortButton } from '../Gallery/GalleryAntStyle';
+import { UpdateReviewForm } from './UpdateReviewForm';
 
 type ReviewCardButtonProps = {
   review: {
@@ -17,10 +20,21 @@ type ReviewCardButtonProps = {
           id: number;
           name: string;
       } | null | undefined;
-  } | null | undefined
+  } | null | undefined,
+  id: string | undefined
 }
 
-export const ReviewCardButtons = ({ review }: ReviewCardButtonProps) => {
+export const ReviewCardButtons = ({ review, id }: ReviewCardButtonProps) => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const [deleteReview] = useDeleteReviewMutation();
 
@@ -44,6 +58,10 @@ export const ReviewCardButtons = ({ review }: ReviewCardButtonProps) => {
 
   return (
     <>
+      <SortButton shape='round' onClick={() => setIsModalOpen(true)} >Update</SortButton>
+      <Modal title='Edit your review!' visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <UpdateReviewForm review={review} />
+      </Modal>
       <SortButton shape='round' onClick={() => deleteReviewHandle(review!.id)} >Delete</SortButton>
     </>
   )

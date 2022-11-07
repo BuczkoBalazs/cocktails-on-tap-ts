@@ -19,15 +19,16 @@ type ReviewCardProps = {
             id: number;
             name: string;
         } | null | undefined;
-    } | null | undefined
+    } | null | undefined,
+    id: string | undefined
 }
 
-export const ReviewCard = ({ review }: ReviewCardProps) => {
+export const ReviewCard = ({ review, id }: ReviewCardProps) => {
 
     const loginContext = useContext(LoginContext);
 
     return (
-    <Card title={review?.title} extra={loginContext.user.id === review?.user?.id && <ReviewCardButtons review={review} />}>
+    <Card title={review?.title} extra={loginContext.user.id === review?.user?.id && <ReviewCardButtons id={id} review={review} />}>
         <p>Posted by: {review?.user?.name}</p>
         <p>{review?.text}</p>
     </Card>

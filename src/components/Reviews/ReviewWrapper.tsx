@@ -14,7 +14,7 @@ export const ReviewWrapper = ({ id }: { id: string | undefined }) => {
   return (
     <>
         {data && <CocktailWrapperSpace wrap={true}>
-          {data?.reviews?.map(review => review?.cocktail?.id === parseInt(id!) && <ReviewCard key={review.id} review={review} />)}
+          {data?.reviews?.map(review => review?.cocktail?.id === parseInt(id!) && <ReviewCard key={review.id} id={id} review={review} />)}
         </CocktailWrapperSpace>}
         {loading && <Spin />}
         {error && <Result

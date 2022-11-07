@@ -1,43 +1,53 @@
 import { Button, Form, Input, message, Space } from 'antd';
 import { useContext } from 'react';
-import { useAddReviewMutation } from '../../generate/graphql';
+import { useUpdateReviewMutation } from '../../generate/graphql';
 import { LoginContext } from '../contexts/LoginContext';
 
-export const AddReviewForm = ({ id }: { id: string | undefined }) => {
+type UpdateReviewFormProps = {
+    review: {
+        __typename?: "Review" | undefined;
+        id: number;
+        title: string;
+        text: string;
+        user?: {
+            __typename?: "User" | undefined;
+            id: number;
+            name: string;
+        } | null | undefined;
+        cocktail?: {
+            __typename?: "Cocktail" | undefined;
+            id: number;
+            name: string;
+        } | null | undefined;
+    } | null | undefined,
+  }
 
-    type AddReviewFormValue = {
+
+export const UpdateReviewForm = ({ review }: UpdateReviewFormProps) => {
+
+    type UpdateReviewFormValue = {
         title: string,
         text: string,
       };
 
-    const [addReview] = useAddReviewMutation(); 
+    const [updateReview] = useUpdateReviewMutation();
     const loginContext = useContext(LoginContext);
     const [form] = Form.useForm();
 
-    const onFinish = async (values: AddReviewFormValue) => {
-        await addReview({
+    const onFinish = async (values: UpdateReviewFormValue) => {
+        await updateReview({
             variables: {
+                updateReviewId: review!.id.toString(),
                 input: {
                     title: values.title,
                     text: values.text,
                     postedBy: loginContext.user.id.toString(),
-                    postedAbout: id!
+                    postedAbout: review!.cocktail!.id.toString()
                 }
-            },
-            update(cache, { data }) {
-
-                const cacheID = cache.identify(data?.addReview!)
-                cache.modify({
-                    fields: {
-                        reviews: (existingReviews, { toReference }) => {
-                            return [...existingReviews, toReference(cacheID!)]
-                        }
-                    }
-                })
             }
         })
         form.resetFields();
-        await message.success(`${values.title} has been added.`);
+        await message.success(`${values.title} has been updated.`);
         console.log('Success:', values);
       };
 
@@ -53,7 +63,7 @@ export const AddReviewForm = ({ id }: { id: string | undefined }) => {
         form={form}
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 16 }}
-        onFinish={(values) => onFinish(values as AddReviewFormValue)}
+        onFinish={(values) => onFinish(values as UpdateReviewFormValue)}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         >
