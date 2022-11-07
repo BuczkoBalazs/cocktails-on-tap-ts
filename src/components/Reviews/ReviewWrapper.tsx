@@ -1,24 +1,20 @@
-import { ApolloError } from '@apollo/client';
 import { Button, Result, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { CocktailQuery } from '../../generate/graphql';
+import { useReviewsQuery } from '../../generate/graphql';
 import { CocktailWrapperSpace } from '../Favorites/FavoritesAntStyle';
 import { ReviewCard } from './ReviewCard';
 
-type ReviewWrapperProps = {
-    data: CocktailQuery | undefined,
-    loading: boolean,
-    error: ApolloError | undefined
-}
 
-export const ReviewWrapper = ({ data, loading, error }: ReviewWrapperProps) => {
+export const ReviewWrapper = ({ id }: { id: string | undefined }) => {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const { data, loading, error } = useReviewsQuery();
 
   return (
     <>
         {data && <CocktailWrapperSpace wrap={true}>
-          {data.cocktail?.reviews?.map((review) => <ReviewCard key={review.id} review={review} />)}
+          {data?.reviews?.map(review => review?.cocktail?.id === parseInt(id!) && <ReviewCard key={review.id} id={id} review={review} />)}
         </CocktailWrapperSpace>}
         {loading && <Spin />}
         {error && <Result

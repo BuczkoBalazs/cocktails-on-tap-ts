@@ -273,6 +273,13 @@ export type AddCocktailMutationVariables = Exact<{
 
 export type AddCocktailMutation = { __typename?: 'Mutation', addCocktail: { __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean } };
 
+export type AddReviewMutationVariables = Exact<{
+  input: AddReviewInput;
+}>;
+
+
+export type AddReviewMutation = { __typename?: 'Mutation', addReview: { __typename?: 'Review', id: number, title: string, text: string } };
+
 export type AddUserMutationVariables = Exact<{
   input: AddUserInput;
 }>;
@@ -290,6 +297,11 @@ export type LandingSlidesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type LandingSlidesQuery = { __typename?: 'Query', landingSlides?: Array<{ __typename?: 'LandingSlide', id: number, title: string, text: string }> | null };
 
+export type ReviewsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReviewsQuery = { __typename?: 'Query', reviews?: Array<{ __typename?: 'Review', id: number, title: string, text: string, user?: { __typename?: 'User', id: number, name: string } | null, cocktail?: { __typename?: 'Cocktail', id: number, name: string } | null }> | null };
+
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -300,7 +312,7 @@ export type CocktailQueryVariables = Exact<{
 }>;
 
 
-export type CocktailQuery = { __typename?: 'Query', cocktail?: { __typename?: 'Cocktail', id: number, name: string, reviews?: Array<{ __typename?: 'Review', id: number, title: string, text: string, user?: { __typename?: 'User', id: number, name: string } | null }> | null } | null };
+export type CocktailQuery = { __typename?: 'Query', cocktail?: { __typename?: 'Cocktail', id: number, name: string } | null };
 
 export type ConnectUserMutationVariables = Exact<{
   input: CocktailUserConnectionInput;
@@ -315,6 +327,13 @@ export type DeleteCocktailMutationVariables = Exact<{
 
 
 export type DeleteCocktailMutation = { __typename?: 'Mutation', deleteCocktail: boolean };
+
+export type DeleteReviewMutationVariables = Exact<{
+  deleteReviewId: Scalars['ID'];
+}>;
+
+
+export type DeleteReviewMutation = { __typename?: 'Mutation', deleteReview: boolean };
 
 export type DisconnectUserMutationVariables = Exact<{
   input: CocktailUserConnectionInput;
@@ -331,12 +350,21 @@ export type UpdateCocktailMutationVariables = Exact<{
 
 export type UpdateCocktailMutation = { __typename?: 'Mutation', updateCocktail: { __typename?: 'Cocktail', id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean } };
 
+export type UpdateReviewMutationVariables = Exact<{
+  updateReviewId: Scalars['ID'];
+  input: UpdateReviewInput;
+}>;
+
+
+export type UpdateReviewMutation = { __typename?: 'Mutation', updateReview: { __typename?: 'Review', id: number, title: string, text: string } };
+
 export type UserQueryVariables = Exact<{
   userId: Scalars['ID'];
 }>;
 
 
 export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: number, cocktails?: Array<{ __typename?: 'Cocktail', name: string, id: number, howTo: string, ingredients: string, image: string, favorite: boolean }> | null } | null };
+
 
 export const AddCocktailDocument = gql`
     mutation AddCocktail($input: AddCocktailInput!) {
@@ -376,6 +404,41 @@ export function useAddCocktailMutation(baseOptions?: Apollo.MutationHookOptions<
 export type AddCocktailMutationHookResult = ReturnType<typeof useAddCocktailMutation>;
 export type AddCocktailMutationResult = Apollo.MutationResult<AddCocktailMutation>;
 export type AddCocktailMutationOptions = Apollo.BaseMutationOptions<AddCocktailMutation, AddCocktailMutationVariables>;
+export const AddReviewDocument = gql`
+    mutation AddReview($input: AddReviewInput!) {
+  addReview(input: $input) {
+    id
+    title
+    text
+  }
+}
+    `;
+export type AddReviewMutationFn = Apollo.MutationFunction<AddReviewMutation, AddReviewMutationVariables>;
+
+/**
+ * __useAddReviewMutation__
+ *
+ * To run a mutation, you first call `useAddReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addReviewMutation, { data, loading, error }] = useAddReviewMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddReviewMutation(baseOptions?: Apollo.MutationHookOptions<AddReviewMutation, AddReviewMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddReviewMutation, AddReviewMutationVariables>(AddReviewDocument, options);
+      }
+export type AddReviewMutationHookResult = ReturnType<typeof useAddReviewMutation>;
+export type AddReviewMutationResult = Apollo.MutationResult<AddReviewMutation>;
+export type AddReviewMutationOptions = Apollo.BaseMutationOptions<AddReviewMutation, AddReviewMutationVariables>;
 export const AddUserDocument = gql`
     mutation AddUser($input: AddUserInput!) {
   addUser(input: $input) {
@@ -493,6 +556,50 @@ export function useLandingSlidesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type LandingSlidesQueryHookResult = ReturnType<typeof useLandingSlidesQuery>;
 export type LandingSlidesLazyQueryHookResult = ReturnType<typeof useLandingSlidesLazyQuery>;
 export type LandingSlidesQueryResult = Apollo.QueryResult<LandingSlidesQuery, LandingSlidesQueryVariables>;
+export const ReviewsDocument = gql`
+    query Reviews {
+  reviews {
+    id
+    title
+    text
+    user {
+      id
+      name
+    }
+    cocktail {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useReviewsQuery__
+ *
+ * To run a query within a React component, call `useReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReviewsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useReviewsQuery(baseOptions?: Apollo.QueryHookOptions<ReviewsQuery, ReviewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, options);
+      }
+export function useReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReviewsQuery, ReviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, options);
+        }
+export type ReviewsQueryHookResult = ReturnType<typeof useReviewsQuery>;
+export type ReviewsLazyQueryHookResult = ReturnType<typeof useReviewsLazyQuery>;
+export type ReviewsQueryResult = Apollo.QueryResult<ReviewsQuery, ReviewsQueryVariables>;
 export const UsersDocument = gql`
     query Users {
   users {
@@ -534,15 +641,6 @@ export const CocktailDocument = gql`
   cocktail(id: $cocktailId) {
     id
     name
-    reviews {
-      id
-      title
-      text
-      user {
-        id
-        name
-      }
-    }
   }
 }
     `;
@@ -649,6 +747,37 @@ export function useDeleteCocktailMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteCocktailMutationHookResult = ReturnType<typeof useDeleteCocktailMutation>;
 export type DeleteCocktailMutationResult = Apollo.MutationResult<DeleteCocktailMutation>;
 export type DeleteCocktailMutationOptions = Apollo.BaseMutationOptions<DeleteCocktailMutation, DeleteCocktailMutationVariables>;
+export const DeleteReviewDocument = gql`
+    mutation DeleteReview($deleteReviewId: ID!) {
+  deleteReview(id: $deleteReviewId)
+}
+    `;
+export type DeleteReviewMutationFn = Apollo.MutationFunction<DeleteReviewMutation, DeleteReviewMutationVariables>;
+
+/**
+ * __useDeleteReviewMutation__
+ *
+ * To run a mutation, you first call `useDeleteReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteReviewMutation, { data, loading, error }] = useDeleteReviewMutation({
+ *   variables: {
+ *      deleteReviewId: // value for 'deleteReviewId'
+ *   },
+ * });
+ */
+export function useDeleteReviewMutation(baseOptions?: Apollo.MutationHookOptions<DeleteReviewMutation, DeleteReviewMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteReviewMutation, DeleteReviewMutationVariables>(DeleteReviewDocument, options);
+      }
+export type DeleteReviewMutationHookResult = ReturnType<typeof useDeleteReviewMutation>;
+export type DeleteReviewMutationResult = Apollo.MutationResult<DeleteReviewMutation>;
+export type DeleteReviewMutationOptions = Apollo.BaseMutationOptions<DeleteReviewMutation, DeleteReviewMutationVariables>;
 export const DisconnectUserDocument = gql`
     mutation DisconnectUser($input: CocktailUserConnectionInput!) {
   disconnectUser(input: $input) {
@@ -732,6 +861,42 @@ export function useUpdateCocktailMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateCocktailMutationHookResult = ReturnType<typeof useUpdateCocktailMutation>;
 export type UpdateCocktailMutationResult = Apollo.MutationResult<UpdateCocktailMutation>;
 export type UpdateCocktailMutationOptions = Apollo.BaseMutationOptions<UpdateCocktailMutation, UpdateCocktailMutationVariables>;
+export const UpdateReviewDocument = gql`
+    mutation UpdateReview($updateReviewId: ID!, $input: UpdateReviewInput!) {
+  updateReview(id: $updateReviewId, input: $input) {
+    id
+    title
+    text
+  }
+}
+    `;
+export type UpdateReviewMutationFn = Apollo.MutationFunction<UpdateReviewMutation, UpdateReviewMutationVariables>;
+
+/**
+ * __useUpdateReviewMutation__
+ *
+ * To run a mutation, you first call `useUpdateReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateReviewMutation, { data, loading, error }] = useUpdateReviewMutation({
+ *   variables: {
+ *      updateReviewId: // value for 'updateReviewId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateReviewMutation(baseOptions?: Apollo.MutationHookOptions<UpdateReviewMutation, UpdateReviewMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateReviewMutation, UpdateReviewMutationVariables>(UpdateReviewDocument, options);
+      }
+export type UpdateReviewMutationHookResult = ReturnType<typeof useUpdateReviewMutation>;
+export type UpdateReviewMutationResult = Apollo.MutationResult<UpdateReviewMutation>;
+export type UpdateReviewMutationOptions = Apollo.BaseMutationOptions<UpdateReviewMutation, UpdateReviewMutationVariables>;
 export const UserDocument = gql`
     query User($userId: ID!) {
   user(id: $userId) {
