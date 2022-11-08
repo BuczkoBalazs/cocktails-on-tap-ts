@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react';
 
 export type User = {
+    id: number
     name: string
 };
 
@@ -17,7 +18,7 @@ export const LoginContext = createContext({} as LoginContextType);
 
 export const LoginContextProvider = ({ children }: LoginContextProviderProps) => {
 
-    const [user, setUser] = useState<User>({name: 'Guest'})
+    const [user, setUser] = useState<User>({id: 0, name: 'Guest'})
     
     return (
         <LoginContext.Provider value={{ user, setUser }}>

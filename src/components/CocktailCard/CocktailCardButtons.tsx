@@ -1,73 +1,63 @@
-import { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { useContext } from 'react';
 import 'antd/dist/antd.css';
 import { SortButton } from '../Gallery/GalleryAntStyle';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
-import { useGetCocktails } from '../hooks/useGetCocktails';
+import { Cocktail, useConnectUserMutation, useDeleteCocktailMutation, useDisconnectUserMutation } from '../../generate/graphql';
+import { LoginContext } from '../contexts/LoginContext';
+import { Link } from 'react-router-dom';
 
-type CocktailCardButtonsProps = {
-    cocktail: CocktailDetails,
-};
+export const CocktailCardButtons = ({ cocktail }: { cocktail: Cocktail }) => {
 
-type UpdatedCocktailInput = {
-    name: string,
-    howTo: string,
-    ingredients: string,
-    image: string,
-    favorite: boolean
-};
-
-const TOGGLE_FAVORITES = gql`
-    mutation updateCocktail($updateCocktailId: ID!, $input: UpdateCocktailInput!) {
-        updateCocktail(id: $updateCocktailId, input: $input) {
-            name
-            howTo
-            ingredients
-            image
-            favorite
-        }
-    }
-`;
-
-const DELETE_COCKTAIL = gql`
-    mutation deleteCocktail($deleteCocktailId: ID!) {
-        deleteCocktail(id: $deleteCocktailId)
-    }
-`;
-
-export const CocktailCardButtons = ({ cocktail }: CocktailCardButtonsProps) => {
+    const loginContext = useContext(LoginContext);
     
-    const { refetch } = useGetCocktails();
-    
-    const [updateCocktail] = useMutation<{ updateCocktail: CocktailDetails}, { updateCocktailId: number, input: UpdatedCocktailInput }>(TOGGLE_FAVORITES);
-    
-    const [deleteCocktail] = useMutation<{ deleteCocktail: boolean }, { deleteCocktailId: number }>(DELETE_COCKTAIL);
+    const [deleteCocktail] = useDeleteCocktailMutation();
     
     const deleteCocktailHandle = async (id: number) => {
-        await deleteCocktail({ variables: { deleteCocktailId: id }});
-        await refetch();
-    };
+        await deleteCocktail(
+            { variables: { deleteCocktailId: id.toString() },
+            update(cache) {
+
+                const IdToDelete = cocktail.id
     
-    const favoriteToggle = async (id: number, name: string, howTo: string, ingredients: string, image: string, favorite: boolean) => {
-        await updateCocktail({ variables: { updateCocktailId: id, input: {
-            name: name,
-            howTo: howTo,
-            ingredients: ingredients,
-            image: image,
-            favorite: favorite
-        }}});
-        await refetch();
+                cache.modify({
+                    fields: {
+                        cocktails: (existingFieldData, { readField }) => {
+                            return existingFieldData.filter((cocktail: Cocktail) => IdToDelete !== readField('id', cocktail))
+                        }
+                    }
+                })
+            }
+        });
     };
 
-    const [fav, setFav] = useState<boolean>(cocktail.favorite);
+    const likedByUSer = cocktail.users?.filter(user => user.id === loginContext.user.id).length;
+
+    const [connectUser] = useConnectUserMutation();
+    const [disconnectUser] = useDisconnectUserMutation();
+
+    const favoriteToggle = async () => {
+        likedByUSer! > 0 ?
+        await disconnectUser({ variables: {
+            input: {
+                userID: loginContext.user.id,
+                cocktailID: cocktail.id
+            }
+        }}) :
+        await connectUser({ variables: {
+            input: {
+                userID: loginContext.user.id,
+                cocktailID: cocktail.id
+            }
+        }})
+    };
+
 
     return (
     <>
-        <SortButton shape='round' onClick={() => {
-            favoriteToggle(cocktail.id, cocktail.name, cocktail.howTo, cocktail.ingredients, cocktail.image, !fav);
-            setFav(!fav);
-        }}>
-            {fav ? 'Favorite' : 'Not favorite'}
+        <Link to={`/reviews/${cocktail.id}`}>
+            <SortButton shape='round'>Reviews</SortButton>
+        </Link>
+        <SortButton shape='round' onClick={favoriteToggle}>
+            {likedByUSer! > 0 ? 'Favorite' : 'Not favorite'}
         </SortButton>     
         <SortButton shape='round' onClick={() => deleteCocktailHandle(cocktail.id)}>Delete</SortButton>
     </>

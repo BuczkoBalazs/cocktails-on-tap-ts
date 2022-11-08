@@ -1,22 +1,13 @@
-import { LandingSlide, LandingSlideTitle, LandingSlideText } from './LandingAntStyle';
+import { Slide, LandingSlideTitle, LandingSlideText } from './LandingAntStyle';
+import { LandingSlide } from '../../generate/graphql';
 
-type LandingSlideType = {
-  id: number,
-  title: string,
-  text: string
-};
-
-type LandingSlideDetailsProps = {
-  slide: LandingSlideType
-};
-
-export const LandingSlideDetails = ({ slide }: LandingSlideDetailsProps) => {
+export const LandingSlideDetails = ({ slide }: { slide: LandingSlide }) => {
   return (
-    <LandingSlide direction='vertical'>
+    <Slide direction='vertical'>
       <LandingSlideTitle>{slide.title}</LandingSlideTitle>
       <LandingSlideText>
         {slide.text}
       </LandingSlideText>
-    </LandingSlide>
+    </Slide>
   )
 };

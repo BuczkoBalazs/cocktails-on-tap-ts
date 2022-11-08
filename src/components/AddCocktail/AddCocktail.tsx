@@ -1,24 +1,9 @@
-import { useMutation, gql } from '@apollo/client';
 import { Button, Form, Input, message, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { AddForm, AddSpace } from './AddCocktailStyle';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
-import { useGetCocktails } from '../hooks/useGetCocktails';
+import { useAddCocktailMutation } from '../../generate/graphql';
 
 const { Option } = Select;
-
-const NEW_COCKTAIL = gql`
-  mutation addCocktail($input: AddCocktailInput!) {
-    addCocktail(input: $input) {
-      id
-      name
-      howTo
-      ingredients
-      image
-      favorite
-    }
-  }
-`;
 
 type AddCocktailFormValue = {
   name: string,
@@ -28,39 +13,40 @@ type AddCocktailFormValue = {
   favorite: string
 };
 
-type AddCocktailInput = {
-  name: string,
-  howTo: string,
-  ingredients: string,
-  image: string,
-  favorite: boolean
-};
-
 export const AddCocktail = () => {
 
-  const { refetch } = useGetCocktails();
-
   const [form] = Form.useForm();
-  const [newCocktail] = useMutation<{ newCocktail: CocktailDetails }, { input: AddCocktailInput }>(NEW_COCKTAIL);
+  const [newCocktail] = useAddCocktailMutation();
   
   const onFinish = async (values: AddCocktailFormValue) => {
-      await newCocktail({variables: { input: {
-        name: values.name,
-        howTo: values.howTo,
-        ingredients: values.ingredients,
-        image: values.image,
-        favorite: JSON.parse(values.favorite)
-      }}});
-      await refetch();
-      form.resetFields();
-      message.success(`${values.name} has been added.`);
-      console.log('Success:', values);
-    };
+    await newCocktail({variables: { input: {
+      name: values.name,
+      howTo: values.howTo,
+      ingredients: values.ingredients,
+      image: values.image,
+      favorite: JSON.parse(values.favorite)
+    }},
+    update(cache, { data }) {
 
-    const onFinishFailed = (errorInfo: any) => {
-      message.error('Something went wrong!');
-      console.log('Failed:', errorInfo);
-    };
+      const cacheId = cache.identify(data?.addCocktail!)
+      cache.modify({
+        fields: {
+          cocktails: (existingFieldData, { toReference }) => {
+            return [...existingFieldData, toReference(cacheId!)]
+          }
+        }
+      })
+    }
+    });
+    form.resetFields();
+    await message.success(`${values.name} has been added.`);
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    message.error('Something went wrong!');
+    console.log('Failed:', errorInfo);
+  };
 
   return (
 
@@ -77,7 +63,8 @@ export const AddCocktail = () => {
       <Form.Item
         label="Name of cocktail"
         name="name"
-        rules={[{ required: true, message: 'Please input the name of cocktail!' }]}
+        rules={[{ required: true, message: 'Please input the name of cocktail!' }, { whitespace: true}, { min: 3}]}
+        hasFeedback
       >
         <Input />
       </Form.Item>
@@ -85,7 +72,8 @@ export const AddCocktail = () => {
       <Form.Item
         label="How to make"
         name="howTo"
-        rules={[{ required: true, message: 'Please input how to make the cocktail!' }]}
+        rules={[{ required: true, message: 'Please input how to make the cocktail!' }, { whitespace: true}, { min: 3}]}
+        hasFeedback
       >
         <Input />
       </Form.Item>
@@ -93,7 +81,8 @@ export const AddCocktail = () => {
       <Form.Item
         label="Ingredients"
         name="ingredients"
-        rules={[{ required: true, message: 'Please input the ingredients needed!' }]}
+        rules={[{ required: true, message: 'Please input the ingredients needed!' }, { whitespace: true}, { min: 3}]}
+        hasFeedback
       >
         <Input />
       </Form.Item>
@@ -101,7 +90,8 @@ export const AddCocktail = () => {
       <Form.Item
         label="URL of image"
         name="image"
-        rules={[{ required: true, message: 'Please enter the url of the picture!' }]}
+        rules={[{ required: true, message: 'Please enter the url of the picture!' }, { type: "url", message: "Please enter a valid url!" }]}
+        hasFeedback
       >
         <Input />
       </Form.Item>

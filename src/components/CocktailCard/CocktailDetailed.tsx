@@ -1,13 +1,9 @@
 import { Image, Space } from 'antd';
 import 'antd/dist/antd.css';
 import { CocktailInfoWrapper } from './CocktailInfoWrapper';
-import { CocktailDetails } from '../Type/CocktailDetailsType';
+import { Cocktail } from '../../generate/graphql';
 
-type CocktailDetailedProps = {
-    cocktail: CocktailDetails
-};
-
-export const CocktailDetailed = ({ cocktail }: CocktailDetailedProps) => {
+export const CocktailDetailed = ({ cocktail }: { cocktail: Cocktail }) => {
   return (
     <Space>
         <Image src={cocktail.image} alt={cocktail.name} width={200}/>
